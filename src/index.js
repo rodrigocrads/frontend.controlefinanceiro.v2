@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './css/estilo.css';
+import './css/estilo_form.css';
+import './css/estilo_table.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 

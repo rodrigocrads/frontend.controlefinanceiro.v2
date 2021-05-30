@@ -1,0 +1,156 @@
+/*FORMULÁRIO*/
+
+label {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+input[type="text"], input[type="password"], input[type="file"], select, textarea {
+    width: 100%;
+    height: 35px;
+    border: solid 1px #CCC;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -o-border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+input[type="text"]:hover, input[type="password"]:hover, input[type="file"]:hover, select:hover, textarea:hover {
+    border-color: #89CC89;
+}
+
+input[type="file"] {
+    height: auto;
+    padding: 9px 5px;
+    border: 1px dotted #999;
+    box-sizing: border-box;
+}
+
+textarea {
+    height: 90px;
+    resize: none;
+}
+
+input[type="radio"], input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    margin: 8px 2px 0 1px;
+}
+
+/*CLASSES*/
+
+.form-group {
+    width: 100%;
+    float: left;
+}
+
+.controls {
+    width: 100%;
+    float: left;
+}
+
+.label-radio, .label-checkbox {
+    width: 49%;
+    display: inline-block;
+    font-weight: normal;
+    font-size: 1.2em;
+    margin-bottom: 6px;
+}
+
+.form-actions {
+    width: 100%;
+    margin-top: 8px;
+    padding-top: 8px;
+    box-sizing: border-box;
+    border-top: 1px dotted #aaa;
+    float: left;
+}
+
+.form-action {
+    float: left;
+}
+
+.input-ico1 {
+    width: 14% !important;
+    height: 40px;
+    background: #eee;
+    float: left;
+    margin: 0;
+    border: 1px solid #ddd;
+    border-right: none;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.ico-user {
+    background: url(../img/user.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 30%;
+}
+
+.ico-password {
+    background: url(../img/key.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 30%;
+}
+
+.input-ico2 {
+    width: 84% !important;
+    margin: 0;
+    float: left;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+.form-login {
+    width: 90%;
+    margin: 0 5%;
+    padding: 25px 0;
+    float: left;
+}
+
+.form-login input[type="text"], .form-login input[type="password"] {
+    height: 40px;
+    font-size: 1.2em;
+    color: #444;
+}
+
+/* Form Vertical */
+
+.form-vertical label {
+    /*    width:100%;*/
+    display: block;
+    float: left;
+    box-sizing: border-box;
+}
+
+.form-vertical .controls {
+    width: 100%;
+}
+
+@media screen and (min-width: 321px) {}
+
+@media screen and (min-width: 481px) {
+    .form-vertical label {
+        width: 18%;
+        padding-top: 7px;
+    }
+    .form-vertical .controls {
+        width: 82%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .label-radio, .label-checkbox {
+        width: 30%;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .label-radio, .label-checkbox {
+        width: 17%;
+    }
+}
