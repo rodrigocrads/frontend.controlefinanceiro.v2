@@ -1,35 +1,26 @@
-import icoMenuEdit from './img/edit.png';
+import { BrowserRouter } from 'react-router-dom';
 
 import Sidebar from './components/Sidebar/index.js';
 import Header from './components/Header/index.js';
 import Footer from './components/Footer/index.js';
 
+import Routes from './Routes.js';
+
 function App() {
 	return (
-		<div>
+		<BrowserRouter>
 			<div id="fundo_total"></div>
-			<div id="container">
+				<div id="container">
+					<Header />
+					<Sidebar />
 
-				<Header />
-				<Sidebar />
-
-				<div id="principal">
-					<div className="header_walk_links">
-						DASHBOARD
-                	</div>
-					<div className="widget">
-						<div className="widget_header">
-							<img src={icoMenuEdit} className="ico" alt="" />
-                       		Economia do mês
-                    	</div>
-						<div className="widget_content"></div>
+					<div id="principal">
+						<Routes />
 					</div>
+
+					<Footer />
 				</div>
-
-				<Footer />
-
-			</div>
-		</div>
+		</BrowserRouter>
 	);
 }
 
