@@ -1,37 +1,33 @@
 import icoMenuEdit from './img/edit.png';
 
-import icoMail from './img/mail.png';
-import icoUsers from './img/users.png';
-import icoUser from './img/user.png';
-
-import icoWrenchChart from './img/wrench.png';
-
-import Menu from './components/Menu/index.js';
+import Sidebar from './components/Sidebar/index.js';
 import Top from './components/Top/index.js';
-import Bottom from './components/Bottom/index.js';
+import Footer from './components/Footer/index.js';
 
 function App() {
 	return (
 		<div>
 			<div id="fundo_total"></div>
 			<div id="container">
+
 				<Top />
-				<Menu />
+				<Sidebar />
 
 				<div id="principal">
 					<div className="header_walk_links">
-						HOME
+						DASHBOARD
                 	</div>
 					<div className="widget">
 						<div className="widget_header">
 							<img src={icoMenuEdit} className="ico" alt="" />
-                       		Header Widget
+                       		Economia do mês
                     	</div>
 						<div className="widget_content"></div>
 					</div>
 				</div>
 
-				<Bottom />
+				<Footer />
+
 			</div>
 		</div>
 	);

@@ -1,4 +1,4 @@
-function Bottom() {
+function Footer() {
     return (
         <div id="rodape">
             © 2015 Rodrigo Cunha Rodrigues, All Rigths Reserved.
@@ -6,4 +6,4 @@ function Bottom() {
     );
 }
 
-export default Bottom;
+export default Footer;
