@@ -1,7 +1,7 @@
 import logo from '../../img/logo.png';
 import icoList from '../../img/ico-list.png';
 
-function Top() {
+function Header() {
     return (
         <div id="topo">
             <div id="logo_area">
@@ -10,7 +10,7 @@ function Top() {
                 </div>
             </div>
             <div id="main_title">
-                <h1>Sistema Controle Financeiro</h1>
+                <h1>Controle Financeiro</h1>
             </div>
             <div id="ico_menu_mobile">
                 <a href="#" id="link_menu_mobile"><img src={icoList} alt="Profile" /></a>
@@ -19,4 +19,4 @@ function Top() {
     );
 }
 
-export default Top;
+export default Header;

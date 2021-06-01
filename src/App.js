@@ -1,7 +1,7 @@
 import icoMenuEdit from './img/edit.png';
 
 import Sidebar from './components/Sidebar/index.js';
-import Top from './components/Top/index.js';
+import Header from './components/Header/index.js';
 import Footer from './components/Footer/index.js';
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
 			<div id="fundo_total"></div>
 			<div id="container">
 
-				<Top />
+				<Header />
 				<Sidebar />
 
 				<div id="principal">
