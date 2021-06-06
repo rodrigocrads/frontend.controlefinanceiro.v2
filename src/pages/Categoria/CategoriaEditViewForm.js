@@ -80,8 +80,9 @@ class CategoriaEditViewForm extends Component {
                                         {
                                             ['expenses', 'revenue'].map(option => (
                                                 <option
-                                                    selected={ this.state.type === option? "true" : "false" }
-                                                    value={option}>
+                                                    selected={ this.state.type === option ? "true" : "false" }
+                                                    value={option}
+                                                >
                                                     { option === "expenses" ? "Despesa" : "Receita" }
                                                 </option>
                                             ))

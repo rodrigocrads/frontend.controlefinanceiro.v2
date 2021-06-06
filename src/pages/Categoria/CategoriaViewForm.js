@@ -30,8 +30,6 @@ export default class CategoriaViewForm extends Component {
             }),
         };
 
-        console.log('Passou aqui!');
-
         fetch('http://localhost:8000/api/category', requestInfo)
             .then((response) => {
                 if (response.status === 201) alert('Categoria criada com sucesso!');
