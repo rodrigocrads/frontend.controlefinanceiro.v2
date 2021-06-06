@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import icoList from '../../img/ico-list.png';
 import icoEdit from '../../img/edit.png';
@@ -13,8 +14,8 @@ export default class CategoriaViewList extends Component {
         };
     }
 
-    async componentDidMount() {
-        await this.fetchCategories();
+    componentDidMount() {
+        this.fetchCategories();
     }
 
     fetchCategories() {
@@ -49,14 +50,17 @@ export default class CategoriaViewList extends Component {
                                 </thead>
                                 <tbody>
                                     {
-                                        this.state.categories.map(category => (
-                                            <tr key={ category.id + category.created_at}>
-                                                <td>{ category.id }</td>
+                                        this.state.categories.map((category, index) => (
+                                            <tr key={ index + category.id }>
+                                                <td>{ index + 1 }</td>
                                                 <td>{ category.name }</td>
-                                                <td>{ category.type }</td>
+                                                <td>{ category.type === 'expenses' ? 'Despesa' : 'Receita' }</td>
                                                 <td>
-                                                    <a href="#" className="table_action"><img src={icoEdit} /></a>
-                                                    <a href="#" className="table_action"><img src={icoDelete} /></a>
+                                                    <Link className="table_action" to={`/categoria/atualizar/${category.id}`}><img src={icoEdit} /></Link>
+
+                                                    <a href="#" className="table_action">
+                                                        <img src={icoDelete} />
+                                                    </a> 
                                                 </td>
                                             </tr>
                                         ))

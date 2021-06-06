@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 import icoMenuEdit from '../../img/edit.png';
 
-export default class CategoriaViewForm extends Component {
+class CategoriaEditViewForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { name: '', type: '' };
+        const { id } = this.props.match.params;
+        this.state = { id, name: '', type: '' };
+    }
+
+    componentDidMount() {
+        this.retriveCategoryById();
     }
 
     onChangeHandler(event) {
@@ -15,14 +21,20 @@ export default class CategoriaViewForm extends Component {
 
     onSubmitHandler(event) {
         event.preventDefault();
-
-        this.saveCategory();
+        this.updateCategory();
     }
 
-    saveCategory() {
+    retriveCategoryById() {
+        fetch(`http://localhost:8000/api/category/${this.state.id}`)
+            .then(response => response.json())
+            .then(category => { this.setState({ ...category })})
+            .catch(error => console.log(error));
+    }
+
+    updateCategory() {
         const data = { ...this.state }
         const requestInfo = {
-            method: 'POST',
+            method: 'PUT',
             body: JSON.stringify(data),
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -30,11 +42,9 @@ export default class CategoriaViewForm extends Component {
             }),
         };
 
-        console.log('Passou aqui!');
-
-        fetch('http://localhost:8000/api/category', requestInfo)
+        fetch(`http://localhost:8000/api/category/${this.state.id}`, requestInfo)
             .then((response) => {
-                if (response.status === 201) alert('Categoria criada com sucesso!');
+                if (response.status === 200) alert('Categoria atualizada com sucesso.');
 
                 if (response.status === 422) alert(response.statusText);
             })
@@ -45,13 +55,13 @@ export default class CategoriaViewForm extends Component {
         return (
             <div>
                 <div className="header_walk_links">
-                    CATEGORIA / CADASTRAR
+                    CATEGORIA / EDITAR
                 </div>
 
                 <div className="widget">
                     <div className="widget_header">
-                        <img src={icoMenuEdit} className="ico" alt="Área de criação de categoria" />
-                        Criar categoria
+                        <img src={icoMenuEdit} className="ico" alt="Área de atualização de categoria" />
+                        Atualizar categoria
                     </div>
 
                     <div className="widget_content">
@@ -59,24 +69,30 @@ export default class CategoriaViewForm extends Component {
                             <div className="form-group">
                                 <label>NOME:</label>
                                 <div className="controls">
-                                    <input type="text" name="name" value={this.state.name} onChange={(ev) => this.onChangeHandler(ev)} />
+                                    <input type="text" name="name" value={ this.state.name } onChange={(ev) => this.onChangeHandler(ev)} />
                                 </div>
                             </div>
 
                             <div className="form-group">
                                 <label>TIPO:</label>
                                 <div className="controls">
-                                    <select name="type" defaultValue={this.state.type} onChange={(ev) => this.onChangeHandler(ev)}>
-                                        <option value="">Selecione um tipo</option>
-                                        <option value="expenses">Despesa</option>
-                                        <option value="revenue">Receita</option>
+                                    <select name="type" defaultValue={ this.state.type } onChange={(ev) => this.onChangeHandler(ev)}>
+                                        {
+                                            ['expenses', 'revenue'].map(option => (
+                                                <option
+                                                    selected={ this.state.type === option? "true" : "false" }
+                                                    value={option}>
+                                                    { option === "expenses" ? "Despesa" : "Receita" }
+                                                </option>
+                                            ))
+                                        }
                                     </select>
                                 </div>
                             </div>
 
                             <div className="form-actions">
                                 <div className="form-action">
-                                    <input type="submit" className="btn" value="Salvar" />
+                                    <input type="submit" className="btn" value="ATUALIZAR" />
                                 </div>
                             </div>
                         </form>
@@ -86,3 +102,5 @@ export default class CategoriaViewForm extends Component {
         );
     };
 }
+
+export default withRouter(CategoriaEditViewForm);
