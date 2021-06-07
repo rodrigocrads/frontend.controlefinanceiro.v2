@@ -8,7 +8,7 @@ function Sidebar() {
             <ul>
                 <li><Link to="/">DASHBOARD</Link></li>
                 <li className="dropdown">
-                    <a href="#" onclick="return false;">CATEGORIAS<img className="ico-dropdown" src={icoDown} alt="" /></a>
+                    <a href="#" onClick="return false;">CATEGORIAS<img className="ico-dropdown" src={icoDown} alt="" /></a>
                     <ul className="menu_dropdown">
                         <li><Link to="/categoria">LISTAR</Link></li>
                         <li><Link to="/categoria/cadastrar">CRIAR</Link></li>

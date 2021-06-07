@@ -18,11 +18,37 @@ export default class CategoriaViewList extends Component {
         this.fetchCategories();
     }
 
+    resetCategoriesList() {
+        this.setState({ categories: [] });
+        this.fetchCategories();
+    }
+
     fetchCategories() {
         fetch('http://localhost:8000/api/category')
             .then(response => response.json())
             .then(categories => this.setState({ ...this.state, categories }))
             .catch(e => { console.log(e) });
+    }
+
+    deleteCategoryHandler(categoryIndex) {
+        const isConfirm = window.confirm("Realmente deseja excluir este registro?");
+        if (isConfirm) {
+            this.deleteCategory(categoryIndex);
+        }
+    }
+
+    deleteCategory(categoryIndex) {
+        const requestInfo = {
+            method: 'DELETE',
+        };
+
+        fetch(`http://localhost:8000/api/category/${categoryIndex}`, requestInfo)
+            .then((response) => {
+                if (response.status === 200) alert('Categoria excluida com sucesso.');
+
+                this.resetCategoriesList();
+            })
+            .catch((error) => console.log(error));
     }
 
     render() {
@@ -58,7 +84,7 @@ export default class CategoriaViewList extends Component {
                                                 <td>
                                                     <Link className="table_action" to={`/categoria/atualizar/${category.id}`}><img src={icoEdit} /></Link>
 
-                                                    <a href="#" className="table_action">
+                                                    <a href="#" onClick={() => this.deleteCategoryHandler(category.id)} className="table_action">
                                                         <img src={icoDelete} />
                                                     </a> 
                                                 </td>
