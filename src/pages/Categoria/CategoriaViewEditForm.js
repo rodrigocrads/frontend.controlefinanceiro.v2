@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import icoMenuEdit from '../../img/edit.png';
 
-class CategoriaEditViewForm extends Component {
+class CategoriaViewEditForm extends Component {
     constructor(props) {
         super(props);
 
@@ -104,4 +104,4 @@ class CategoriaEditViewForm extends Component {
     };
 }
 
-export default withRouter(CategoriaEditViewForm);
+export default withRouter(CategoriaViewEditForm);
