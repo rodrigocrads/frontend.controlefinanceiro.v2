@@ -42,10 +42,10 @@ h6{font-size:0.8em;font-weight:normal;}
     justify-content: center;
 }
 
-#logo_area{width:25%;height: 75px;float:left;}
+#logo_area{width:25%; height: 75px; float:left;}
 
-.logo { display: table; box-sizing: border-box; padding: 2px; margin: auto;}
-.logo img {width: 60px;height: 70px;}
+.logo { display: table; box-sizing: border-box; padding: 2px; margin: auto; margin-top: 11px;}
+.logo img {width: 40px; height: 50px;}
 
 /*-----MENU-----*/
 #ico_menu_mobile{width:20%;height: 75px;float:left;}

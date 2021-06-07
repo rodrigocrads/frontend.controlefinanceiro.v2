@@ -38,11 +38,7 @@ export default class CategoriaViewList extends Component {
     }
 
     deleteCategory(categoryIndex) {
-        const requestInfo = {
-            method: 'DELETE',
-        };
-
-        fetch(`http://localhost:8000/api/category/${categoryIndex}`, requestInfo)
+        fetch(`http://localhost:8000/api/category/${categoryIndex}`, { method: 'DELETE' })
             .then((response) => {
                 if (response.status === 200) alert('Categoria excluida com sucesso.');
 

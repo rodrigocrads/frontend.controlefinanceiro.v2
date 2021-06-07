@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import logo from '../../img/logo.png';
 import icoList from '../../img/ico-list.png';
 
@@ -6,7 +7,7 @@ function Header() {
         <div id="topo">
             <div id="logo_area">
                 <div className="logo">
-                    <a href="index.html"><img src={logo} alt="LOGO" /></a>
+                    <Link to="/"><img src={logo} alt="LOGO" /></Link>
                 </div>
             </div>
             <div id="main_title">
