@@ -66,7 +66,7 @@ export default class CategoriaViewForm extends Component {
                                 <div className="controls">
                                     <select name="type" defaultValue={this.state.type} onChange={(ev) => this.onChangeHandler(ev)}>
                                         <option value="">Selecione um tipo</option>
-                                        <option value="expenses">Despesa</option>
+                                        <option value="expense">Despesa</option>
                                         <option value="revenue">Receita</option>
                                     </select>
                                 </div>

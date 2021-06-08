@@ -76,7 +76,7 @@ export default class CategoriaViewList extends Component {
                                             <tr key={ index + category.id }>
                                                 <td>{ index + 1 }</td>
                                                 <td>{ category.name }</td>
-                                                <td>{ category.type === 'expenses' ? 'Despesa' : 'Receita' }</td>
+                                                <td>{ category.type === '' ? 'Despesa' : 'Receita' }</td>
                                                 <td>
                                                     <Link className="table_action" to={`/categoria/atualizar/${category.id}`}><img src={icoEdit} /></Link>
 

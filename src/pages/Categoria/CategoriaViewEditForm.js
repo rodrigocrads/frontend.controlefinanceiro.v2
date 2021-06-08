@@ -78,12 +78,12 @@ class CategoriaViewEditForm extends Component {
                                 <div className="controls">
                                     <select name="type" defaultValue={ this.state.type } onChange={(ev) => this.onChangeHandler(ev)}>
                                         {
-                                            ['expenses', 'revenue'].map(option => (
+                                            ['expense', 'revenue'].map(option => (
                                                 <option
                                                     selected={ this.state.type === option ? "true" : "false" }
                                                     value={option}
                                                 >
-                                                    { option === "expenses" ? "Despesa" : "Receita" }
+                                                    { option === "expense" ? "Despesa" : "Receita" }
                                                 </option>
                                             ))
                                         }
