@@ -94,9 +94,6 @@ class ReceitaFixaViewEditForm extends Component {
     }
 
     replaceDate(dateString) {
-
-        if (!dateString) return '';
-
         return new Date(dateString)
             .toISOString()
             .substr(0, 10)
@@ -185,7 +182,7 @@ class ReceitaFixaViewEditForm extends Component {
 
                             <div className="form-actions">
                                 <div className="form-action">
-                                    <input type="submit" className="btn" value="Salvar" />
+                                    <input type="submit" className="btn" value="Atualizar" />
                                 </div>
                             </div>
                         </form>
