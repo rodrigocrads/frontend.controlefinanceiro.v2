@@ -1,12 +1,16 @@
 
 *,*:before,*:after{padding:0;margin:0;border:none;}
 
+/*@font-face {
+    font-family: minhafonte;
+    src: url(../fonts/sourcesans.woff);
+}*/
 body{
-    font-family: 'trebuchet ms', 'PT Sans', sans-serif;
+   font-family: 'trebuchet ms', 'PT Sans', sans-serif;
+   /*font-family: minhafonte;*/
     background-image: url(../img/bg3.png);
     color: #444;
 }
-
 h1{font-size:2.2em;font-weight:normal;}
 h2{font-size:1.8em;font-weight:normal;}
 h3{font-size:1.4em;font-weight:normal;}
@@ -23,7 +27,7 @@ h6{font-size:0.8em;font-weight:normal;}
 
 #topo{
     width:100%;
-    height:75px;
+    height:50px;
     float:left;
     position: fixed;
     z-index: 10;
@@ -35,25 +39,25 @@ h6{font-size:0.8em;font-weight:normal;}
 }
 #main_title{
     width:55%;
-    height: 75px;
+    height: 50px;
     float:left;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#logo_area{width:25%; height: 75px; float:left;}
+#logo_area{width:25%;height: 50px;float:left;}
 
-.logo { display: table; box-sizing: border-box; padding: 2px; margin: auto; margin-top: 11px;}
-.logo img {width: 40px; height: 50px;}
+.logo { display: table; box-sizing: border-box; padding: 2px; margin: auto; margin-top: 5px;}
+.logo img {width: 30px;height: 36px;}
 
 /*-----MENU-----*/
-#ico_menu_mobile{width:20%;height: 75px;float:left;}
-#ico_menu_mobile img{height: 40px;margin-right:5px;margin-top:17px;float:right}
+#ico_menu_mobile{width:20%;height: 50px;float:left;}
+#ico_menu_mobile img{height: 28px;margin-right:7px;margin-top:11px;float:right}
 
 #main_title h1{
     font-size: 1.2em;
-    color:#555;
+    color:#666;
     font-weight: bold;
     text-align: center;
 }
@@ -63,7 +67,7 @@ h6{font-size:0.8em;font-weight:normal;}
     position: fixed;
     float:left;
     z-index:8;
-    top: 75px;
+    top: 50px;
     left:0;
     background-color: rgba(10,10,10,0.8);
     display:none;
@@ -74,7 +78,7 @@ h6{font-size:0.8em;font-weight:normal;}
     background: #F0F0F0;
     position: fixed;
     z-index: 9;
-    top:76px;
+    top:51px;
     border-right:1px solid #bbb;
     display: none;
 }
@@ -394,7 +398,7 @@ h6{font-size:0.8em;font-weight:normal;}
 }
 @media screen and (min-width: 768px){
     #main_title h1{
-        font-size: 1.4em;
+        font-size: 1.3em;
     }
     #ico_menu_mobile{
         display: none;
@@ -414,7 +418,7 @@ h6{font-size:0.8em;font-weight:normal;}
         margin:0;
         margin-right: 10px;
         position:relative;
-        top:75px;
+        top:50px;
     }
     .box-info, .box-info-danger, .box-info-warning, .box-info-success{
         width:46%;

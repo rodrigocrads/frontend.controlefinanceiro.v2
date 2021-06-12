@@ -47,6 +47,45 @@ export default class CategoriaViewList extends Component {
             .catch((error) => console.log(error));
     }
 
+    renderTable() {
+        return (
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>NOME</th>
+                        <th>TIPO</th>
+                        <th>AÇÕES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        this.state.categories.map((category, index) => (
+                            <tr key={ index + category.id }>
+                                <td>{ index + 1 }</td>
+                                <td>{ category.name }</td>
+                                <td>{ category.type === '' ? 'Despesa' : 'Receita' }</td>
+                                <td>
+                                    <Link className="table_action" to={`/categoria/atualizar/${category.id}`}><img src={icoEdit} /></Link>
+
+                                    <a href="#" onClick={ () => this.deleteCategoryHandler(category.id) } className="table_action">
+                                        <img src={icoDelete} />
+                                    </a> 
+                                </td>
+                            </tr>
+                        ))
+                    }
+                </tbody>
+            </table>
+        );
+    }
+
+    renderNotFoundCategories() {
+        return (
+            <div>Nenhuma categoria encontrada!</div>
+        );
+    }
+
     render() {
         return (
             <div>
@@ -61,34 +100,11 @@ export default class CategoriaViewList extends Component {
 
                     <div className="widget_content">
                         <div className="table_area">
-                            <table className="table">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>NOME</th>
-                                        <th>TIPO</th>
-                                        <th>AÇÕES</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        this.state.categories.map((category, index) => (
-                                            <tr key={ index + category.id }>
-                                                <td>{ index + 1 }</td>
-                                                <td>{ category.name }</td>
-                                                <td>{ category.type === '' ? 'Despesa' : 'Receita' }</td>
-                                                <td>
-                                                    <Link className="table_action" to={`/categoria/atualizar/${category.id}`}><img src={icoEdit} /></Link>
-
-                                                    <a href="#" onClick={() => this.deleteCategoryHandler(category.id)} className="table_action">
-                                                        <img src={icoDelete} />
-                                                    </a> 
-                                                </td>
-                                            </tr>
-                                        ))
-                                    }
-                                </tbody>
-                            </table>
+                            {
+                                this.state.categories.length > 0
+                                ? this.renderTable()
+                                : this.renderNotFoundCategories()
+                            }
                         </div>
                     </div>
                 </div>
