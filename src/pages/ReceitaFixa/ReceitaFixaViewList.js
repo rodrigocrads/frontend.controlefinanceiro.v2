@@ -38,9 +38,9 @@ export default class ReceitaFixaViewList extends Component {
     }
 
     deleteCategory(categoryIndex) {
-        fetch(`http://localhost:8000/api/category/${categoryIndex}`, { method: 'DELETE' })
+        fetch(`http://localhost:8000/api/fixedRevenue/${categoryIndex}`, { method: 'DELETE' })
             .then((response) => {
-                if (response.status === 200) alert('Categoria excluida com sucesso.');
+                if (response.status === 200) alert('Receita fixa excluida com sucesso.');
 
                 this.resetCategoriesList();
             })
@@ -82,7 +82,7 @@ export default class ReceitaFixaViewList extends Component {
                                 <td>{ fixedRevenue.activation_control.activation_day }</td>
                                 <td>{ this.replaceActivationType(fixedRevenue.activation_control.activation_type) }</td>
                                 <td>
-                                    <Link className="table_action" to={`/categoria/atualizar/${fixedRevenue.id}`}><img src={icoEdit} /></Link>
+                                    <Link className="table_action" to={`/receitaFixa/atualizar/${fixedRevenue.id}`}><img src={icoEdit} /></Link>
 
                                     <a href="#" onClick={ () => this.deleteCategoryHandler(fixedRevenue.id) } className="table_action">
                                         <img src={icoDelete} />

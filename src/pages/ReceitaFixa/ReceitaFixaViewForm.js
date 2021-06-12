@@ -24,7 +24,6 @@ export default class ReceitaFixaViewForm extends Component {
     }
 
     onChangeActivationControlHandler(event) {
-        console.log(event.target.name);
         this.setState({
             ...this.state,
             activation_control: {
