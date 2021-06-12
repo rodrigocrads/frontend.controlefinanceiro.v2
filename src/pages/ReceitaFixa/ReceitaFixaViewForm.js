@@ -6,20 +6,40 @@ export default class ReceitaFixaViewForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { name: '', type: '' };
+        this.state = {
+            title: '',
+            description: '',
+            value: '',
+            activation_control: {
+                start_date: '',
+                end_date: '',
+                activation_type: '',
+                activation_day: '',
+            }
+        };
     }
 
     onChangeHandler(event) {
         this.setState({ ...this.state, [event.target.name]: event.target.value });
     }
 
-    onSubmitHandler(event) {
-        event.preventDefault();
-
-        this.saveCategory();
+    onChangeActivationControlHandler(event) {
+        console.log(event.target.name);
+        this.setState({
+            ...this.state,
+            activation_control: {
+                ...this.state.activation_control,
+                [event.target.name]: event.target.value,
+            }
+        });
     }
 
-    saveCategory() {
+    onSubmitHandler(event) {
+        event.preventDefault();
+        this.save();
+    }
+
+    save() {
         const data = { ...this.state }
         const requestInfo = {
             method: 'POST',
@@ -32,42 +52,94 @@ export default class ReceitaFixaViewForm extends Component {
 
         fetch('http://localhost:8000/api/fixedRevenue', requestInfo)
             .then((response) => {
-                if (response.status === 201) alert('Categoria criada com sucesso!');
+                if (response.status === 201) alert('Receita fixa criada com sucesso!');
 
                 if (response.status === 422) alert(response.statusText);
             })
             .catch((error) => console.log(error));
     }
 
+    getActivationDays() {
+        return [
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+            11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+            21, 22, 23, 24, 25, 26, 27, 28
+        ];
+    }
+
     render() {
         return (
             <div>
                 <div className="header_walk_links">
-                    RECEITA FIXA / CADASTRAR
+                    RECEITA FIXA / CRIAR
                 </div>
 
                 <div className="widget">
                     <div className="widget_header">
-                        <img src={icoMenuEdit} className="ico" alt="Área de criação de categoria" />
-                        Criar receita fixa
+                        <img src={icoMenuEdit} className="ico" alt="Área de criação de Receita fixa" />
+                        Receita fixa
                     </div>
 
                     <div className="widget_content">
                         <form onSubmit={(ev) => this.onSubmitHandler(ev)}>
                             <div className="form-group">
-                                <label>NOME:</label>
+                                <label>TÍTULO:</label>
                                 <div className="controls">
-                                    <input type="text" name="name" value={this.state.name} onChange={(ev) => this.onChangeHandler(ev)} />
+                                    <input type="text" name="title" value={this.state.title} onChange={(ev) => this.onChangeHandler(ev)} />
                                 </div>
                             </div>
 
                             <div className="form-group">
-                                <label>TIPO:</label>
+                                <label>DESCRIÇÃO:</label>
                                 <div className="controls">
-                                    <select name="type" defaultValue={this.state.type} onChange={(ev) => this.onChangeHandler(ev)}>
+                                    <input type="text" name="description" value={this.state.description} onChange={(ev) => this.onChangeHandler(ev)} />
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label>VALOR:</label>
+                                <div className="controls">
+                                    <input type="text" name="value" value={this.state.value} onChange={(ev) => this.onChangeHandler(ev)} />
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label>DATA INÍCIO ATIVAÇÃO:</label>
+                                <div className="controls">
+                                    <input type="text" name="start_date" value={this.state.activation_control.start_date} onChange={(ev) => this.onChangeActivationControlHandler(ev)} />
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label>DATA FIM ATIVAÇÃO:</label>
+                                <div className="controls">
+                                    <input type="text" name="end_date" value={this.state.activation_control.end_date} onChange={(ev) => this.onChangeActivationControlHandler(ev)} />
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label>DIA ATIVAÇÃO:</label>
+                                <div className="controls">
+                                    <select name="activation_day" defaultValue={this.state.activation_control.activation_day} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
                                         <option value="">Selecione um tipo</option>
-                                        <option value="expense">Despesa</option>
-                                        <option value="revenue">Receita</option>
+                                        {
+                                            this.getActivationDays().map((day) => (
+                                                <option value={day}>{day}</option>
+                                            ))
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label>PERIODICIDADE:</label>
+                                <div className="controls">
+                                    <select name="activation_type" defaultValue={this.state.activation_control.activation_type} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
+                                        <option value="">Selecione um tipo</option>
+                                        <option value="monthly">Mensal</option>
+                                        <option value="quarterly">Trimestral</option>
+                                        <option value="semiannual">Semestral</option>
+                                        <option value="annual">Anual</option>
                                     </select>
                                 </div>
                             </div>
