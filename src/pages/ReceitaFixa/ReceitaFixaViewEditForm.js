@@ -9,51 +9,79 @@ class ReceitaFixaViewEditForm extends Component {
 
         const { id } = this.props.match.params;
         this.state = {
-            id,
-            title: '',
-            description: '',
-            value: '',
-            activation_control: {
-                start_date: '',
-                end_date: '',
-                activation_type: '',
-                activation_day: '',
-            }
+            form: {
+                id,
+                title: '',
+                description: '',
+                value: '',
+                category: {
+                    id: '',
+                },
+                activation_control: {
+                    start_date: '',
+                    end_date: '',
+                    periodicity: '',
+                    expiration_day: '',
+                }
+            },
+            categories: [],
         };
     }
 
     componentDidMount() {
-        this.retriveFixedRevenueById();
+        this.retrieveFixedRevenueById();
+        this.retrieveCategories();
     }
 
     onChangeHandler(event) {
-        this.setState({ ...this.state, [event.target.name]: event.target.value });
+        this.setState({ form: { ...this.state.form, [event.target.name]: event.target.value }});
     }
 
     onChangeActivationControlHandler(event) {
         this.setState({
-            ...this.state,
-            activation_control: {
-                ...this.state.activation_control,
-                [event.target.name]: event.target.value,
-            }
+            form: {
+                ...this.state.form,
+                activation_control: {
+                    ...this.state.form.activation_control,
+                    [event.target.name]: event.target.value,
+                },
+            },
+        });
+    }
+
+    onChangeCategoryHandler(event) {
+        this.setState({
+            form: {
+                ...this.state.form,
+                category: {
+                    ...this.state.form.category,
+                    [event.target.name]: event.target.value,
+                },
+            },
         });
     }
 
     onSubmitHandler(event) {
         event.preventDefault();
+
         this.update();
     }
 
-    retriveFixedRevenueById() {
-        fetch(`http://localhost:8000/api/fixedRevenue/${this.state.id}`)
+    retrieveFixedRevenueById() {
+        fetch(`http://localhost:8000/api/fixedRevenue/${this.state.form.id}`)
             .then(response => response.json())
-            .then(fixedRevenue => { this.setState({ ...fixedRevenue })})
+            .then(fixedRevenue => { this.setState({ form: { ...fixedRevenue } })})
             .catch(error => console.log(error));
     }
 
+    retrieveCategories() {
+        fetch('http://localhost:8000/api/category')
+            .then(response => response.json())
+            .then(categories => this.setState({ ...this.state, categories }));
+    }
+
     update() {
-        const data = { ...this.state }
+        const data = { ...this.state.form }
         const requestInfo = {
             method: 'PUT',
             body: JSON.stringify(data),
@@ -80,8 +108,8 @@ class ReceitaFixaViewEditForm extends Component {
         ];
     }
 
-    replaceActivationType(activationType) {
-        switch(activationType) {
+    replacePeriodicty(periodicty) {
+        switch(periodicty) {
             case 'quarterly':
                 return 'Trimestral';
             case 'semiannual':
@@ -93,17 +121,12 @@ class ReceitaFixaViewEditForm extends Component {
         }
     }
 
-    replaceDate(dateString) {
-        return new Date(dateString)
-            .toISOString()
-            .substr(0, 10)
-            .split('-')
-            .reverse()
-            .join('/')
-    }
-
     render() {
-        const activationControl = this.state.activation_control;
+        const activationControl = this.state.form.activation_control;
+        const form = this.state.form;
+
+        console.log(this.state);
+
         return (
             <div>
                 <div className="header_walk_links">
@@ -121,21 +144,34 @@ class ReceitaFixaViewEditForm extends Component {
                             <div className="form-group">
                                 <label>TÍTULO:</label>
                                 <div className="controls">
-                                    <input type="text" name="title" value={this.state.title} onChange={(ev) => this.onChangeHandler(ev)} />
+                                    <input type="text" name="title" value={form.title} onChange={(ev) => this.onChangeHandler(ev)} />
                                 </div>
                             </div>
 
                             <div className="form-group">
                                 <label>DESCRIÇÃO:</label>
                                 <div className="controls">
-                                    <input type="text" name="description" value={this.state.description} onChange={(ev) => this.onChangeHandler(ev)} />
+                                    <input type="text" name="description" value={form.description} onChange={(ev) => this.onChangeHandler(ev)} />
                                 </div>
                             </div>
 
                             <div className="form-group">
                                 <label>VALOR:</label>
                                 <div className="controls">
-                                    <input type="text" name="value" value={this.state.value} onChange={(ev) => this.onChangeHandler(ev)} />
+                                    <input type="text" name="value" value={form.value} onChange={(ev) => this.onChangeHandler(ev)} />
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label>CATEGORIA:</label>
+                                <div className="controls">
+                                    <select name="category_id" defaultValue={form.category.id} onChange={(ev) => this.onChangeCategoryHandler(ev)}>
+                                        {
+                                            this.state.categories.map((category) => (
+                                                <option select={category.id === form.category.id ? 'selected': ''} value={category.id}>{category.name}</option>
+                                            ))
+                                        }
+                                    </select>
                                 </div>
                             </div>
 
@@ -156,11 +192,11 @@ class ReceitaFixaViewEditForm extends Component {
                             <div className="form-group">
                                 <label>DIA ATIVAÇÃO:</label>
                                 <div className="controls">
-                                    <select name="activation_day" defaultValue={activationControl.activation_day} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
+                                    <select name="expiration_day" defaultValue={activationControl.expiration_day} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
                                         <option value="">Selecione um tipo</option>
                                         {
                                             this.getActivationDays().map((day) => (
-                                                <option selected={activationControl.activation_day === day} value={day}>{day}</option>
+                                                <option selected={activationControl.expiration_day === day} value={day}>{day}</option>
                                             ))
                                         }
                                     </select>
@@ -170,10 +206,10 @@ class ReceitaFixaViewEditForm extends Component {
                             <div className="form-group">
                                 <label>PERIODICIDADE:</label>
                                 <div className="controls">
-                                    <select name="activation_type" defaultValue={activationControl.activation_type} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
+                                    <select name="periodicity" defaultValue={activationControl.periodicity} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
                                         {
-                                            ['monthly', 'quarterly', 'semiannual', 'annual'].map(activation_type => (
-                                                <option select={activation_type === activationControl.activation_type} value="monthly">{this.replaceActivationType(activationControl.activation_type)}</option>
+                                            ['monthly', 'quarterly', 'semiannual', 'annual'].map(periodicity => (
+                                                <option select={periodicity === activationControl.periodicity} value={periodicity}>{this.replacePeriodicty(periodicity)}</option>
                                             ))
                                         }
                                     </select>

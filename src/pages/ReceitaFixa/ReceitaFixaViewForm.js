@@ -7,29 +7,41 @@ export default class ReceitaFixaViewForm extends Component {
         super(props);
 
         this.state = {
-            title: '',
-            description: '',
-            value: '',
-            activation_control: {
-                start_date: '',
-                end_date: '',
-                activation_type: '',
-                activation_day: '',
-            }
+            form: {
+                title: '',
+                description: '',
+                value: '',
+                category_id: '',
+                activation_control: {
+                    start_date: '',
+                    end_date: '',
+                    periodicity: '',
+                    expiration_day: '',
+                }
+            },
+            categories: [],
         };
     }
 
+    componentDidMount() {
+        fetch('http://localhost:8000/api/category')
+            .then(response => response.json())
+            .then(categories => this.setState({ ...this.state, categories }));
+    }
+
     onChangeHandler(event) {
-        this.setState({ ...this.state, [event.target.name]: event.target.value });
+        this.setState({ form: { ...this.state.form, [event.target.name]: event.target.value }});
     }
 
     onChangeActivationControlHandler(event) {
         this.setState({
-            ...this.state,
-            activation_control: {
-                ...this.state.activation_control,
-                [event.target.name]: event.target.value,
-            }
+            form: {
+                ...this.state.form,
+                activation_control: {
+                    ...this.state.form.activation_control,
+                    [event.target.name]: event.target.value,
+                },
+            },
         });
     }
 
@@ -39,7 +51,7 @@ export default class ReceitaFixaViewForm extends Component {
     }
 
     save() {
-        const data = { ...this.state }
+        const data = { ...this.state.form }
         const requestInfo = {
             method: 'POST',
             body: JSON.stringify(data),
@@ -84,46 +96,32 @@ export default class ReceitaFixaViewForm extends Component {
                             <div className="form-group">
                                 <label>TÍTULO:</label>
                                 <div className="controls">
-                                    <input type="text" name="title" value={this.state.title} onChange={(ev) => this.onChangeHandler(ev)} />
+                                    <input type="text" name="title" value={this.state.form.title} onChange={(ev) => this.onChangeHandler(ev)} />
                                 </div>
                             </div>
 
                             <div className="form-group">
                                 <label>DESCRIÇÃO:</label>
                                 <div className="controls">
-                                    <input type="text" name="description" value={this.state.description} onChange={(ev) => this.onChangeHandler(ev)} />
+                                    <input type="text" name="description" value={this.state.form.description} onChange={(ev) => this.onChangeHandler(ev)} />
                                 </div>
                             </div>
 
                             <div className="form-group">
                                 <label>VALOR:</label>
                                 <div className="controls">
-                                    <input type="text" name="value" value={this.state.value} onChange={(ev) => this.onChangeHandler(ev)} />
+                                    <input type="text" name="value" value={this.state.form.value} onChange={(ev) => this.onChangeHandler(ev)} />
                                 </div>
                             </div>
 
                             <div className="form-group">
-                                <label>DATA INÍCIO ATIVAÇÃO:</label>
+                                <label>CATEGORIA:</label>
                                 <div className="controls">
-                                    <input type="text" name="start_date" value={this.state.activation_control.start_date} onChange={(ev) => this.onChangeActivationControlHandler(ev)} />
-                                </div>
-                            </div>
-
-                            <div className="form-group">
-                                <label>DATA FIM ATIVAÇÃO:</label>
-                                <div className="controls">
-                                    <input type="text" name="end_date" value={this.state.activation_control.end_date} onChange={(ev) => this.onChangeActivationControlHandler(ev)} />
-                                </div>
-                            </div>
-
-                            <div className="form-group">
-                                <label>DIA ATIVAÇÃO:</label>
-                                <div className="controls">
-                                    <select name="activation_day" defaultValue={this.state.activation_control.activation_day} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
+                                    <select name="category_id" defaultValue={this.state.form.category_id} onChange={(ev) => this.onChangeHandler(ev)}>
                                         <option value="">Selecione um tipo</option>
                                         {
-                                            this.getActivationDays().map((day) => (
-                                                <option value={day}>{day}</option>
+                                            this.state.categories.map((category) => (
+                                                <option value={category.id}>{category.name}</option>
                                             ))
                                         }
                                     </select>
@@ -131,14 +129,42 @@ export default class ReceitaFixaViewForm extends Component {
                             </div>
 
                             <div className="form-group">
+                                <label>DATA INÍCIO ATIVAÇÃO:</label>
+                                <div className="controls">
+                                    <input type="text" name="start_date" value={this.state.form.activation_control.start_date} onChange={(ev) => this.onChangeActivationControlHandler(ev)} />
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label>DATA FIM ATIVAÇÃO:</label>
+                                <div className="controls">
+                                    <input type="text" name="end_date" value={this.state.form.activation_control.end_date} onChange={(ev) => this.onChangeActivationControlHandler(ev)} />
+                                </div>
+                            </div>
+
+                            <div className="form-group">
                                 <label>PERIODICIDADE:</label>
                                 <div className="controls">
-                                    <select name="activation_type" defaultValue={this.state.activation_control.activation_type} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
+                                    <select name="periodicity" defaultValue={this.state.form.activation_control.periodicity} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
                                         <option value="">Selecione um tipo</option>
                                         <option value="monthly">Mensal</option>
                                         <option value="quarterly">Trimestral</option>
                                         <option value="semiannual">Semestral</option>
                                         <option value="annual">Anual</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label>DIA ATIVAÇÃO:</label>
+                                <div className="controls">
+                                    <select name="expiration_day" defaultValue={this.state.form.activation_control.expiration_day} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
+                                        <option value="">Selecione um tipo</option>
+                                        {
+                                            this.getActivationDays().map((day) => (
+                                                <option value={day}>{day}</option>
+                                            ))
+                                        }
                                     </select>
                                 </div>
                             </div>

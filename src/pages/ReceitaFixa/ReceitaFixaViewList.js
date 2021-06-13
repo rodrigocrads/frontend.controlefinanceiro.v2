@@ -56,6 +56,7 @@ export default class ReceitaFixaViewList extends Component {
                         <th>TÍTULO</th>
                         <th>DESCRIÇÃO</th>
                         <th>VALOR</th>
+                        <th>CATEGORIA</th>
                         <th>INÍCIO ATIVAÇÃO</th>
                         <th>FIM ATIVAÇÃO</th>
                         <th>DIA DA ATIVAÇÃO</th>
@@ -71,16 +72,17 @@ export default class ReceitaFixaViewList extends Component {
                                 <td>{ fixedRevenue.title }</td>
                                 <td>{ fixedRevenue.description || 'Não Informado' }</td>
                                 <td>{ `R$ ${fixedRevenue.value}` }</td>
-                                <td>{ this.replaceDate(fixedRevenue.activation_control.start_date) }</td>
+                                <td>{ fixedRevenue.category.name }</td>
+                                <td>{ fixedRevenue.activation_control.start_date }</td>
                                 <td>
                                     {
                                         fixedRevenue.activation_control.end_date
-                                            ? this.replaceDate(fixedRevenue.activation_control.end_date)
+                                            ? fixedRevenue.activation_control.end_date
                                             : 'Indeterminado'
                                     }
                                 </td>
-                                <td>{ fixedRevenue.activation_control.activation_day }</td>
-                                <td>{ this.replaceActivationType(fixedRevenue.activation_control.activation_type) }</td>
+                                <td>{ fixedRevenue.activation_control.expiration_day }</td>
+                                <td>{ this.replaceActivationType(fixedRevenue.activation_control.periodicity) }</td>
                                 <td>
                                     <Link className="table_action" to={`/receitaFixa/atualizar/${fixedRevenue.id}`}><img src={icoEdit} /></Link>
 
@@ -94,15 +96,6 @@ export default class ReceitaFixaViewList extends Component {
                 </tbody>
             </table>
         );
-    }
-
-    replaceDate(dateString) {
-        return new Date(dateString)
-            .toISOString()
-            .substr(0, 10)
-            .split('-')
-            .reverse()
-            .join('/')
     }
 
     replaceActivationType(activationType) {
