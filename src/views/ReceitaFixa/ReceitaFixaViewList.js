@@ -59,7 +59,7 @@ export default class ReceitaFixaViewList extends Component {
                         <th>CATEGORIA</th>
                         <th>INÍCIO ATIVAÇÃO</th>
                         <th>FIM ATIVAÇÃO</th>
-                        <th>DIA DA ATIVAÇÃO</th>
+                        <th>DIA DE VENCIMENTO</th>
                         <th>PERIODICIDADE</th>
                         <th>AÇÕES</th>
                     </tr>
@@ -67,7 +67,7 @@ export default class ReceitaFixaViewList extends Component {
                 <tbody>
                     {
                         this.state.fixedRevenues.map((fixedRevenue, index) => (
-                            <tr key={ index + fixedRevenue.id }>
+                            <tr key={ fixedRevenue.id }>
                                 <td>{ index + 1 }</td>
                                 <td>{ fixedRevenue.title }</td>
                                 <td>{ fixedRevenue.description || 'Não Informado' }</td>

@@ -7,16 +7,13 @@ class ReceitaFixaViewEditForm extends Component {
     constructor(props) {
         super(props);
 
-        const { id } = this.props.match.params;
         this.state = {
             form: {
-                id,
+                id: this.props.match.params.id,
                 title: '',
                 description: '',
                 value: '',
-                category: {
-                    id: '',
-                },
+                category_id: '',
                 activation_control: {
                     start_date: '',
                     end_date: '',
@@ -28,7 +25,7 @@ class ReceitaFixaViewEditForm extends Component {
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.retrieveFixedRevenueById();
         this.retrieveCategories();
     }
@@ -49,18 +46,6 @@ class ReceitaFixaViewEditForm extends Component {
         });
     }
 
-    onChangeCategoryHandler(event) {
-        this.setState({
-            form: {
-                ...this.state.form,
-                category: {
-                    ...this.state.form.category,
-                    [event.target.name]: event.target.value,
-                },
-            },
-        });
-    }
-
     onSubmitHandler(event) {
         event.preventDefault();
 
@@ -70,7 +55,9 @@ class ReceitaFixaViewEditForm extends Component {
     retrieveFixedRevenueById() {
         fetch(`http://localhost:8000/api/fixedRevenue/${this.state.form.id}`)
             .then(response => response.json())
-            .then(fixedRevenue => { this.setState({ form: { ...fixedRevenue } })})
+            .then(data => {
+                this.setState({ form: { ...data, category_id: data.category.id } })
+            })
             .catch(error => console.log(error));
     }
 
@@ -91,7 +78,7 @@ class ReceitaFixaViewEditForm extends Component {
             }),
         };
 
-        fetch(`http://localhost:8000/api/fixedRevenue/${this.state.id}`, requestInfo)
+        fetch(`http://localhost:8000/api/fixedRevenue/${this.state.form.id}`, requestInfo)
             .then((response) => {
                 if (response.status === 200) alert('Receita fixa atualizada com sucesso.');
 
@@ -124,8 +111,6 @@ class ReceitaFixaViewEditForm extends Component {
     render() {
         const activationControl = this.state.form.activation_control;
         const form = this.state.form;
-
-        console.log(this.state);
 
         return (
             <div>
@@ -165,10 +150,12 @@ class ReceitaFixaViewEditForm extends Component {
                             <div className="form-group">
                                 <label>CATEGORIA:</label>
                                 <div className="controls">
-                                    <select name="category_id" defaultValue={form.category.id} onChange={(ev) => this.onChangeCategoryHandler(ev)}>
+                                    <select name="category_id" defaultValue={form.category_id} onChange={(ev) => this.onChangeHandler(ev)}>
                                         {
                                             this.state.categories.map((category) => (
-                                                <option select={category.id === form.category.id ? 'selected': ''} value={category.id}>{category.name}</option>
+                                                <option selected={ category.id === parseInt(form.category_id) } value={ category.id }>
+                                                    { category.name }
+                                                </option>
                                             ))
                                         }
                                     </select>
