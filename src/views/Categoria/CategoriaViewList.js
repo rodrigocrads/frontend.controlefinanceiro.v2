@@ -61,12 +61,12 @@ export default class CategoriaViewList extends Component {
                 <tbody>
                     {
                         this.state.categories.map((category, index) => (
-                            <tr key={ index + category.id }>
+                            <tr key={ category.id }>
                                 <td>{ index + 1 }</td>
                                 <td>{ category.name }</td>
-                                <td>{ category.type === '' ? 'Despesa' : 'Receita' }</td>
+                                <td>{ category.type === 'expense' ? 'Despesa' : 'Receita' }</td>
                                 <td>
-                                    <Link className="table_action" to={`/categoria/atualizar/${category.id}`}><img src={icoEdit} /></Link>
+                                    <Link className="table_action" to={`/categoria/${category.id}`}><img src={icoEdit} /></Link>
 
                                     <a href="#" onClick={ () => this.deleteCategoryHandler(category.id) } className="table_action">
                                         <img src={icoDelete} />

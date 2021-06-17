@@ -1,12 +1,32 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 import icoMenuEdit from '../../img/edit.png';
 
-export default class CategoriaViewForm extends Component {
+class CategoriaViewForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { name: '', type: '' };
+        const id = this.props.match.params.id || null;
+        this.state = { id,  name: '', type: '' };
+    }
+
+    componentDidMount() {
+        const id = this.state.id;
+        if (id !== null) {
+            this.retriveCategoryById(id);
+        }
+    }
+
+    clearState() {
+        this.setState({ name: '', type: ''});
+    }
+
+    retriveCategoryById(id) {
+        fetch(`http://localhost:8000/api/category/${id}`)
+            .then(response => response.json())
+            .then(category => { this.setState({ ...category })})
+            .catch(error => console.log(error));
     }
 
     onChangeHandler(event) {
@@ -16,10 +36,40 @@ export default class CategoriaViewForm extends Component {
     onSubmitHandler(event) {
         event.preventDefault();
 
-        this.saveCategory();
+        this.saveOrUpdate();
     }
 
-    saveCategory() {
+    saveOrUpdate() {
+        const id = this.state.id;
+        if (id !== null) {
+            this.update(id);
+            return;
+        }
+
+        this.save();
+    }
+
+    update(id) {
+        const data = { ...this.state }
+        const requestInfo = {
+            method: 'PUT',
+            body: JSON.stringify(data),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }),
+        };
+
+        fetch(`http://localhost:8000/api/category/${id}`, requestInfo)
+            .then((response) => {
+                if (response.status === 200) alert('Categoria atualizada com sucesso.');
+
+                if (response.status === 422) alert(response.statusText);
+            })
+            .catch((error) => console.log(error));
+    }
+
+    save() {
         const data = { ...this.state }
         const requestInfo = {
             method: 'POST',
@@ -43,7 +93,7 @@ export default class CategoriaViewForm extends Component {
         return (
             <div>
                 <div className="header_walk_links">
-                    CATEGORIA / CADASTRAR
+                    CATEGORIA / { this.state.id ? 'ATUALIZAR' : 'CRIAR' }
                 </div>
 
                 <div className="widget">
@@ -64,10 +114,13 @@ export default class CategoriaViewForm extends Component {
                             <div className="form-group">
                                 <label>TIPO:</label>
                                 <div className="controls">
-                                    <select name="type" defaultValue={this.state.type} onChange={(ev) => this.onChangeHandler(ev)}>
+                                    <select name="type" value={ this.state.type } onChange={(ev) => this.onChangeHandler(ev)}>
                                         <option value="">Selecione um tipo</option>
-                                        <option value="expense">Despesa</option>
-                                        <option value="revenue">Receita</option>
+                                        {
+                                            ['expense', 'revenue'].map(option => (
+                                                <option key={option} value={option}> { option === "expense" ? "Despesa" : "Receita" } </option>
+                                            ))
+                                        }
                                     </select>
                                 </div>
                             </div>
@@ -84,3 +137,5 @@ export default class CategoriaViewForm extends Component {
         );
     };
 }
+
+export default withRouter(CategoriaViewForm);

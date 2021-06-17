@@ -4,7 +4,6 @@ import { Switch, Route } from 'react-router-dom';
 import Dashboard from './components/Dashboard/index.js';
 import CategoriaViewList from './views/Categoria/CategoriaViewList.js';
 import CategoriaViewForm from './views/Categoria/CategoriaViewForm.js';
-import CategoriaViewEditForm from './views/Categoria/CategoriaViewEditForm.js';
 
 import ReceitaFixaViewList from './views/ReceitaFixa/ReceitaFixaViewList.js';
 import ReceitaFixaViewForm from './views/ReceitaFixa/ReceitaFixaViewForm.js';
@@ -17,16 +16,16 @@ export default () => {
                 <Dashboard />
             </Route>
 
-            <Route exact path="/categoria">
+            <Route exact path="/categoria/listar">
                 <CategoriaViewList />
             </Route>
 
-            <Route exact path="/categoria/criar">
+            <Route exact path="/categoria/">
                 <CategoriaViewForm />
             </Route>
 
-            <Route exact path="/categoria/atualizar/:id">
-                <CategoriaViewEditForm />
+            <Route exact path="/categoria/:id">
+                <CategoriaViewForm />
             </Route>
 
             <Route exact path="/receitaFixa">

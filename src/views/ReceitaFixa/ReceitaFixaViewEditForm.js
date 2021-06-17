@@ -150,7 +150,7 @@ class ReceitaFixaViewEditForm extends Component {
                             <div className="form-group">
                                 <label>CATEGORIA:</label>
                                 <div className="controls">
-                                    <select name="category_id" defaultValue={form.category_id} onChange={(ev) => this.onChangeHandler(ev)}>
+                                    <select name="category_id" value={ form.category_id } onChange={(ev) => this.onChangeHandler(ev)}>
                                         {
                                             this.state.categories.map((category) => (
                                                 <option selected={ category.id === parseInt(form.category_id) } value={ category.id }>
