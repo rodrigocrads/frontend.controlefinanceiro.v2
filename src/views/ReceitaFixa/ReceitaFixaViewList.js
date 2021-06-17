@@ -84,7 +84,7 @@ export default class ReceitaFixaViewList extends Component {
                                 <td>{ fixedRevenue.activation_control.expiration_day }</td>
                                 <td>{ this.replaceActivationType(fixedRevenue.activation_control.periodicity) }</td>
                                 <td>
-                                    <Link className="table_action" to={`/receitaFixa/atualizar/${fixedRevenue.id}`}><img src={icoEdit} /></Link>
+                                    <Link className="table_action" to={`/receitaFixa/${fixedRevenue.id}`}><img src={icoEdit} /></Link>
 
                                     <a href="#" onClick={ () => this.deleteCategoryHandler(fixedRevenue.id) } className="table_action">
                                         <img src={icoDelete} />

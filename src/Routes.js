@@ -7,7 +7,6 @@ import CategoriaViewForm from './views/Categoria/CategoriaViewForm.js';
 
 import ReceitaFixaViewList from './views/ReceitaFixa/ReceitaFixaViewList.js';
 import ReceitaFixaViewForm from './views/ReceitaFixa/ReceitaFixaViewForm.js';
-import ReceitaFixaViewEditForm from './views/ReceitaFixa/ReceitaFixaViewEditForm.js';
 
 export default () => {
     return (
@@ -20,7 +19,7 @@ export default () => {
                 <CategoriaViewList />
             </Route>
 
-            <Route exact path="/categoria/">
+            <Route exact path="/categoria">
                 <CategoriaViewForm />
             </Route>
 
@@ -28,16 +27,16 @@ export default () => {
                 <CategoriaViewForm />
             </Route>
 
-            <Route exact path="/receitaFixa">
+            <Route exact path="/receitaFixa/listar">
                 <ReceitaFixaViewList />
             </Route>
 
-            <Route exact path="/receitaFixa/criar">
+            <Route exact path="/receitaFixa">
                 <ReceitaFixaViewForm />
             </Route>
 
-            <Route exact path="/receitaFixa/atualizar/:id">
-                <ReceitaFixaViewEditForm />
+            <Route exact path="/receitaFixa/:id">
+                <ReceitaFixaViewForm />
             </Route>
         </Switch>
     );

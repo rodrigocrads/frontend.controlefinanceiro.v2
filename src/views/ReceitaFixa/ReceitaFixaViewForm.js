@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 
 import icoMenuEdit from '../../img/edit.png';
 
-export default class ReceitaFixaViewForm extends Component {
+class ReceitaFixaViewForm extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             form: {
+                id: this.props.match.params.id || null,
                 title: '',
                 description: '',
                 value: '',
@@ -24,9 +26,30 @@ export default class ReceitaFixaViewForm extends Component {
     }
 
     componentDidMount() {
+        this.retrieveCategories();
+
+        if (this.isToUpdate()) {
+            this.retrieveFixedRevenueById();
+        }
+    }
+
+    retrieveCategories() {
         fetch('http://localhost:8000/api/category')
             .then(response => response.json())
             .then(categories => this.setState({ ...this.state, categories }));
+    }
+
+    retrieveFixedRevenueById() {
+        fetch(`http://localhost:8000/api/fixedRevenue/${this.state.form.id}`)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({ form: { ...data, category_id: data.category.id } })
+            })
+            .catch(error => console.log(error));
+    }
+
+    isToUpdate() {
+        return this.state.form.id !== null;
     }
 
     onChangeHandler(event) {
@@ -47,7 +70,37 @@ export default class ReceitaFixaViewForm extends Component {
 
     onSubmitHandler(event) {
         event.preventDefault();
+
+        this.saveOrUpdate();
+    }
+
+    saveOrUpdate() {
+        if (this.isToUpdate()) {
+            this.update();
+            return;
+        }
+
         this.save();
+    }
+
+    update() {
+        const data = { ...this.state.form }
+        const requestInfo = {
+            method: 'PUT',
+            body: JSON.stringify(data),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }),
+        };
+
+        fetch(`http://localhost:8000/api/fixedRevenue/${this.state.form.id}`, requestInfo)
+            .then((response) => {
+                if (response.status === 200) alert('Receita fixa atualizada com sucesso.');
+
+                if (response.status === 422) alert(response.statusText);
+            })
+            .catch((error) => console.log(error));
     }
 
     save() {
@@ -117,11 +170,13 @@ export default class ReceitaFixaViewForm extends Component {
                             <div className="form-group">
                                 <label>CATEGORIA:</label>
                                 <div className="controls">
-                                    <select name="category_id" defaultValue={this.state.form.category_id} onChange={(ev) => this.onChangeHandler(ev)}>
+                                    <select name="category_id" value={ this.state.form.category_id } onChange={(ev) => this.onChangeHandler(ev)}>
                                         <option value="">Selecione um tipo</option>
                                         {
                                             this.state.categories.map((category) => (
-                                                <option value={category.id}>{category.name}</option>
+                                                <option selected={ category.id === parseInt(this.state.form.category_id) } value={ category.id }>
+                                                    { category.name }
+                                                </option>
                                             ))
                                         }
                                     </select>
@@ -181,3 +236,5 @@ export default class ReceitaFixaViewForm extends Component {
         );
     };
 }
+
+export default withRouter(ReceitaFixaViewForm);

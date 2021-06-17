@@ -17,8 +17,8 @@ function Sidebar() {
                 <li className="dropdown">
                     <a onClick="return false;">RECEITAS FIXAS<img className="ico-dropdown" src={icoDown} alt="" /></a>
                     <ul className="menu_dropdown">
-                        <li><Link to="/receitaFixa">LISTAR</Link></li>
-                        <li><Link to="/receitaFixa/criar">CRIAR</Link></li>
+                        <li><Link to="/receitaFixa/listar">LISTAR</Link></li>
+                        <li><Link to="/receitaFixa">CRIAR</Link></li>
                     </ul>
                 </li>
             </ul>
