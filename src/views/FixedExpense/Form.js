@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
+import { getActivationDays, replacePeriodicity } from '../../helpers/FixedRevenueOrExpense/helper.js'
 import icoMenuEdit from '../../img/edit.png';
 
-class ReceitaFixaViewForm extends Component {
+class ViewFixedExpenseForm extends Component {
     constructor(props) {
         super(props);
 
@@ -28,7 +29,7 @@ class ReceitaFixaViewForm extends Component {
         this.retrieveCategories();
 
         if (this.isToUpdate()) {
-            this.retrieveFixedRevenueById();
+            this.retrievefixedExpenseById();
         }
     }
 
@@ -38,8 +39,8 @@ class ReceitaFixaViewForm extends Component {
             .then(categories => this.setState({ ...this.state, categories }));
     }
 
-    retrieveFixedRevenueById() {
-        fetch(`http://localhost:8000/api/fixedRevenue/${this.props.match.params.id}`)
+    retrievefixedExpenseById() {
+        fetch(`http://localhost:8000/api/fixedExpense/${this.props.match.params.id}`)
             .then(response => response.json())
             .then(data => {
                 this.setState({ form: { ...data, category_id: data.category.id } })
@@ -93,9 +94,9 @@ class ReceitaFixaViewForm extends Component {
             }),
         };
 
-        fetch(`http://localhost:8000/api/fixedRevenue/${this.props.match.params.id}`, requestInfo)
+        fetch(`http://localhost:8000/api/fixedExpense/${this.props.match.params.id}`, requestInfo)
             .then((response) => {
-                if (response.status === 200) alert('Receita fixa atualizada com sucesso.');
+                if (response.status === 200) alert('Despesa fixa atualizada com sucesso.');
 
                 if (response.status === 422) alert(response.statusText);
             })
@@ -113,47 +114,26 @@ class ReceitaFixaViewForm extends Component {
             }),
         };
 
-        fetch('http://localhost:8000/api/fixedRevenue', requestInfo)
+        fetch('http://localhost:8000/api/fixedExpense', requestInfo)
             .then((response) => {
-                if (response.status === 201) alert('Receita fixa criada com sucesso!');
+                if (response.status === 201) alert('Despesa fixa criada com sucesso!');
 
                 if (response.status === 422) alert(response.statusText);
             })
             .catch((error) => console.log(error));
     }
 
-    getActivationDays() {
-        return [
-            1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-            11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-            21, 22, 23, 24, 25, 26, 27, 28
-        ];
-    }
-
-    replacePeriodicity(periodicity) {
-        switch(periodicity) {
-            case 'quarterly':
-                return 'Trimestral';
-            case 'semiannual':
-                return 'Semestral';
-            case 'annual':
-                return 'Anual';
-            default:
-                return 'Mensal';
-        }
-    }
-
     render() {
         return (
             <div>
                 <div className="header_walk_links">
-                    RECEITA FIXA / { this.isToUpdate() ? 'ATUALIZAR' : 'CRIAR' }
+                    DESPESA FIXA / { this.isToUpdate() ? 'ATUALIZAR' : 'CRIAR' }
                 </div>
 
                 <div className="widget">
                     <div className="widget_header">
-                        <img src={icoMenuEdit} className="ico" alt="Área de criação de Receita fixa" />
-                        Receita fixa
+                        <img src={icoMenuEdit} className="ico" alt="Área de criação de despesa fixa" />
+                        Despesa fixa
                     </div>
 
                     <div className="widget_content">
@@ -212,11 +192,11 @@ class ReceitaFixaViewForm extends Component {
                             <div className="form-group">
                                 <label>PERIODICIDADE:</label>
                                 <div className="controls">
-                                    <select name="periodicity" defaultValue={this.state.form.activation_control.periodicity} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
+                                    <select name="periodicity" value={this.state.form.activation_control.periodicity} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
                                         <option value="">Selecione um tipo</option>
                                         {
                                             ['monthly', 'quarterly', 'semiannual', 'annual'].map(periodicity => (
-                                                <option value={periodicity}>{this.replacePeriodicity(periodicity)}</option>
+                                                <option value={periodicity}>{replacePeriodicity(periodicity)}</option>
                                             ))
                                         }
                                     </select>
@@ -226,10 +206,10 @@ class ReceitaFixaViewForm extends Component {
                             <div className="form-group">
                                 <label>DIA ATIVAÇÃO:</label>
                                 <div className="controls">
-                                    <select name="expiration_day" defaultValue={this.state.form.activation_control.expiration_day} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
+                                    <select name="expiration_day" value={this.state.form.activation_control.expiration_day} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
                                         <option value="">Selecione um tipo</option>
                                         {
-                                            this.getActivationDays().map((day) => (
+                                            getActivationDays().map((day) => (
                                                 <option value={day}>{day}</option>
                                             ))
                                         }
@@ -250,4 +230,4 @@ class ReceitaFixaViewForm extends Component {
     };
 }
 
-export default withRouter(ReceitaFixaViewForm);
+export default withRouter(ViewFixedExpenseForm);

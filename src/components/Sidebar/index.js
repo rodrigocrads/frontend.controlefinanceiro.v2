@@ -14,11 +14,20 @@ function Sidebar() {
                         <li><Link to="/categoria">CRIAR</Link></li>
                     </ul>
                 </li>
+
                 <li className="dropdown">
                     <a onClick="return false;">RECEITAS FIXAS<img className="ico-dropdown" src={icoDown} alt="" /></a>
                     <ul className="menu_dropdown">
                         <li><Link to="/receitaFixa/listar">LISTAR</Link></li>
                         <li><Link to="/receitaFixa">CRIAR</Link></li>
+                    </ul>
+                </li>
+
+                <li className="dropdown">
+                    <a onClick="return false;">DESPESAS FIXAS<img className="ico-dropdown" src={icoDown} alt="" /></a>
+                    <ul className="menu_dropdown">
+                        <li><Link to="/fixedExpense/list">LISTAR</Link></li>
+                        <li><Link to="/fixedExpense">CRIAR</Link></li>
                     </ul>
                 </li>
             </ul>
