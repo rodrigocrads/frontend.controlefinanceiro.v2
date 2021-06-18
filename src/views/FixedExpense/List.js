@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import { replacePeriodicity } from '../../helpers/FixedRevenueOrExpense/helper';
+import { replacePeriodicity } from '../../helpers/fixedRevenueOrExpenseHelper';
 import icoList from '../../img/ico-list.png';
 import icoEdit from '../../img/edit.png';
 import icoDelete from '../../img/delete.png';

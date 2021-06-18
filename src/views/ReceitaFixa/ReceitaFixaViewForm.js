@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
+import { replacePeriodicity, getExpirationDays } from '../../helpers/fixedRevenueOrExpenseHelper';
 import icoMenuEdit from '../../img/edit.png';
 
 class ReceitaFixaViewForm extends Component {
@@ -122,27 +123,6 @@ class ReceitaFixaViewForm extends Component {
             .catch((error) => console.log(error));
     }
 
-    getActivationDays() {
-        return [
-            1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-            11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-            21, 22, 23, 24, 25, 26, 27, 28
-        ];
-    }
-
-    replacePeriodicity(periodicity) {
-        switch(periodicity) {
-            case 'quarterly':
-                return 'Trimestral';
-            case 'semiannual':
-                return 'Semestral';
-            case 'annual':
-                return 'Anual';
-            default:
-                return 'Mensal';
-        }
-    }
-
     render() {
         return (
             <div>
@@ -216,7 +196,7 @@ class ReceitaFixaViewForm extends Component {
                                         <option value="">Selecione um tipo</option>
                                         {
                                             ['monthly', 'quarterly', 'semiannual', 'annual'].map(periodicity => (
-                                                <option value={periodicity}>{this.replacePeriodicity(periodicity)}</option>
+                                                <option value={periodicity}>{replacePeriodicity(periodicity)}</option>
                                             ))
                                         }
                                     </select>
@@ -229,7 +209,7 @@ class ReceitaFixaViewForm extends Component {
                                     <select name="expiration_day" defaultValue={this.state.form.activation_control.expiration_day} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
                                         <option value="">Selecione um tipo</option>
                                         {
-                                            this.getActivationDays().map((day) => (
+                                            getExpirationDays().map((day) => (
                                                 <option value={day}>{day}</option>
                                             ))
                                         }

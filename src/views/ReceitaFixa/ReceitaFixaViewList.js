@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import { replacePeriodicity } from '../../helpers/fixedRevenueOrExpenseHelper';
 import icoList from '../../img/ico-list.png';
 import icoEdit from '../../img/edit.png';
 import icoDelete from '../../img/delete.png';
@@ -82,7 +83,7 @@ export default class ReceitaFixaViewList extends Component {
                                     }
                                 </td>
                                 <td>{ fixedRevenue.activation_control.expiration_day }</td>
-                                <td>{ this.replaceActivationType(fixedRevenue.activation_control.periodicity) }</td>
+                                <td>{ replacePeriodicity(fixedRevenue.activation_control.periodicity) }</td>
                                 <td>
                                     <Link className="table_action" to={`/receitaFixa/${fixedRevenue.id}`}><img src={icoEdit} /></Link>
 
@@ -96,19 +97,6 @@ export default class ReceitaFixaViewList extends Component {
                 </tbody>
             </table>
         );
-    }
-
-    replaceActivationType(activationType) {
-        switch(activationType) {
-            case 'quarterly':
-                return 'Trimestral';
-            case 'semiannual':
-                return 'Semestral';
-            case 'annual':
-                return 'Anual';
-            default:
-                return 'Mensal';
-        }
     }
 
     renderNotFound() {

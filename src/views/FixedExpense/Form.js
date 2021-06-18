@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
-import { getActivationDays, replacePeriodicity } from '../../helpers/FixedRevenueOrExpense/helper.js'
+import { getExpirationDays, replacePeriodicity } from '../../helpers/fixedRevenueOrExpenseHelper'
 import icoMenuEdit from '../../img/edit.png';
 
 class ViewFixedExpenseForm extends Component {
@@ -209,7 +209,7 @@ class ViewFixedExpenseForm extends Component {
                                     <select name="expiration_day" value={this.state.form.activation_control.expiration_day} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
                                         <option value="">Selecione um tipo</option>
                                         {
-                                            getActivationDays().map((day) => (
+                                            getExpirationDays().map((day) => (
                                                 <option value={day}>{day}</option>
                                             ))
                                         }
