@@ -30,6 +30,14 @@ function Sidebar() {
                         <li><Link to="/fixedExpense">CRIAR</Link></li>
                     </ul>
                 </li>
+
+                <li className="dropdown">
+                    <a onClick="return false;">RECEITAS VARIÁVEIS<img className="ico-dropdown" src={icoDown} alt="" /></a>
+                    <ul className="menu_dropdown">
+                        <li><Link to="/variableRevenue/list">LISTAR</Link></li>
+                        <li><Link to="/variableRevenue">CRIAR</Link></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     );
