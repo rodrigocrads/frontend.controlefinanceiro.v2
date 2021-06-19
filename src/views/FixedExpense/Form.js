@@ -166,7 +166,7 @@ class ViewFixedExpenseForm extends Component {
                                         <option value="">Selecione um tipo</option>
                                         {
                                             this.state.categories.map((category) => (
-                                                <option selected={ category.id === parseInt(this.state.form.category_id) } value={ category.id }>
+                                                <option key={category.id} selected={ category.id === parseInt(this.state.form.category_id) } value={ category.id }>
                                                     { category.name }
                                                 </option>
                                             ))
@@ -196,7 +196,7 @@ class ViewFixedExpenseForm extends Component {
                                         <option value="">Selecione um tipo</option>
                                         {
                                             ['monthly', 'quarterly', 'semiannual', 'annual'].map(periodicity => (
-                                                <option value={periodicity}>{replacePeriodicity(periodicity)}</option>
+                                                <option key={periodicity} value={periodicity}>{replacePeriodicity(periodicity)}</option>
                                             ))
                                         }
                                     </select>
@@ -209,9 +209,7 @@ class ViewFixedExpenseForm extends Component {
                                     <select name="expiration_day" value={this.state.form.activation_control.expiration_day} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
                                         <option value="">Selecione um tipo</option>
                                         {
-                                            getExpirationDays().map((day) => (
-                                                <option value={day}>{day}</option>
-                                            ))
+                                            getExpirationDays().map(day => <option key={day} value={day}>{day}</option>)
                                         }
                                     </select>
                                 </div>

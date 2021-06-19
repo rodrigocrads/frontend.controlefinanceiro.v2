@@ -192,7 +192,7 @@ class ReceitaFixaViewForm extends Component {
                             <div className="form-group">
                                 <label>PERIODICIDADE:</label>
                                 <div className="controls">
-                                    <select name="periodicity" defaultValue={this.state.form.activation_control.periodicity} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
+                                    <select name="periodicity" value={this.state.form.activation_control.periodicity} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
                                         <option value="">Selecione um tipo</option>
                                         {
                                             ['monthly', 'quarterly', 'semiannual', 'annual'].map(periodicity => (
@@ -206,12 +206,10 @@ class ReceitaFixaViewForm extends Component {
                             <div className="form-group">
                                 <label>DIA ATIVAÇÃO:</label>
                                 <div className="controls">
-                                    <select name="expiration_day" defaultValue={this.state.form.activation_control.expiration_day} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
+                                    <select name="expiration_day" value={this.state.form.activation_control.expiration_day} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
                                         <option value="">Selecione um tipo</option>
                                         {
-                                            getExpirationDays().map((day) => (
-                                                <option value={day}>{day}</option>
-                                            ))
+                                            getExpirationDays().map(day => <option value={day}>{day}</option>)
                                         }
                                     </select>
                                 </div>
