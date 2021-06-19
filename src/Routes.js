@@ -14,6 +14,9 @@ import ViewFixedExpenseForm from './views/FixedExpense/Form.js';
 import ViewVariableRevenueList from './views/VariableRevenue/List.js';
 import ViewVariableRevenueForm from './views/VariableRevenue/Form.js';
 
+import ViewVariableExpenseList from './views/VariableExpense/List.js';
+import ViewVariableExpenseForm from './views/VariableExpense/Form.js';
+
 export default () => {
     return (
         <Switch>
@@ -67,6 +70,18 @@ export default () => {
 
             <Route exact path="/variableRevenue/:id">
                 <ViewVariableRevenueForm />
+            </Route>
+
+            <Route exact path="/variableExpense/list">
+                <ViewVariableExpenseList />
+            </Route>
+
+            <Route exact path="/variableExpense">
+                <ViewVariableExpenseForm />
+            </Route>
+
+            <Route exact path="/variableExpense/:id">
+                <ViewVariableExpenseForm />
             </Route>
         </Switch>
     );
