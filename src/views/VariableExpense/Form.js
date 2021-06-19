@@ -141,7 +141,7 @@ class ViewVariableExpenseForm extends Component {
                             <div className="form-group">
                                 <label>DESCRIÇÃO:</label>
                                 <div className="controls">
-                                    <input type="text" name="description" value={this.state.form.description} onChange={(ev) => this.onChangeHandler(ev)} />
+                                    <textarea name="description" value={this.state.form.description} onChange={(ev) => this.onChangeHandler(ev)} ></textarea>
                                 </div>
                             </div>
 
@@ -159,7 +159,7 @@ class ViewVariableExpenseForm extends Component {
                                         <option value="">Selecione um tipo</option>
                                         {
                                             this.state.categories.map((category) => (
-                                                <option key={category.id} selected={ category.id === parseInt(this.state.form.category_id) } value={ category.id }>
+                                                <option key={category.id} value={ category.id }>
                                                     { category.name }
                                                 </option>
                                             ))

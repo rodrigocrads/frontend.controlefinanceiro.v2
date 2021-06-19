@@ -17,7 +17,7 @@ import ViewVariableRevenueForm from './views/VariableRevenue/Form.js';
 import ViewVariableExpenseList from './views/VariableExpense/List.js';
 import ViewVariableExpenseForm from './views/VariableExpense/Form.js';
 
-export default () => {
+const routes = () => {
     return (
         <Switch>
             <Route exact path="/">
@@ -86,3 +86,5 @@ export default () => {
         </Switch>
     );
 };
+
+export default routes;
