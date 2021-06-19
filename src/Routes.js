@@ -11,6 +11,9 @@ import ReceitaFixaViewForm from './views/ReceitaFixa/ReceitaFixaViewForm.js';
 import ViewFixedExpenseList from './views/FixedExpense/List.js';
 import ViewFixedExpenseForm from './views/FixedExpense/Form.js';
 
+import ViewVariableRevenueList from './views/VariableRevenue/List.js';
+import ViewVariableRevenueForm from './views/VariableRevenue/Form.js';
+
 export default () => {
     return (
         <Switch>
@@ -52,6 +55,18 @@ export default () => {
 
             <Route exact path="/fixedExpense/:id">
                 <ViewFixedExpenseForm />
+            </Route>
+
+            <Route exact path="/variableRevenue/list">
+                <ViewVariableRevenueList />
+            </Route>
+
+            <Route exact path="/variableRevenue">
+                <ViewVariableRevenueForm />
+            </Route>
+
+            <Route exact path="/variableRevenue/:id">
+                <ViewVariableRevenueForm />
             </Route>
         </Switch>
     );
