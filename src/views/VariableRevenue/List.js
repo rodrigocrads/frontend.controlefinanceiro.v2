@@ -56,6 +56,7 @@ export default class ViewVariableRevenueList extends Component {
                         <th>TÍTULO</th>
                         <th>DESCRIÇÃO</th>
                         <th>VALOR</th>
+                        <th>DATA DO REGISTRO</th>
                         <th>CATEGORIA</th>
                         <th>AÇÕES</th>
                     </tr>
@@ -68,6 +69,7 @@ export default class ViewVariableRevenueList extends Component {
                                 <td>{ variableRevenue.title }</td>
                                 <td>{ variableRevenue.description || 'Não Informado' }</td>
                                 <td>{ `R$ ${variableRevenue.value}` }</td>
+                                <td>{ variableRevenue.register_date }</td>
                                 <td>{ variableRevenue.category.name }</td>
                                 <td>
                                     <Link className="table_action" to={`/variableRevenue/${ variableRevenue.id }`}><img src={ icoEdit } /></Link>

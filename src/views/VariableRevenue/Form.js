@@ -13,6 +13,7 @@ class ViewVariableRevenueForm extends Component {
                 description: '',
                 value: '',
                 category_id: '',
+                register_date: '',
             },
             categories: [],
         };
@@ -165,6 +166,13 @@ class ViewVariableRevenueForm extends Component {
                                             ))
                                         }
                                     </select>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label>DATA DO REGISTRO:</label>
+                                <div className="controls">
+                                    <input type="text" name="register_date" value={this.state.form.register_date} onChange={(ev) => this.onChangeHandler(ev)} />
                                 </div>
                             </div>
 

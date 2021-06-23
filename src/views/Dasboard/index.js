@@ -3,7 +3,6 @@ import React from 'react';
 import BoxInfo from '../../components/UI/BoxInfo';
 
 import { formatCurrencyValueToBR } from '../../helpers/viewsHelper';
-import { sum } from '../../helpers/calculateHelper';
 
 import icoCharBar from '../../img/chart_bar.png';
 import icoCoinsAdd from '../../img/coins_add.png';
@@ -17,60 +16,26 @@ class ViewDashboard extends React.Component {
         super(props);
 
         this.state = {
-            variableExpenses: [],
-            variableRevenues: [],
-            fixedExpenses: [],
-            fixedRevenues: [],
+            variableExpenseTotal: 0.0,
+            variableRevenueTotal: 0.0,
+            fixedExpenseTotal: 0.0,
+            fixedRevenueTotal: 0.0,
         };
     }
 
     componentDidMount() {
-        this.fetchFixedExpenses();
-        this.fetchFixedRevenues();
-        this.fetchVariableExpenses();
-        this.fetchVariableRevenues();
+        this.fetchTotalsByCurrentMonth();
     }
 
-    async fetchFixedRevenues() {
-        await fetch(`${API_BASE_URL}/fixedRevenue?endDate=active`)
+    async fetchTotalsByCurrentMonth() {
+        await fetch(`${API_BASE_URL}/report/currentMonthTotals`)
             .then(response => response.json())
-            .then(fixedRevenues => this.setState({...this.state, fixedRevenues}))
-    }
-
-    async fetchVariableRevenues() {
-        await fetch(`${API_BASE_URL}/variableRevenue`)
-            .then(response => response.json())
-            .then(variableRevenues => this.setState({...this.state, variableRevenues}))
-    }
-
-    async fetchFixedExpenses() {
-        await fetch(`${API_BASE_URL}/fixedExpense?endDate=active`)
-            .then(response => response.json())
-            .then(fixedExpenses => this.setState({...this.state, fixedExpenses}))
-    }
-
-    async fetchVariableExpenses() {
-        await fetch(`${API_BASE_URL}/variableExpense`)
-            .then(response => response.json())
-            .then(variableExpenses => this.setState({...this.state, variableExpenses}))
-    }
-
-    filterByExpirationDay(fixedRevenuesOrExpenses) {
-        return (fixedRevenuesOrExpenses || [])
-            .filter(revenueOrExpense => {
-                const expirationDay = revenueOrExpense.activation_control.expiration_day || 0;
-                const currentDay = (new Date()).getUTCDate();
-
-                return expirationDay <= currentDay;
-            });
+            .then(totals => this.setState({...this.state, ...totals}))
     }
 
     render() {
-        const fixedRevenues = this.filterByExpirationDay(this.state.fixedRevenues);
-        const fixedExpenses = this.filterByExpirationDay(this.state.fixedExpenses);
-
-        const sumRevenues = sum(fixedRevenues) + sum(this.state.variableRevenues);
-        const sumExpenses = sum(fixedExpenses) + sum(this.state.variableExpenses);
+        const revenueTotal = this.state.fixedRevenueTotal + this.state.variableRevenueTotal;
+        const expenseTotal = this.state.fixedExpenseTotal + this.state.variableExpenseTotal;
 
         return (
             <div>
@@ -89,21 +54,21 @@ class ViewDashboard extends React.Component {
                             type="success"
                             title="Receita total"
                             imgIco={icoCoinsAdd}
-                            content={ formatCurrencyValueToBR(sumRevenues) }
+                            content={ formatCurrencyValueToBR(revenueTotal) }
                         />
 
                         <BoxInfo
                             type="danger"
                             title="Despesa total"
                             imgIco={icoCoinsDelete}
-                            content={ formatCurrencyValueToBR(sumExpenses) }
+                            content={ formatCurrencyValueToBR(expenseTotal) }
                         />
 
                         <BoxInfo
                             type="warning"
                             title="Economia total"
                             imgIco={icoCoins}
-                            content={ formatCurrencyValueToBR((sumRevenues - sumExpenses)) }
+                            content={ formatCurrencyValueToBR((revenueTotal - expenseTotal)) }
                         />
 
                     </div>
