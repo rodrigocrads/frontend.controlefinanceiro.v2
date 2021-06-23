@@ -1,21 +1,21 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Dashboard from './components/Dashboard/index.js';
-import CategoriaViewList from './views/Categoria/CategoriaViewList.js';
-import CategoriaViewForm from './views/Categoria/CategoriaViewForm.js';
+import Dashboard from './views/Dasboard/index';
+import CategoriaViewList from './views/Categoria/CategoriaViewList';
+import CategoriaViewForm from './views/Categoria/CategoriaViewForm';
 
-import ReceitaFixaViewList from './views/ReceitaFixa/ReceitaFixaViewList.js';
-import ReceitaFixaViewForm from './views/ReceitaFixa/ReceitaFixaViewForm.js';
+import ReceitaFixaViewList from './views/ReceitaFixa/ReceitaFixaViewList';
+import ReceitaFixaViewForm from './views/ReceitaFixa/ReceitaFixaViewForm';
 
-import ViewFixedExpenseList from './views/FixedExpense/List.js';
-import ViewFixedExpenseForm from './views/FixedExpense/Form.js';
+import ViewFixedExpenseList from './views/FixedExpense/List';
+import ViewFixedExpenseForm from './views/FixedExpense/Form';
 
-import ViewVariableRevenueList from './views/VariableRevenue/List.js';
-import ViewVariableRevenueForm from './views/VariableRevenue/Form.js';
+import ViewVariableRevenueList from './views/VariableRevenue/List';
+import ViewVariableRevenueForm from './views/VariableRevenue/Form';
 
-import ViewVariableExpenseList from './views/VariableExpense/List.js';
-import ViewVariableExpenseForm from './views/VariableExpense/Form.js';
+import ViewVariableExpenseList from './views/VariableExpense/List';
+import ViewVariableExpenseForm from './views/VariableExpense/Form';
 
 const routes = () => {
     return (

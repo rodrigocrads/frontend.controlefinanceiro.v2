@@ -18,3 +18,7 @@ export const getExpirationDays = () => {
         21, 22, 23, 24, 25, 26, 27, 28
     ];
 }
+
+export const formatCurrencyValueToBR = (value) => {
+    return value.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+}

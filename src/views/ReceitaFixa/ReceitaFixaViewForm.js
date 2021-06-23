@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
-import { replacePeriodicity, getExpirationDays } from '../../helpers/fixedRevenueOrExpenseHelper';
+import { replacePeriodicity, getExpirationDays } from '../../helpers/viewsHelper';
 import icoMenuEdit from '../../img/edit.png';
 
 class ReceitaFixaViewForm extends Component {
@@ -148,7 +148,7 @@ class ReceitaFixaViewForm extends Component {
                             <div className="form-group">
                                 <label>DESCRIÇÃO:</label>
                                 <div className="controls">
-                                    <textarea value={this.state.form.description} onChange={(ev) => this.onChangeHandler(ev)} ></textarea>
+                                    <textarea name="description" value={this.state.form.description} onChange={(ev) => this.onChangeHandler(ev)} ></textarea>
                                 </div>
                             </div>
 

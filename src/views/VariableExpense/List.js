@@ -56,6 +56,7 @@ export default class ViewVariableExpenseList extends Component {
                         <th>TÍTULO</th>
                         <th>DESCRIÇÃO</th>
                         <th>VALOR</th>
+                        <th>DATA DO REGISTRO</th>
                         <th>CATEGORIA</th>
                         <th>AÇÕES</th>
                     </tr>
@@ -68,6 +69,7 @@ export default class ViewVariableExpenseList extends Component {
                                 <td>{ variableExpense.title }</td>
                                 <td>{ variableExpense.description || 'Não Informado' }</td>
                                 <td>{ `R$ ${variableExpense.value}` }</td>
+                                <td>{ variableExpense.register_date }</td>
                                 <td>{ variableExpense.category.name }</td>
                                 <td>
                                     <Link className="table_action" to={`/variableExpense/${ variableExpense.id }`}><img src={ icoEdit } /></Link>
