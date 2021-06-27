@@ -2,7 +2,7 @@ import React from 'react';
 
 import BoxInfo from '../../components/UI/BoxInfo';
 
-import { formatCurrencyValueToBR } from '../../helpers/viewsHelper';
+import { formatCurrencyValueToBR } from '../../helpers/utils';
 
 import icoCharBar from '../../img/chart_bar.png';
 import icoCoinsAdd from '../../img/coins_add.png';

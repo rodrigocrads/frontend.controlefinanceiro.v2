@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import icoList from '../../img/ico-list.png';
 import icoEdit from '../../img/edit.png';
 import icoDelete from '../../img/delete.png';
+import { convertIsoDateToBr } from '../../helpers/utils';
 
 export default class ViewVariableExpenseList extends Component {
     constructor(props) {
@@ -69,7 +70,7 @@ export default class ViewVariableExpenseList extends Component {
                                 <td>{ variableExpense.title }</td>
                                 <td>{ variableExpense.description || 'Não Informado' }</td>
                                 <td>{ `R$ ${variableExpense.value}` }</td>
-                                <td>{ variableExpense.register_date }</td>
+                                <td>{ convertIsoDateToBr(variableExpense.register_date) }</td>
                                 <td>{ variableExpense.category.name }</td>
                                 <td>
                                     <Link className="table_action" to={`/variableExpense/${ variableExpense.id }`}><img src={ icoEdit } /></Link>

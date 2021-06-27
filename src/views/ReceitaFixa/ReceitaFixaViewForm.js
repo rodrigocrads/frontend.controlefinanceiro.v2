@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
-import { replacePeriodicity, getExpirationDays } from '../../helpers/viewsHelper';
+import FixedRevenue from '../../dtos/FixedRevenue';
+import SaveOrUpdate from '../../builders/requestBody/fixedFinancialTransaction/SaveOrUpdate';
+
+import { replacePeriodicity, getExpirationDays, convertIsoDateToBr } from '../../helpers/utils';
 import icoMenuEdit from '../../img/edit.png';
 
 class ReceitaFixaViewForm extends Component {
@@ -43,7 +46,17 @@ class ReceitaFixaViewForm extends Component {
         fetch(`http://localhost:8000/api/fixedRevenue/${this.props.match.params.id}`)
             .then(response => response.json())
             .then(data => {
-                this.setState({ form: { ...data, category_id: data.category.id } })
+                this.setState({
+                    form: {
+                        ...data,
+                        category_id: data.category.id,
+                        activation_control: {
+                            ...data.activation_control,
+                            start_date: convertIsoDateToBr(data.activation_control.start_date),
+                            end_date: convertIsoDateToBr(data.activation_control.end_date),
+                        }
+                    }
+                })
             })
             .catch(error => console.log(error));
     }
@@ -83,11 +96,18 @@ class ReceitaFixaViewForm extends Component {
         this.save();
     }
 
+    getBuildRequestContent() {
+        const builderContentRequest = new SaveOrUpdate(
+            new FixedRevenue({ ...this.state.form })
+        );
+
+        return builderContentRequest.build();
+    }
+
     update() {
-        const data = { ...this.state.form }
         const requestInfo = {
             method: 'PUT',
-            body: JSON.stringify(data),
+            body: JSON.stringify(this.getBuildRequestContent()),
             headers: new Headers({
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -104,10 +124,9 @@ class ReceitaFixaViewForm extends Component {
     }
 
     save() {
-        const data = { ...this.state.form }
         const requestInfo = {
             method: 'POST',
-            body: JSON.stringify(data),
+            body: JSON.stringify(this.getBuildRequestContent()),
             headers: new Headers({
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -127,7 +146,7 @@ class ReceitaFixaViewForm extends Component {
         return (
             <div>
                 <div className="header_walk_links">
-                    RECEITA FIXA / { this.isToUpdate() ? 'ATUALIZAR' : 'CRIAR' }
+                    RECEITA FIXAS / { this.isToUpdate() ? 'ATUALIZAR' : 'CRIAR' }
                 </div>
 
                 <div className="widget">

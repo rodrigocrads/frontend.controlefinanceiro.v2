@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
+import SaveOrUpdate from '../../builders/requestBody/variableFinancialTransaction/SaveOrUpdate';
+import VariableExpense from '../../dtos/VariableExpense';
+import { convertIsoDateToBr } from '../../helpers/utils';
+
 import icoMenuEdit from '../../img/edit.png';
 
 class ViewVariableExpenseForm extends Component {
@@ -37,7 +41,13 @@ class ViewVariableExpenseForm extends Component {
         fetch(`http://localhost:8000/api/variableExpense/${this.props.match.params.id}`)
             .then(response => response.json())
             .then(data => {
-                this.setState({ form: { ...data, category_id: data.category.id } })
+                this.setState({
+                    form: {
+                        ...data,
+                        register_date: convertIsoDateToBr(data.register_date),
+                        category_id: data.category.id,
+                    } 
+                })
             })
             .catch(error => console.log(error));
     }
@@ -77,11 +87,18 @@ class ViewVariableExpenseForm extends Component {
         this.save();
     }
 
+    getBuildRequestContent() {
+        const builderContentRequest = new SaveOrUpdate(
+            new VariableExpense({ ...this.state.form })
+        );
+
+        return builderContentRequest.build();
+    }
+
     update() {
-        const data = { ...this.state.form }
         const requestInfo = {
             method: 'PUT',
-            body: JSON.stringify(data),
+            body: JSON.stringify(this.getBuildRequestContent()),
             headers: new Headers({
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -98,10 +115,9 @@ class ViewVariableExpenseForm extends Component {
     }
 
     save() {
-        const data = { ...this.state.form }
         const requestInfo = {
             method: 'POST',
-            body: JSON.stringify(data),
+            body: JSON.stringify(this.getBuildRequestContent()),
             headers: new Headers({
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
