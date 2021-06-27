@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
-import { getExpirationDays, replacePeriodicity } from '../../helpers/viewsHelper'
+import { getExpirationDays, replacePeriodicity } from '../../helpers/utils'
 import icoMenuEdit from '../../img/edit.png';
 
 class ViewFixedExpenseForm extends Component {

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
+import FixedRevenue from '../../dtos/FixedRevenue';
 
-import { replacePeriodicity, getExpirationDays } from '../../helpers/viewsHelper';
+import { replacePeriodicity, getExpirationDays } from '../../helpers/utils';
 import icoMenuEdit from '../../img/edit.png';
+import FixedRevenueBuilderRequest from '../../builders/FixedRevenueBuilderRequest';
 
 class ReceitaFixaViewForm extends Component {
     constructor(props) {
@@ -84,10 +86,13 @@ class ReceitaFixaViewForm extends Component {
     }
 
     update() {
-        const data = { ...this.state.form }
+        const requestBuilder = new FixedRevenueBuilderRequest(
+            new FixedRevenue({ ...this.state.form })
+        );
+
         const requestInfo = {
             method: 'PUT',
-            body: JSON.stringify(data),
+            body: JSON.stringify(requestBuilder.getRequest()),
             headers: new Headers({
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -104,10 +109,13 @@ class ReceitaFixaViewForm extends Component {
     }
 
     save() {
-        const data = { ...this.state.form }
+        const requestBuilder = new FixedRevenueBuilderRequest(
+            new FixedRevenue({ ...this.state.form })
+        );
+
         const requestInfo = {
             method: 'POST',
-            body: JSON.stringify(data),
+            body: JSON.stringify(requestBuilder.getRequest()),
             headers: new Headers({
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
