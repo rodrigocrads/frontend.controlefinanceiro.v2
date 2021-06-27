@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import FixedRevenue from '../../dtos/FixedRevenue';
+import SaveOrUpdate from '../../builders/requestBody/fixedFinancialTransaction/SaveOrUpdate';
 
 import { replacePeriodicity, getExpirationDays } from '../../helpers/utils';
 import icoMenuEdit from '../../img/edit.png';
-import FixedRevenueBuilderRequest from '../../builders/requests/fixedFinancialTransaction/SaveOrUpdate';
 
 class ReceitaFixaViewForm extends Component {
     constructor(props) {
@@ -85,14 +85,18 @@ class ReceitaFixaViewForm extends Component {
         this.save();
     }
 
-    update() {
-        const builderRequest = new FixedRevenueBuilderRequest(
+    getBuildRequestContent() {
+        const builderContentRequest = new SaveOrUpdate(
             new FixedRevenue({ ...this.state.form })
         );
 
+        return builderContentRequest.build();
+    }
+
+    update() {
         const requestInfo = {
             method: 'PUT',
-            body: JSON.stringify(builderRequest.build()),
+            body: JSON.stringify(this.getBuildRequestContent()),
             headers: new Headers({
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -109,13 +113,9 @@ class ReceitaFixaViewForm extends Component {
     }
 
     save() {
-        const builderRequest = new FixedRevenueBuilderRequest(
-            new FixedRevenue({ ...this.state.form })
-        );
-
         const requestInfo = {
             method: 'POST',
-            body: JSON.stringify(builderRequest.build()),
+            body: JSON.stringify(this.getBuildRequestContent()),
             headers: new Headers({
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'

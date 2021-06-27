@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
+import SaveOrUpdate from '../../builders/requestBody/fixedFinancialTransaction/SaveOrUpdate';
+
+import FixedExpense from '../../dtos/FixedExpense';
 
 import { getExpirationDays, replacePeriodicity } from '../../helpers/utils'
 import icoMenuEdit from '../../img/edit.png';
@@ -83,11 +86,18 @@ class ViewFixedExpenseForm extends Component {
         this.save();
     }
 
+    getBuildRequestContent() {
+        const builderContentRequest = new SaveOrUpdate(
+            new FixedExpense({ ...this.state.form })
+        );
+
+        return builderContentRequest.build();
+    }
+
     update() {
-        const data = { ...this.state.form }
         const requestInfo = {
             method: 'PUT',
-            body: JSON.stringify(data),
+            body: JSON.stringify(this.getBuildRequestContent()),
             headers: new Headers({
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -104,10 +114,9 @@ class ViewFixedExpenseForm extends Component {
     }
 
     save() {
-        const data = { ...this.state.form }
         const requestInfo = {
             method: 'POST',
-            body: JSON.stringify(data),
+            body: JSON.stringify(this.getBuildRequestContent()),
             headers: new Headers({
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'

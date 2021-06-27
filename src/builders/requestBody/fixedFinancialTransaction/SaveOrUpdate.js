@@ -1,6 +1,6 @@
 import { convertBrDateToIso } from "../../../helpers/utils";
 
-export default class FixedFinancialTransactionBuilderRequest {
+export default class SaveOrUpdate {
     fixedRevenueOrExpense;
 
     constructor(fixedRevenueOrExpense) {
