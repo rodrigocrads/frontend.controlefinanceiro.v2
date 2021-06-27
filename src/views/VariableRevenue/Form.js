@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
+import SaveOrUpdate from '../../builders/requestBody/variableFinancialTransaction/SaveOrUpdate';
+import VariableRevenue from '../../dtos/VariableRevenue';
+
 import icoMenuEdit from '../../img/edit.png';
 
 class ViewVariableRevenueForm extends Component {
@@ -68,6 +71,14 @@ class ViewVariableRevenueForm extends Component {
         this.saveOrUpdate();
     }
 
+    getBuildRequestContent() {
+        const builderContentRequest = new SaveOrUpdate(
+            new VariableRevenue({ ...this.state.form })
+        );
+
+        return builderContentRequest.build();
+    }
+
     saveOrUpdate() {
         if (this.isToUpdate()) {
             this.update();
@@ -78,10 +89,9 @@ class ViewVariableRevenueForm extends Component {
     }
 
     update() {
-        const data = { ...this.state.form }
         const requestInfo = {
             method: 'PUT',
-            body: JSON.stringify(data),
+            body: JSON.stringify(this.getBuildRequestContent()),
             headers: new Headers({
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -98,10 +108,9 @@ class ViewVariableRevenueForm extends Component {
     }
 
     save() {
-        const data = { ...this.state.form }
         const requestInfo = {
             method: 'POST',
-            body: JSON.stringify(data),
+            body: JSON.stringify(this.getBuildRequestContent()),
             headers: new Headers({
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'

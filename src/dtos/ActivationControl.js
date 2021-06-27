@@ -1,5 +1,4 @@
 export default class ActivationControl {
-
     start_date;
     end_date;
     periodicity;
