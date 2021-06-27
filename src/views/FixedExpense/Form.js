@@ -4,7 +4,7 @@ import SaveOrUpdate from '../../builders/requestBody/fixedFinancialTransaction/S
 
 import FixedExpense from '../../dtos/FixedExpense';
 
-import { getExpirationDays, replacePeriodicity } from '../../helpers/utils'
+import { convertIsoDateToBr, getExpirationDays, replacePeriodicity } from '../../helpers/utils'
 import icoMenuEdit from '../../img/edit.png';
 
 class ViewFixedExpenseForm extends Component {
@@ -46,7 +46,17 @@ class ViewFixedExpenseForm extends Component {
         fetch(`http://localhost:8000/api/fixedExpense/${this.props.match.params.id}`)
             .then(response => response.json())
             .then(data => {
-                this.setState({ form: { ...data, category_id: data.category.id } })
+                this.setState({
+                    form: {
+                        ...data,
+                        category_id: data.category.id,
+                        activation_control: {
+                            ...data.activation_control,
+                            start_date: convertIsoDateToBr(data.activation_control.start_date),
+                            end_date: convertIsoDateToBr(data.activation_control.end_date),
+                        }
+                    }
+                })
             })
             .catch(error => console.log(error));
     }

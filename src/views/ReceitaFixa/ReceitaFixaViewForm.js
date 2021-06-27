@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
+
 import FixedRevenue from '../../dtos/FixedRevenue';
 import SaveOrUpdate from '../../builders/requestBody/fixedFinancialTransaction/SaveOrUpdate';
 
-import { replacePeriodicity, getExpirationDays } from '../../helpers/utils';
+import { replacePeriodicity, getExpirationDays, convertIsoDateToBr } from '../../helpers/utils';
 import icoMenuEdit from '../../img/edit.png';
 
 class ReceitaFixaViewForm extends Component {
@@ -45,7 +46,17 @@ class ReceitaFixaViewForm extends Component {
         fetch(`http://localhost:8000/api/fixedRevenue/${this.props.match.params.id}`)
             .then(response => response.json())
             .then(data => {
-                this.setState({ form: { ...data, category_id: data.category.id } })
+                this.setState({
+                    form: {
+                        ...data,
+                        category_id: data.category.id,
+                        activation_control: {
+                            ...data.activation_control,
+                            start_date: convertIsoDateToBr(data.activation_control.start_date),
+                            end_date: convertIsoDateToBr(data.activation_control.end_date),
+                        }
+                    }
+                })
             })
             .catch(error => console.log(error));
     }

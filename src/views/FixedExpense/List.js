@@ -78,7 +78,7 @@ export default class ViewFixedExpenseList extends Component {
                                 <td>
                                     {
                                         fixedExpense.activation_control.end_date
-                                            ? fixedExpense.activation_control.end_date
+                                            ? convertIsoDateToBr(fixedExpense.activation_control.end_date)
                                             : 'Indeterminado'
                                     }
                                 </td>

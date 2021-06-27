@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 
 import SaveOrUpdate from '../../builders/requestBody/variableFinancialTransaction/SaveOrUpdate';
 import VariableExpense from '../../dtos/VariableExpense';
+import { convertIsoDateToBr } from '../../helpers/utils';
 
 import icoMenuEdit from '../../img/edit.png';
 
@@ -40,7 +41,13 @@ class ViewVariableExpenseForm extends Component {
         fetch(`http://localhost:8000/api/variableExpense/${this.props.match.params.id}`)
             .then(response => response.json())
             .then(data => {
-                this.setState({ form: { ...data, category_id: data.category.id } })
+                this.setState({
+                    form: {
+                        ...data,
+                        register_date: convertIsoDateToBr(data.register_date),
+                        category_id: data.category.id,
+                    } 
+                })
             })
             .catch(error => console.log(error));
     }

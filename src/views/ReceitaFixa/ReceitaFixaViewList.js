@@ -78,7 +78,7 @@ export default class ReceitaFixaViewList extends Component {
                                 <td>
                                     {
                                         fixedRevenue.activation_control.end_date
-                                            ? fixedRevenue.activation_control.end_date
+                                            ? convertIsoDateToBr(fixedRevenue.activation_control.end_date)
                                             : 'Indeterminado'
                                     }
                                 </td>
