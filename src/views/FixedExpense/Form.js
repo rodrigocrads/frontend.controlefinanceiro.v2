@@ -136,7 +136,7 @@ class ViewFixedExpenseForm extends Component {
         return (
             <div>
                 <div className="header_walk_links">
-                    DESPESA FIXA / { this.isToUpdate() ? 'ATUALIZAR' : 'CRIAR' }
+                    DESPESA FIXAS / { this.isToUpdate() ? 'ATUALIZAR' : 'CRIAR' }
                 </div>
 
                 <div className="widget">

@@ -135,7 +135,7 @@ class ReceitaFixaViewForm extends Component {
         return (
             <div>
                 <div className="header_walk_links">
-                    RECEITA FIXA / { this.isToUpdate() ? 'ATUALIZAR' : 'CRIAR' }
+                    RECEITA FIXAS / { this.isToUpdate() ? 'ATUALIZAR' : 'CRIAR' }
                 </div>
 
                 <div className="widget">

@@ -109,7 +109,7 @@ export default class ReceitaFixaViewList extends Component {
         return (
             <div>
                 <div className="header_walk_links">
-                    RECEITA FIXA / LISTAR
+                    RECEITA FIXAS / LISTAR
                 </div>
                 <div className="widget">
                     <div className="widget_header">
