@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import { replacePeriodicity } from '../../helpers/utils';
+import { convertIsoDateToBr, replacePeriodicity } from '../../helpers/utils';
 import icoList from '../../img/ico-list.png';
 import icoEdit from '../../img/edit.png';
 import icoDelete from '../../img/delete.png';
@@ -74,7 +74,7 @@ export default class ViewFixedExpenseList extends Component {
                                 <td>{ fixedExpense.description || 'Não Informado' }</td>
                                 <td>{ `R$ ${fixedExpense.value}` }</td>
                                 <td>{ fixedExpense.category.name }</td>
-                                <td>{ fixedExpense.activation_control.start_date }</td>
+                                <td>{ convertIsoDateToBr(fixedExpense.activation_control.start_date) }</td>
                                 <td>
                                     {
                                         fixedExpense.activation_control.end_date

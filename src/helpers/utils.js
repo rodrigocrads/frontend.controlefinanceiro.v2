@@ -27,5 +27,11 @@ export const formatCurrencyValueToBR = (value) => {
 export const convertBrDateToIso = (date) => {
     if (date === '') return date;
 
-    return date.replaceAll("/", '-').split('-').reverse().join('-');
+    return date.split('/').reverse().join('-');
+}
+
+export const convertIsoDateToBr = (date) => {
+    if (date === '') return date;
+
+    return date.split('-').reverse().join('/');
 }

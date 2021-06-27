@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import { replacePeriodicity } from '../../helpers/utils';
+import { convertIsoDateToBr, replacePeriodicity } from '../../helpers/utils';
 import icoList from '../../img/ico-list.png';
 import icoEdit from '../../img/edit.png';
 import icoDelete from '../../img/delete.png';
@@ -74,7 +74,7 @@ export default class ReceitaFixaViewList extends Component {
                                 <td>{ fixedRevenue.description || 'Não Informado' }</td>
                                 <td>{ `R$ ${fixedRevenue.value}` }</td>
                                 <td>{ fixedRevenue.category.name }</td>
-                                <td>{ fixedRevenue.activation_control.start_date }</td>
+                                <td>{ convertIsoDateToBr(fixedRevenue.activation_control.start_date) }</td>
                                 <td>
                                     {
                                         fixedRevenue.activation_control.end_date
