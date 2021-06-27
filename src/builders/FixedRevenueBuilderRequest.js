@@ -1,3 +1,0 @@
-import FixedFinancialTransactionBuilderRequest from "./FixedFinancialTransactionBuilderRequest";
-
-export default class FixedRevenueBuilderRequest extends FixedFinancialTransactionBuilderRequest {}

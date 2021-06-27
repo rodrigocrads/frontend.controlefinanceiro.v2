@@ -4,7 +4,7 @@ import FixedRevenue from '../../dtos/FixedRevenue';
 
 import { replacePeriodicity, getExpirationDays } from '../../helpers/utils';
 import icoMenuEdit from '../../img/edit.png';
-import FixedRevenueBuilderRequest from '../../builders/FixedRevenueBuilderRequest';
+import FixedRevenueBuilderRequest from '../../builders/requests/fixedFinancialTransaction/SaveOrUpdate';
 
 class ReceitaFixaViewForm extends Component {
     constructor(props) {
@@ -86,13 +86,13 @@ class ReceitaFixaViewForm extends Component {
     }
 
     update() {
-        const requestBuilder = new FixedRevenueBuilderRequest(
+        const builderRequest = new FixedRevenueBuilderRequest(
             new FixedRevenue({ ...this.state.form })
         );
 
         const requestInfo = {
             method: 'PUT',
-            body: JSON.stringify(requestBuilder.getRequest()),
+            body: JSON.stringify(builderRequest.build()),
             headers: new Headers({
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -109,13 +109,13 @@ class ReceitaFixaViewForm extends Component {
     }
 
     save() {
-        const requestBuilder = new FixedRevenueBuilderRequest(
+        const builderRequest = new FixedRevenueBuilderRequest(
             new FixedRevenue({ ...this.state.form })
         );
 
         const requestInfo = {
             method: 'POST',
-            body: JSON.stringify(requestBuilder.getRequest()),
+            body: JSON.stringify(builderRequest.build()),
             headers: new Headers({
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'

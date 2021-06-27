@@ -1,4 +1,4 @@
-import { convertBrDateToIso } from "../helpers/utils";
+import { convertBrDateToIso } from "../../../helpers/utils";
 
 export default class FixedFinancialTransactionBuilderRequest {
     fixedRevenueOrExpense;
@@ -7,7 +7,7 @@ export default class FixedFinancialTransactionBuilderRequest {
         this.fixedRevenueOrExpense = fixedRevenueOrExpense;
     }
 
-    getRequest() {
+    build() {
         return {
             ...this.fixedRevenueOrExpense,
             activation_control: {
@@ -15,6 +15,6 @@ export default class FixedFinancialTransactionBuilderRequest {
                 start_date: convertBrDateToIso(this.fixedRevenueOrExpense.activation_control.start_date),
                 end_date: convertBrDateToIso(this.fixedRevenueOrExpense.activation_control.end_date),
             }
-        } 
+        }
     }
 }
