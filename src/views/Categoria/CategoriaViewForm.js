@@ -107,14 +107,14 @@ class CategoriaViewForm extends Component {
                             <div className="form-group">
                                 <label>NOME:</label>
                                 <div className="controls">
-                                    <input type="text" name="name" value={this.state.name} onChange={(ev) => this.onChangeHandler(ev)} />
+                                    <input type="text" required maxLength="100" name="name" value={this.state.name} onChange={(ev) => this.onChangeHandler(ev)} />
                                 </div>
                             </div>
 
                             <div className="form-group">
                                 <label>TIPO:</label>
                                 <div className="controls">
-                                    <select name="type" value={ this.state.type } onChange={(ev) => this.onChangeHandler(ev)}>
+                                    <select name="type" required value={ this.state.type } onChange={(ev) => this.onChangeHandler(ev)}>
                                         <option value="">Selecione um tipo</option>
                                         {
                                             ['expense', 'revenue'].map(option => (
