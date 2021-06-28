@@ -2,7 +2,7 @@ import React from 'react';
 
 import BoxInfo from '../../components/UI/BoxInfo';
 
-import { formatCurrencyValueToBR } from '../../helpers/utils';
+import { convertCurrencyToPtBr } from '../../helpers/utils';
 
 import icoCharBar from '../../img/chart_bar.png';
 import icoCoinsAdd from '../../img/coins_add.png';
@@ -54,21 +54,21 @@ class ViewDashboard extends React.Component {
                             type="success"
                             title="Receita total"
                             imgIco={icoCoinsAdd}
-                            content={ formatCurrencyValueToBR(revenueTotal) }
+                            content={ convertCurrencyToPtBr(revenueTotal) }
                         />
 
                         <BoxInfo
                             type="danger"
                             title="Despesa total"
                             imgIco={icoCoinsDelete}
-                            content={ formatCurrencyValueToBR(expenseTotal) }
+                            content={ convertCurrencyToPtBr(expenseTotal) }
                         />
 
                         <BoxInfo
                             type="warning"
                             title="Economia total"
                             imgIco={icoCoins}
-                            content={ formatCurrencyValueToBR((revenueTotal - expenseTotal)) }
+                            content={ convertCurrencyToPtBr((revenueTotal - expenseTotal)) }
                         />
 
                     </div>

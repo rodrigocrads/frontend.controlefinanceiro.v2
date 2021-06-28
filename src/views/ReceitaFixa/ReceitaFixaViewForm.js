@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import FixedRevenue from '../../dtos/FixedRevenue';
 import SaveOrUpdate from '../../builders/requestBody/fixedFinancialTransaction/SaveOrUpdate';
 
-import { replacePeriodicity, getExpirationDays, convertIsoDateToBr } from '../../helpers/utils';
+import { replacePeriodicity, getExpirationDays, convertIsoDateToBr, convertCurrencyToPtBr } from '../../helpers/utils';
 import icoMenuEdit from '../../img/edit.png';
 
 class ReceitaFixaViewForm extends Component {
@@ -160,28 +160,28 @@ class ReceitaFixaViewForm extends Component {
                             <div className="form-group">
                                 <label>TÍTULO:</label>
                                 <div className="controls">
-                                    <input type="text" name="title" value={this.state.form.title} onChange={(ev) => this.onChangeHandler(ev)} />
+                                    <input type="text" name="title" maxLength="11" required value={this.state.form.title} onChange={(ev) => this.onChangeHandler(ev)} />
                                 </div>
                             </div>
 
                             <div className="form-group">
                                 <label>DESCRIÇÃO:</label>
                                 <div className="controls">
-                                    <textarea name="description" value={this.state.form.description} onChange={(ev) => this.onChangeHandler(ev)} ></textarea>
+                                    <textarea name="description" maxLength="255" value={this.state.form.description} defaultValue={""} onChange={(ev) => this.onChangeHandler(ev)} ></textarea>
                                 </div>
                             </div>
 
                             <div className="form-group">
                                 <label>VALOR:</label>
                                 <div className="controls">
-                                    <input type="text" name="value" value={this.state.form.value} onChange={(ev) => this.onChangeHandler(ev)} />
+                                    <input type="text" name="value" required value={this.state.form.value} onChange={(ev) => this.onChangeHandler(ev)} />
                                 </div>
                             </div>
 
                             <div className="form-group">
                                 <label>CATEGORIA:</label>
                                 <div className="controls">
-                                    <select name="category_id" value={ this.state.form.category_id } onChange={(ev) => this.onChangeHandler(ev)}>
+                                    <select name="category_id" required value={ this.state.form.category_id } onChange={(ev) => this.onChangeHandler(ev)}>
                                         <option value="">Selecione um tipo</option>
                                         {
                                             this.state.categories.map((category) => (
@@ -197,7 +197,7 @@ class ReceitaFixaViewForm extends Component {
                             <div className="form-group">
                                 <label>DATA INÍCIO ATIVAÇÃO:</label>
                                 <div className="controls">
-                                    <input type="text" name="start_date" value={this.state.form.activation_control.start_date} onChange={(ev) => this.onChangeActivationControlHandler(ev)} />
+                                    <input type="text" name="start_date" required value={this.state.form.activation_control.start_date} onChange={(ev) => this.onChangeActivationControlHandler(ev)} />
                                 </div>
                             </div>
 
@@ -211,7 +211,7 @@ class ReceitaFixaViewForm extends Component {
                             <div className="form-group">
                                 <label>PERIODICIDADE:</label>
                                 <div className="controls">
-                                    <select name="periodicity" value={this.state.form.activation_control.periodicity} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
+                                    <select name="periodicity" required value={this.state.form.activation_control.periodicity} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
                                         <option value="">Selecione um tipo</option>
                                         {
                                             ['monthly', 'quarterly', 'semiannual', 'annual'].map(periodicity => (
@@ -223,9 +223,9 @@ class ReceitaFixaViewForm extends Component {
                             </div>
 
                             <div className="form-group">
-                                <label>DIA ATIVAÇÃO:</label>
+                                <label>DIA DO VENCIMENTO:</label>
                                 <div className="controls">
-                                    <select name="expiration_day" value={this.state.form.activation_control.expiration_day} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
+                                    <select name="expiration_day" required value={this.state.form.activation_control.expiration_day} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
                                         <option value="">Selecione um tipo</option>
                                         {
                                             getExpirationDays().map(day => <option key={day} value={day}>{day}</option>)
