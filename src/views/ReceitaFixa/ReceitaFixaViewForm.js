@@ -160,7 +160,7 @@ class ReceitaFixaViewForm extends Component {
                             <div className="form-group">
                                 <label>TÍTULO:</label>
                                 <div className="controls">
-                                    <input type="text" name="title" maxLength="11" required value={this.state.form.title} onChange={(ev) => this.onChangeHandler(ev)} />
+                                    <input type="text" name="title" maxLength="100" required value={this.state.form.title} onChange={(ev) => this.onChangeHandler(ev)} />
                                 </div>
                             </div>
 
