@@ -149,7 +149,7 @@ class ViewVariableRevenueForm extends Component {
 
                     <div className="widget_content">
                         <form onSubmit={(ev) => this.onSubmitHandler(ev)}>
-                        <Input
+                            <Input
                                 label='TÍTULO'
                                 name='title'
                                 value={ this.state.form.title }
