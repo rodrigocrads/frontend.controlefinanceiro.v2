@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
 import Input from '../../components/UI/Input';
+import TextArea from '../../components/UI/TextArea';
 
 import FixedRevenue from '../../dtos/FixedRevenue';
 import SaveOrUpdate from '../../builders/requestBody/fixedFinancialTransaction/SaveOrUpdate';
@@ -160,7 +161,7 @@ class ReceitaFixaViewForm extends Component {
                     <div className="widget_content">
                         <form onSubmit={(ev) => this.onSubmitHandler(ev)}>
                             <Input
-                                label='TÍTULO'
+                                label='TÍTULO:'
                                 name='title'
                                 value={ this.state.form.title }
                                 onChange={ (event) => this.onChangeHandler(event) }
@@ -168,12 +169,13 @@ class ReceitaFixaViewForm extends Component {
                                 require 
                             />
 
-                            <div className="form-group">
-                                <label>DESCRIÇÃO:</label>
-                                <div className="controls">
-                                    <textarea name="description" maxLength="255" value={this.state.form.description} defaultValue={""} onChange={(ev) => this.onChangeHandler(ev)} ></textarea>
-                                </div>
-                            </div>
+                            <TextArea
+                                label='DESCRIÇÃO:'
+                                name='description'
+                                value={ this.state.form.description }
+                                onChange={ (event) => this.onChangeHandler(event) }
+                                maxLength='255' 
+                            />
 
                             <Input
                                 label='VALOR:'

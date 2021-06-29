@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import Input from '../../components/UI/Input';
+import TextArea from '../../components/UI/TextArea';
 import SaveOrUpdate from '../../builders/requestBody/variableFinancialTransaction/SaveOrUpdate';
 import VariableRevenue from '../../dtos/VariableRevenue';
 import { convertIsoDateToBr } from '../../helpers/utils';
@@ -157,12 +158,13 @@ class ViewVariableRevenueForm extends Component {
                                 require 
                             />
 
-                            <div className="form-group">
-                                <label>DESCRIÇÃO:</label>
-                                <div className="controls">
-                                    <textarea name="description" value={this.state.form.description} onChange={(ev) => this.onChangeHandler(ev)} ></textarea>
-                                </div>
-                            </div>
+                            <TextArea
+                                label='DESCRIÇÃO:'
+                                name='description'
+                                value={ this.state.form.description }
+                                onChange={ (event) => this.onChangeHandler(event) }
+                                maxLength='255' 
+                            />
 
                             <Input
                                 label='VALOR:'
