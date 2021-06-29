@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-
+import Input from '../../components/UI/Input';
 import SaveOrUpdate from '../../builders/requestBody/variableFinancialTransaction/SaveOrUpdate';
 import VariableRevenue from '../../dtos/VariableRevenue';
 import { convertIsoDateToBr } from '../../helpers/utils';
@@ -148,12 +148,14 @@ class ViewVariableRevenueForm extends Component {
 
                     <div className="widget_content">
                         <form onSubmit={(ev) => this.onSubmitHandler(ev)}>
-                            <div className="form-group">
-                                <label>TÍTULO:</label>
-                                <div className="controls">
-                                    <input type="text" name="title" value={this.state.form.title} onChange={(ev) => this.onChangeHandler(ev)} />
-                                </div>
-                            </div>
+                        <Input
+                                label='TÍTULO'
+                                name='title'
+                                value={ this.state.form.title }
+                                onChange={ (event) => this.onChangeHandler(event) }
+                                maxLength='100'
+                                require 
+                            />
 
                             <div className="form-group">
                                 <label>DESCRIÇÃO:</label>
@@ -162,12 +164,13 @@ class ViewVariableRevenueForm extends Component {
                                 </div>
                             </div>
 
-                            <div className="form-group">
-                                <label>VALOR:</label>
-                                <div className="controls">
-                                    <input type="text" name="value" value={this.state.form.value} onChange={(ev) => this.onChangeHandler(ev)} />
-                                </div>
-                            </div>
+                            <Input
+                                label='VALOR:'
+                                name='value'
+                                value={ this.state.form.value }
+                                onChange={ (event) => this.onChangeHandler(event) }
+                                require 
+                            />
 
                             <div className="form-group">
                                 <label>CATEGORIA:</label>
@@ -185,12 +188,13 @@ class ViewVariableRevenueForm extends Component {
                                 </div>
                             </div>
 
-                            <div className="form-group">
-                                <label>DATA DO REGISTRO:</label>
-                                <div className="controls">
-                                    <input type="text" name="register_date" value={this.state.form.register_date} onChange={(ev) => this.onChangeHandler(ev)} />
-                                </div>
-                            </div>
+                            <Input
+                                label='DATA DO REGISTRO:'
+                                name='register_date'
+                                value={ this.state.form.register_date }
+                                onChange={(ev) => this.onChangeHandler(ev)}
+                                require 
+                            />
 
                             <div className="form-actions">
                                 <div className="form-action">

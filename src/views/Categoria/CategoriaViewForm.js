@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
+import Input from '../../components/UI/Input';
+
 import icoMenuEdit from '../../img/edit.png';
 
 class CategoriaViewForm extends Component {
@@ -104,12 +106,14 @@ class CategoriaViewForm extends Component {
 
                     <div className="widget_content">
                         <form onSubmit={(ev) => this.onSubmitHandler(ev)}>
-                            <div className="form-group">
-                                <label>NOME:</label>
-                                <div className="controls">
-                                    <input type="text" required maxLength="100" name="name" value={this.state.name} onChange={(ev) => this.onChangeHandler(ev)} />
-                                </div>
-                            </div>
+                            <Input
+                                label='NOME:'
+                                name='name'
+                                value={ this.state.name }
+                                onChange={ (event) => this.onChangeHandler(event) }
+                                maxLength='100'
+                                require 
+                            />
 
                             <div className="form-group">
                                 <label>TIPO:</label>

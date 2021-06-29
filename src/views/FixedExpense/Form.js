@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
+
+import Input from '../../components/UI/Input';
+
 import SaveOrUpdate from '../../builders/requestBody/fixedFinancialTransaction/SaveOrUpdate';
 
 import FixedExpense from '../../dtos/FixedExpense';
@@ -157,12 +160,14 @@ class ViewFixedExpenseForm extends Component {
 
                     <div className="widget_content">
                         <form onSubmit={(ev) => this.onSubmitHandler(ev)}>
-                            <div className="form-group">
-                                <label>TÍTULO:</label>
-                                <div className="controls">
-                                    <input type="text" name="title" value={this.state.form.title} onChange={(ev) => this.onChangeHandler(ev)} />
-                                </div>
-                            </div>
+                            <Input
+                                label='TÍTULO'
+                                name='title'
+                                value={ this.state.form.title }
+                                onChange={ (event) => this.onChangeHandler(event) }
+                                maxLength='100'
+                                require 
+                            />
 
                             <div className="form-group">
                                 <label>DESCRIÇÃO:</label>
@@ -171,12 +176,13 @@ class ViewFixedExpenseForm extends Component {
                                 </div>
                             </div>
 
-                            <div className="form-group">
-                                <label>VALOR:</label>
-                                <div className="controls">
-                                    <input type="text" name="value" value={this.state.form.value} onChange={(ev) => this.onChangeHandler(ev)} />
-                                </div>
-                            </div>
+                            <Input
+                                label='VALOR:'
+                                name='value'
+                                value={ this.state.form.value }
+                                onChange={ (event) => this.onChangeHandler(event) }
+                                require 
+                            />
 
                             <div className="form-group">
                                 <label>CATEGORIA:</label>
@@ -194,19 +200,20 @@ class ViewFixedExpenseForm extends Component {
                                 </div>
                             </div>
 
-                            <div className="form-group">
-                                <label>DATA INÍCIO ATIVAÇÃO:</label>
-                                <div className="controls">
-                                    <input type="text" name="start_date" value={this.state.form.activation_control.start_date} onChange={(ev) => this.onChangeActivationControlHandler(ev)} />
-                                </div>
-                            </div>
+                            <Input
+                                label='DATA INÍCIO ATIVAÇÃO:'
+                                name='start_date'
+                                value={ this.state.form.activation_control.start_date }
+                                onChange={(ev) => this.onChangeActivationControlHandler(ev)}
+                                require 
+                            />
 
-                            <div className="form-group">
-                                <label>DATA FIM ATIVAÇÃO:</label>
-                                <div className="controls">
-                                    <input type="text" name="end_date" value={this.state.form.activation_control.end_date} onChange={(ev) => this.onChangeActivationControlHandler(ev)} />
-                                </div>
-                            </div>
+                            <Input
+                                label='DATA FIM ATIVAÇÃO:'
+                                name='end_date'
+                                value={ this.state.form.activation_control.end_date }
+                                onChange={(ev) => this.onChangeActivationControlHandler(ev)}
+                            />
 
                             <div className="form-group">
                                 <label>PERIODICIDADE:</label>
