@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import Input from '../../components/UI/Input';
+import Select from '../../components/UI/Select';
 
 import icoMenuEdit from '../../img/edit.png';
 
@@ -91,6 +92,14 @@ class CategoriaViewForm extends Component {
             .catch((error) => console.log(error));
     }
 
+    getCategoryTypeOptions() {
+        return [
+            {value: '', label: 'Selecione um tipo'},
+            {value: 'expense', label: 'Despesa'},
+            {value: 'revenue', label: 'Receita'},
+        ];
+    }
+
     render() {
         return (
             <div>
@@ -110,24 +119,19 @@ class CategoriaViewForm extends Component {
                                 label='NOME:'
                                 name='name'
                                 value={ this.state.name }
-                                onChange={ (event) => this.onChangeHandler(event) }
                                 maxLength='100'
                                 require 
+                                onChange={ (event) => this.onChangeHandler(event) }
                             />
 
-                            <div className="form-group">
-                                <label>TIPO:</label>
-                                <div className="controls">
-                                    <select name="type" required value={ this.state.type } onChange={(ev) => this.onChangeHandler(ev)}>
-                                        <option value="">Selecione um tipo</option>
-                                        {
-                                            ['expense', 'revenue'].map(option => (
-                                                <option key={option} value={option}> { option === "expense" ? "Despesa" : "Receita" } </option>
-                                            ))
-                                        }
-                                    </select>
-                                </div>
-                            </div>
+                            <Select 
+                                label="TIPO:"
+                                name="type"
+                                value={ this.state.type }
+                                options={ this.getCategoryTypeOptions() }
+                                require
+                                onChange={ (event) => this.onChangeHandler(event) }
+                            />
 
                             <div className="form-actions">
                                 <div className="form-action">
