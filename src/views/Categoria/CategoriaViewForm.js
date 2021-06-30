@@ -104,7 +104,7 @@ class CategoriaViewForm extends Component {
         return (
             <div>
                 <div className="header_walk_links">
-                    CATEGORIA / { this.state.id ? 'ATUALIZAR' : 'CRIAR' }
+                    CATEGORIAS / { this.state.id ? 'ATUALIZAR' : 'CRIAR' }
                 </div>
 
                 <div className="widget">

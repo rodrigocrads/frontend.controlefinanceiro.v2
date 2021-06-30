@@ -140,7 +140,7 @@ class ViewVariableRevenueForm extends Component {
         return (
             <div>
                 <div className="header_walk_links">
-                    RECEITAS VARIÁVEL / { this.isToUpdate() ? 'ATUALIZAR' : 'CRIAR' }
+                    RECEITAS VARIÁVEIS / { this.isToUpdate() ? 'ATUALIZAR' : 'CRIAR' }
                 </div>
 
                 <div className="widget">
