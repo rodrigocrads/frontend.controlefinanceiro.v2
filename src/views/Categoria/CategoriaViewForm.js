@@ -120,7 +120,7 @@ class CategoriaViewForm extends Component {
                                 name='name'
                                 value={ this.state.name }
                                 maxLength='100'
-                                require 
+                                required
                                 onChange={ (event) => this.onChangeHandler(event) }
                             />
 
@@ -129,7 +129,7 @@ class CategoriaViewForm extends Component {
                                 name="type"
                                 value={ this.state.type }
                                 options={ this.getCategoryTypeOptions() }
-                                require
+                                required
                                 onChange={ (event) => this.onChangeHandler(event) }
                             />
 

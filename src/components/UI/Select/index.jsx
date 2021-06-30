@@ -10,7 +10,7 @@ export default class Select extends React.Component {
                         name={ this.props.name }
                         value={ this.props.value }
                         onChange={ this.props.onChange }
-                        require={ this.props.require }
+                        required={ this.props.required }
                     >
                         {
                             this.props.options.map(option => (

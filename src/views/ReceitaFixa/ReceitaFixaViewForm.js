@@ -3,11 +3,12 @@ import { withRouter } from 'react-router';
 
 import Input from '../../components/UI/Input';
 import TextArea from '../../components/UI/TextArea';
+import Select from '../../components/UI/Select';
 
 import FixedRevenue from '../../dtos/FixedRevenue';
 import SaveOrUpdate from '../../builders/requestBody/fixedFinancialTransaction/SaveOrUpdate';
 
-import { replacePeriodicity, getExpirationDays, convertIsoDateToBr } from '../../helpers/utils';
+import { convertIsoDateToBr, getCategoriesSelectOptions, getPeriodicitySelectOptions, getExpirationDaysSelectOptions } from '../../helpers/utils';
 import icoMenuEdit from '../../img/edit.png';
 
 class ReceitaFixaViewForm extends Component {
@@ -166,7 +167,7 @@ class ReceitaFixaViewForm extends Component {
                                 value={ this.state.form.title }
                                 onChange={ (event) => this.onChangeHandler(event) }
                                 maxLength='100'
-                                require 
+                                required
                             />
 
                             <TextArea
@@ -182,31 +183,24 @@ class ReceitaFixaViewForm extends Component {
                                 name='value'
                                 value={ this.state.form.value }
                                 onChange={ (event) => this.onChangeHandler(event) }
-                                require 
+                                required
                             />
 
-                            <div className="form-group">
-                                <label>CATEGORIA:</label>
-                                <div className="controls">
-                                    <select name="category_id" required value={ this.state.form.category_id } onChange={(ev) => this.onChangeHandler(ev)}>
-                                        <option value="">Selecione um tipo</option>
-                                        {
-                                            this.state.categories.map((category) => (
-                                                <option key={category.id} value={ category.id }>
-                                                    { category.name }
-                                                </option>
-                                            ))
-                                        }
-                                    </select>
-                                </div>
-                            </div>
+                            <Select 
+                                label="CATEGORIA:"
+                                name="category_id"
+                                value={ this.state.form.category_id }
+                                options={ getCategoriesSelectOptions(this.state.categories) }
+                                required
+                                onChange={ (event) => this.onChangeHandler(event) }
+                            />
 
                             <Input
                                 label='DATA INÍCIO ATIVAÇÃO:'
                                 name='start_date'
                                 value={ this.state.form.activation_control.start_date }
                                 onChange={(ev) => this.onChangeActivationControlHandler(ev)}
-                                require 
+                                required
                             />
 
                             <Input
@@ -216,31 +210,23 @@ class ReceitaFixaViewForm extends Component {
                                 onChange={(ev) => this.onChangeActivationControlHandler(ev)}
                             />
 
-                            <div className="form-group">
-                                <label>PERIODICIDADE:</label>
-                                <div className="controls">
-                                    <select name="periodicity" required value={this.state.form.activation_control.periodicity} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
-                                        <option value="">Selecione um tipo</option>
-                                        {
-                                            ['monthly', 'quarterly', 'semiannual', 'annual'].map(periodicity => (
-                                                <option key={periodicity} value={periodicity}>{replacePeriodicity(periodicity)}</option>
-                                            ))
-                                        }
-                                    </select>
-                                </div>
-                            </div>
+                            <Select 
+                                label="PERIODICIDADE:"
+                                name="periodicity"
+                                value={ this.state.form.activation_control.periodicity }
+                                options={ getPeriodicitySelectOptions() }
+                                required
+                                onChange={ (event) => this.onChangeActivationControlHandler(event) }
+                            />
 
-                            <div className="form-group">
-                                <label>DIA DO VENCIMENTO:</label>
-                                <div className="controls">
-                                    <select name="expiration_day" required value={this.state.form.activation_control.expiration_day} onChange={(ev) => this.onChangeActivationControlHandler(ev)}>
-                                        <option value="">Selecione um tipo</option>
-                                        {
-                                            getExpirationDays().map(day => <option key={day} value={day}>{day}</option>)
-                                        }
-                                    </select>
-                                </div>
-                            </div>
+                            <Select 
+                                label="DIA DO VENCIMENTO:"
+                                name="expiration_day"
+                                value={ this.state.form.activation_control.expiration_day }
+                                options={ getExpirationDaysSelectOptions() }
+                                required
+                                onChange={ (event) => this.onChangeActivationControlHandler(event) }
+                            />
 
                             <div className="form-actions">
                                 <div className="form-action">

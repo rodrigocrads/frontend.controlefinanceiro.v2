@@ -10,10 +10,8 @@ export default class Input extends React.Component {
                         type={ this.props.type || 'text' }
                         name={ this.props.name }
                         value={ this.props.value }
-
                         maxLength={ this.props.maxLength || '' }
-                        required={ this.props.require }
-
+                        required={ this.props.required }
                         onChange={ this.props.onChange }
                     />
                 </div>

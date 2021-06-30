@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import Input from '../../components/UI/Input';
 import TextArea from '../../components/UI/TextArea';
+import Select from '../../components/UI/Select';
+
 import SaveOrUpdate from '../../builders/requestBody/variableFinancialTransaction/SaveOrUpdate';
 import VariableExpense from '../../dtos/VariableExpense';
-import { convertIsoDateToBr } from '../../helpers/utils';
+import { convertIsoDateToBr, getCategoriesSelectOptions } from '../../helpers/utils';
 
 import icoMenuEdit from '../../img/edit.png';
 
@@ -155,7 +157,7 @@ class ViewVariableExpenseForm extends Component {
                                 value={ this.state.form.title }
                                 onChange={ (event) => this.onChangeHandler(event) }
                                 maxLength='100'
-                                require 
+                                required
                             />
 
                             <TextArea
@@ -171,31 +173,24 @@ class ViewVariableExpenseForm extends Component {
                                 name='value'
                                 value={ this.state.form.value }
                                 onChange={ (event) => this.onChangeHandler(event) }
-                                require 
+                                required
                             />
 
-                            <div className="form-group">
-                                <label>CATEGORIA:</label>
-                                <div className="controls">
-                                    <select name="category_id" value={ this.state.form.category_id } onChange={(ev) => this.onChangeHandler(ev)}>
-                                        <option value="">Selecione um tipo</option>
-                                        {
-                                            this.state.categories.map((category) => (
-                                                <option key={category.id} value={ category.id }>
-                                                    { category.name }
-                                                </option>
-                                            ))
-                                        }
-                                    </select>
-                                </div>
-                            </div>
+                            <Select 
+                                label="CATEGORIA:"
+                                name="category_id"
+                                value={ this.state.form.category_id }
+                                options={ getCategoriesSelectOptions(this.state.categories) }
+                                required
+                                onChange={ (event) => this.onChangeHandler(event) }
+                            />
 
                             <Input
                                 label='DATA DO REGISTRO:'
                                 name='register_date'
                                 value={ this.state.form.register_date }
                                 onChange={(ev) => this.onChangeHandler(ev)}
-                                require 
+                                required
                             />
 
                             <div className="form-actions">

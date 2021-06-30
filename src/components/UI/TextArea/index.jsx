@@ -11,7 +11,7 @@ export default class TextArea extends React.Component {
                         value={ this.props.value }
                         defaultValue={ this.props.defaultValue || '' }
                         maxLength={ this.props.maxLength }
-
+                        required={ this.props.required }
                         onChange={ this.props.onChange }
                     >
                     </textarea>
