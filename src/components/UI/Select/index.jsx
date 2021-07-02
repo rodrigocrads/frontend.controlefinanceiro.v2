@@ -7,10 +7,7 @@ export default class Select extends React.Component {
                 <label>{ this.props.label }</label>
                 <div className="controls">
                     <select
-                        name={ this.props.name }
-                        value={ this.props.value }
-                        onChange={ this.props.onChange }
-                        required={ this.props.required }
+                        { ...this.props }
                     >
                         {
                             this.props.options.map(option => (
