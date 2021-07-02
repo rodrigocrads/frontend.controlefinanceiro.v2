@@ -10,6 +10,7 @@ import SaveOrUpdate from '../../builders/requestBody/fixedFinancialTransaction/S
 
 import { convertIsoDateToBr, getCategoriesSelectOptions, getPeriodicitySelectOptions, getExpirationDaysSelectOptions } from '../../helpers/utils';
 import icoMenuEdit from '../../img/edit.png';
+import { Currency } from '../../masks/Currency';
 
 class ReceitaFixaViewForm extends Component {
     constructor(props) {
@@ -69,11 +70,11 @@ class ReceitaFixaViewForm extends Component {
         return this.props.match.params.id !== undefined;
     }
 
-    onChangeHandler(event) {
+    onChangeHandler = (event) => {
         this.setState({ form: { ...this.state.form, [event.target.name]: event.target.value }});
     }
 
-    onChangeActivationControlHandler(event) {
+    onChangeActivationControlHandler = (event) => {
         this.setState({
             form: {
                 ...this.state.form,
@@ -165,7 +166,7 @@ class ReceitaFixaViewForm extends Component {
                                 label='TÍTULO:'
                                 name='title'
                                 value={ this.state.form.title }
-                                onChange={ (event) => this.onChangeHandler(event) }
+                                onChange={ this.onChangeHandler }
                                 maxLength='100'
                                 required
                             />
@@ -174,15 +175,16 @@ class ReceitaFixaViewForm extends Component {
                                 label='DESCRIÇÃO:'
                                 name='description'
                                 value={ this.state.form.description }
-                                onChange={ (event) => this.onChangeHandler(event) }
+                                onChange={ this.onChangeHandler }
                                 maxLength='255' 
                             />
 
                             <Input
                                 label='VALOR:'
                                 name='value'
+                                mask={new Currency()}
                                 value={ this.state.form.value }
-                                onChange={ (event) => this.onChangeHandler(event) }
+                                onChange={ this.onChangeHandler }
                                 required
                             />
 
@@ -192,14 +194,14 @@ class ReceitaFixaViewForm extends Component {
                                 value={ this.state.form.category_id }
                                 options={ getCategoriesSelectOptions(this.state.categories) }
                                 required
-                                onChange={ (event) => this.onChangeHandler(event) }
+                                onChange={ this.onChangeHandler }
                             />
 
                             <Input
                                 label='DATA INÍCIO ATIVAÇÃO:'
                                 name='start_date'
                                 value={ this.state.form.activation_control.start_date }
-                                onChange={(ev) => this.onChangeActivationControlHandler(ev)}
+                                onChange={ this.onChangeActivationControlHandler }
                                 required
                             />
 
@@ -207,7 +209,7 @@ class ReceitaFixaViewForm extends Component {
                                 label='DATA FIM ATIVAÇÃO:'
                                 name='end_date'
                                 value={ this.state.form.activation_control.end_date }
-                                onChange={(ev) => this.onChangeActivationControlHandler(ev)}
+                                onChange={ this.onChangeActivationControlHandler }
                             />
 
                             <Select 
@@ -216,7 +218,7 @@ class ReceitaFixaViewForm extends Component {
                                 value={ this.state.form.activation_control.periodicity }
                                 options={ getPeriodicitySelectOptions() }
                                 required
-                                onChange={ (event) => this.onChangeActivationControlHandler(event) }
+                                onChange={ this.onChangeActivationControlHandler }
                             />
 
                             <Select 
@@ -225,7 +227,7 @@ class ReceitaFixaViewForm extends Component {
                                 value={ this.state.form.activation_control.expiration_day }
                                 options={ getExpirationDaysSelectOptions() }
                                 required
-                                onChange={ (event) => this.onChangeActivationControlHandler(event) }
+                                onChange={ this.onChangeActivationControlHandler }
                             />
 
                             <div className="form-actions">
