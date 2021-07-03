@@ -9,7 +9,7 @@ export default class Select extends React.Component {
                     <select { ...this.props } >
                         {
                             this.props.options.map(option => (
-                                <option value={ option.value }> { option.label } </option>
+                                <option key={ option.value } value={ option.value }> { option.label } </option>
                             ))
                         }
                     </select>

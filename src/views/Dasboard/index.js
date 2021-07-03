@@ -40,7 +40,7 @@ class ViewDashboard extends React.Component {
         return (
             <div>
                 <div className="header_walk_links">
-                    Dashboard
+                    DASHBOARD
                 </div>
                 <div className="widget">
                     <div className="widget_header">
