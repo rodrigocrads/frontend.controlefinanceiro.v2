@@ -5,8 +5,8 @@ import Dashboard from './views/Dasboard/index';
 import CategoriaViewList from './views/Categoria/CategoriaViewList';
 import CategoriaViewForm from './views/Categoria/CategoriaViewForm';
 
-import ReceitaFixaViewList from './views/ReceitaFixa/ReceitaFixaViewList';
-import ReceitaFixaViewForm from './views/ReceitaFixa/ReceitaFixaViewForm';
+import ViewFixedRevenueList from './views/FixedRevenue/List';
+import ViewFixedRevenueForm from './views/FixedRevenue/Form';
 
 import ViewFixedExpenseList from './views/FixedExpense/List';
 import ViewFixedExpenseForm from './views/FixedExpense/Form';
@@ -36,16 +36,16 @@ const routes = () => {
                 <CategoriaViewForm />
             </Route>
 
-            <Route exact path="/receitaFixa/listar">
-                <ReceitaFixaViewList />
+            <Route exact path="/FixedRevenue/listar">
+                <ViewFixedRevenueList />
             </Route>
 
-            <Route exact path="/receitaFixa">
-                <ReceitaFixaViewForm />
+            <Route exact path="/FixedRevenue">
+                <ViewFixedRevenueForm />
             </Route>
 
-            <Route exact path="/receitaFixa/:id">
-                <ReceitaFixaViewForm />
+            <Route exact path="/FixedRevenue/:id">
+                <ViewFixedRevenueForm />
             </Route>
 
             <Route exact path="/fixedExpense/list">

@@ -13,7 +13,7 @@ import icoMenuEdit from '../../img/edit.png';
 import { Currency } from '../../masks/Currency';
 import { Date as DateMask } from '../../masks/Date';
 
-class ReceitaFixaViewForm extends Component {
+class ViewFixedRevenueForm extends Component {
     constructor(props) {
         super(props);
 
@@ -246,4 +246,4 @@ class ReceitaFixaViewForm extends Component {
     };
 }
 
-export default withRouter(ReceitaFixaViewForm);
+export default withRouter(ViewFixedRevenueForm);
