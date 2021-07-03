@@ -11,6 +11,7 @@ import SaveOrUpdate from '../../builders/requestBody/fixedFinancialTransaction/S
 import { convertIsoDateToBr, getCategoriesSelectOptions, getPeriodicitySelectOptions, getExpirationDaysSelectOptions } from '../../helpers/utils';
 import icoMenuEdit from '../../img/edit.png';
 import { Currency } from '../../masks/Currency';
+import { Date as DateMask } from '../../masks/Date';
 
 class ReceitaFixaViewForm extends Component {
     constructor(props) {
@@ -201,6 +202,7 @@ class ReceitaFixaViewForm extends Component {
                                 label='DATA INÍCIO ATIVAÇÃO:'
                                 name='start_date'
                                 value={ this.state.form.activation_control.start_date }
+                                mask={ new DateMask() }
                                 onChange={ this.onChangeActivationControlHandler }
                                 required
                             />
@@ -209,6 +211,7 @@ class ReceitaFixaViewForm extends Component {
                                 label='DATA FIM ATIVAÇÃO:'
                                 name='end_date'
                                 value={ this.state.form.activation_control.end_date }
+                                mask={ new DateMask() }
                                 onChange={ this.onChangeActivationControlHandler }
                             />
 

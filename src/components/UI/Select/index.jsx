@@ -6,9 +6,7 @@ export default class Select extends React.Component {
             <div className="form-group">
                 <label>{ this.props.label }</label>
                 <div className="controls">
-                    <select
-                        { ...this.props }
-                    >
+                    <select { ...this.props } >
                         {
                             this.props.options.map(option => (
                                 <option value={ option.value }> { option.label } </option>

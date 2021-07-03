@@ -6,8 +6,7 @@ export default class TextArea extends React.Component {
             <div className="form-group">
                 <label>{ this.props.label }</label>
                 <div className="controls">
-                    <textarea { ...this.props }>
-                    </textarea>
+                    <textarea { ...this.props }></textarea>
                 </div>
             </div>
         );
