@@ -102,8 +102,8 @@ export default class List extends Component {
                         <div className="table_area">
                             {
                                 this.state.categories.length > 0
-                                ? this.renderTable()
-                                : this.renderNotFoundCategories()
+                                    ? this.renderTable()
+                                    : this.renderNotFoundCategories()
                             }
                         </div>
                     </div>
