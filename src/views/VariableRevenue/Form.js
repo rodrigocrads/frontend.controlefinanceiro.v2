@@ -35,7 +35,7 @@ class ViewVariableRevenueForm extends Component {
     }
 
     retrieveCategories() {
-        fetch('http://localhost:8000/api/category')
+        fetch('http://localhost:8000/api/category?type=revenue')
             .then(response => response.json())
             .then(categories => this.setState({ ...this.state, categories }));
     }
