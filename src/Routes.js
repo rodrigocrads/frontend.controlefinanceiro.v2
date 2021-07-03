@@ -2,8 +2,8 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Dashboard from './views/Dasboard/index';
-import CategoriaViewList from './views/Categoria/CategoriaViewList';
-import CategoriaViewForm from './views/Categoria/CategoriaViewForm';
+import ViewCategoryList from './views/Category/List';
+import ViewCategoryForm from './views/Category/Form';
 
 import ViewFixedRevenueList from './views/FixedRevenue/List';
 import ViewFixedRevenueForm from './views/FixedRevenue/Form';
@@ -25,15 +25,15 @@ const routes = () => {
             </Route>
 
             <Route exact path="/categoria/listar">
-                <CategoriaViewList />
+                <ViewCategoryList />
             </Route>
 
             <Route exact path="/categoria">
-                <CategoriaViewForm />
+                <ViewCategoryForm />
             </Route>
 
             <Route exact path="/categoria/:id">
-                <CategoriaViewForm />
+                <ViewCategoryForm />
             </Route>
 
             <Route exact path="/FixedRevenue/listar">

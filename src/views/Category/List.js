@@ -5,7 +5,7 @@ import icoList from '../../img/ico-list.png';
 import icoEdit from '../../img/edit.png';
 import icoDelete from '../../img/delete.png';
 
-export default class CategoriaViewList extends Component {
+export default class List extends Component {
     constructor(props) {
         super(props);
 

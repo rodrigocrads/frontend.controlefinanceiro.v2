@@ -6,7 +6,7 @@ import Select from '../../components/UI/Select';
 
 import icoMenuEdit from '../../img/edit.png';
 
-class CategoriaViewForm extends Component {
+class Form extends Component {
     constructor(props) {
         super(props);
 
@@ -146,4 +146,4 @@ class CategoriaViewForm extends Component {
     };
 }
 
-export default withRouter(CategoriaViewForm);
+export default withRouter(Form);
