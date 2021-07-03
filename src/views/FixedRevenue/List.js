@@ -121,8 +121,8 @@ export default class ViewFixedRevenueList extends Component {
                         <div className="table_area">
                             {
                                 this.state.fixedRevenues.length > 0
-                                ? this.renderTable()
-                                : this.renderNotFound()
+                                    ? this.renderTable()
+                                    : this.renderNotFound()
                             }
                         </div>
                     </div>
