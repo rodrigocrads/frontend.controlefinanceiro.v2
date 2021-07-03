@@ -6,7 +6,7 @@ import icoList from '../../img/ico-list.png';
 import icoEdit from '../../img/edit.png';
 import icoDelete from '../../img/delete.png';
 
-export default class ReceitaFixaViewList extends Component {
+export default class ViewFixedRevenueList extends Component {
     constructor(props) {
         super(props);
 
@@ -85,7 +85,7 @@ export default class ReceitaFixaViewList extends Component {
                                 <td>{ fixedRevenue.activation_control.expiration_day }</td>
                                 <td>{ replacePeriodicity(fixedRevenue.activation_control.periodicity) }</td>
                                 <td>
-                                    <Link className="table_action" to={`/receitaFixa/${fixedRevenue.id}`}><img src={icoEdit} /></Link>
+                                    <Link className="table_action" to={`/fixedRevenue/${fixedRevenue.id}`}><img src={icoEdit} /></Link>
 
                                     <a href="#" onClick={ () => this.deleteCategoryHandler(fixedRevenue.id) } className="table_action">
                                         <img src={icoDelete} />
