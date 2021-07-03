@@ -5,10 +5,12 @@ import TextArea from '../../components/UI/TextArea';
 import Select from '../../components/UI/Select';
 
 import SaveOrUpdate from '../../builders/requestBody/variableFinancialTransaction/SaveOrUpdate';
-import VariableExpense from '../../dtos/VariableExpense';
 import { convertIsoDateToBr, getCategoriesSelectOptions } from '../../helpers/utils';
+import VariableExpense from '../../dtos/VariableExpense';
 
 import icoMenuEdit from '../../img/edit.png';
+import { Currency } from '../../masks/Currency';
+import { Date as DateMask } from '../../masks/Date';
 
 class ViewVariableExpenseForm extends Component {
     constructor(props) {
@@ -59,25 +61,12 @@ class ViewVariableExpenseForm extends Component {
         return this.props.match.params.id !== undefined;
     }
 
-    onChangeHandler(event) {
+    onChangeHandler = (event) => {
         this.setState({ form: { ...this.state.form, [event.target.name]: event.target.value }});
     }
 
-    onChangeActivationControlHandler(event) {
-        this.setState({
-            form: {
-                ...this.state.form,
-                activation_control: {
-                    ...this.state.form.activation_control,
-                    [event.target.name]: event.target.value,
-                },
-            },
-        });
-    }
-
-    onSubmitHandler(event) {
+    onSubmitHandler = (event) => {
         event.preventDefault();
-
         this.saveOrUpdate();
     }
 
@@ -150,12 +139,12 @@ class ViewVariableExpenseForm extends Component {
                     </div>
 
                     <div className="widget_content">
-                        <form onSubmit={(ev) => this.onSubmitHandler(ev)}>
+                        <form onSubmit={ this.onSubmitHandler }>
                             <Input
-                                label='TÍTULO'
+                                label='TÍTULO:'
                                 name='title'
                                 value={ this.state.form.title }
-                                onChange={ (event) => this.onChangeHandler(event) }
+                                onChange={ this.onChangeHandler }
                                 maxLength='100'
                                 required
                             />
@@ -164,15 +153,16 @@ class ViewVariableExpenseForm extends Component {
                                 label='DESCRIÇÃO:'
                                 name='description'
                                 value={ this.state.form.description }
-                                onChange={ (event) => this.onChangeHandler(event) }
+                                onChange={ this.onChangeHandler }
                                 maxLength='255' 
                             />
 
                             <Input
                                 label='VALOR:'
                                 name='value'
+                                mask={new Currency()}
                                 value={ this.state.form.value }
-                                onChange={ (event) => this.onChangeHandler(event) }
+                                onChange={ this.onChangeHandler }
                                 required
                             />
 
@@ -182,14 +172,15 @@ class ViewVariableExpenseForm extends Component {
                                 value={ this.state.form.category_id }
                                 options={ getCategoriesSelectOptions(this.state.categories) }
                                 required
-                                onChange={ (event) => this.onChangeHandler(event) }
+                                onChange={ this.onChangeHandler }
                             />
 
                             <Input
                                 label='DATA DO REGISTRO:'
                                 name='register_date'
                                 value={ this.state.form.register_date }
-                                onChange={(ev) => this.onChangeHandler(ev)}
+                                mask={new DateMask()}
+                                onChange={ this.onChangeHandler }
                                 required
                             />
 

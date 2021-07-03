@@ -8,6 +8,8 @@ import SaveOrUpdate from '../../builders/requestBody/fixedFinancialTransaction/S
 import FixedExpense from '../../dtos/FixedExpense';
 import { convertIsoDateToBr, getCategoriesSelectOptions, getPeriodicitySelectOptions, getExpirationDaysSelectOptions } from '../../helpers/utils';
 import icoMenuEdit from '../../img/edit.png';
+import { Currency } from '../../masks/Currency';
+import { Date as DateMask } from '../../masks/Date';
 
 class ViewFixedExpenseForm extends Component {
     constructor(props) {
@@ -67,11 +69,11 @@ class ViewFixedExpenseForm extends Component {
         return this.props.match.params.id !== undefined;
     }
 
-    onChangeHandler(event) {
+    onChangeHandler = (event) => {
         this.setState({ form: { ...this.state.form, [event.target.name]: event.target.value }});
     }
 
-    onChangeActivationControlHandler(event) {
+    onChangeActivationControlHandler = (event) => {
         this.setState({
             form: {
                 ...this.state.form,
@@ -83,7 +85,7 @@ class ViewFixedExpenseForm extends Component {
         });
     }
 
-    onSubmitHandler(event) {
+    onSubmitHandler = (event) => {
         event.preventDefault();
 
         this.saveOrUpdate();
@@ -158,12 +160,12 @@ class ViewFixedExpenseForm extends Component {
                     </div>
 
                     <div className="widget_content">
-                        <form onSubmit={(ev) => this.onSubmitHandler(ev)}>
+                        <form onSubmit={ this.onSubmitHandler }>
                             <Input
                                 label='TÍTULO'
                                 name='title'
                                 value={ this.state.form.title }
-                                onChange={ (event) => this.onChangeHandler(event) }
+                                onChange={ this.onChangeHandler }
                                 maxLength='100'
                                 required
                             />
@@ -172,15 +174,16 @@ class ViewFixedExpenseForm extends Component {
                                 label='DESCRIÇÃO:'
                                 name='description'
                                 value={ this.state.form.description }
-                                onChange={ (event) => this.onChangeHandler(event) }
+                                onChange={ this.onChangeHandler }
                                 maxLength='255' 
                             />
 
                             <Input
                                 label='VALOR:'
                                 name='value'
+                                mask={new Currency()}
                                 value={ this.state.form.value }
-                                onChange={ (event) => this.onChangeHandler(event) }
+                                onChange={ this.onChangeHandler }
                                 required
                             />
 
@@ -190,14 +193,15 @@ class ViewFixedExpenseForm extends Component {
                                 value={ this.state.form.category_id }
                                 options={ getCategoriesSelectOptions(this.state.categories) }
                                 required
-                                onChange={ (event) => this.onChangeHandler(event) }
+                                onChange={ this.onChangeHandler }
                             />
 
                             <Input
                                 label='DATA INÍCIO ATIVAÇÃO:'
                                 name='start_date'
                                 value={ this.state.form.activation_control.start_date }
-                                onChange={(ev) => this.onChangeActivationControlHandler(ev)}
+                                mask={ new DateMask() }
+                                onChange={ this.onChangeActivationControlHandler }
                                 required
                             />
 
@@ -205,7 +209,8 @@ class ViewFixedExpenseForm extends Component {
                                 label='DATA FIM ATIVAÇÃO:'
                                 name='end_date'
                                 value={ this.state.form.activation_control.end_date }
-                                onChange={(ev) => this.onChangeActivationControlHandler(ev)}
+                                mask={ new DateMask() }
+                                onChange={ this.onChangeActivationControlHandler }
                             />
 
                             <Select 
@@ -214,7 +219,7 @@ class ViewFixedExpenseForm extends Component {
                                 value={ this.state.form.activation_control.periodicity }
                                 options={ getPeriodicitySelectOptions() }
                                 required
-                                onChange={ (event) => this.onChangeActivationControlHandler(event) }
+                                onChange={ this.onChangeActivationControlHandler }
                             />
 
                             <Select 
@@ -223,7 +228,7 @@ class ViewFixedExpenseForm extends Component {
                                 value={ this.state.form.activation_control.expiration_day }
                                 options={ getExpirationDaysSelectOptions() }
                                 required
-                                onChange={ (event) => this.onChangeActivationControlHandler(event) }
+                                onChange={ this.onChangeActivationControlHandler }
                             />
 
                             <div className="form-actions">
