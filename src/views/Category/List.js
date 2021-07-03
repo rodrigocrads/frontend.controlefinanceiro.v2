@@ -90,7 +90,7 @@ export default class List extends Component {
         return (
             <div>
                 <div className="header_walk_links">
-                    CATEGORIA / LISTAR
+                    CATEGORIAS / LISTAR
                 </div>
                 <div className="widget">
                     <div className="widget_header">
