@@ -1,5 +1,5 @@
 export class Date {
-    mask(value) {
+    mount(value) {
         if (!value) {
             return value;
         }
@@ -7,7 +7,7 @@ export class Date {
         return this.applyReplace(value);
     }
 
-    unmask(value) {
+    unmount(value) {
         if (!value) {
             return value;
         }

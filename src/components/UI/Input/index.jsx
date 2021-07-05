@@ -1,37 +1,46 @@
 import React from  'react';
 
 export default class Input extends React.Component {
-    applyMask() {
-        const masks = this.props.mask;
+    applyMask(value) {
+        const { mask } = this.props;
 
-        if (!masks) {
-            return this.props.value;
+        if (! mask) {
+            return value;
         }
 
-        return masks.mask(this.props.value);
+        return mask.mount(value);
     }
 
     onChangeHandler = (event) => {
-        const masks = this.props.mask;
+        const { mask }  = this.props;
 
-        if (masks){
-            event.target.value = masks.unmask(event.target.value);
+        if (mask) {
+            event.target.value = mask.unmount(event.target.value);
         }
-        
+
         this.props.onChange(event);
     }
 
     render() {
+        const errors = (this.props.errors || []);
+        const hasErrors = errors.length > 0;
+
         return (
             <div className="form-group">
                 <label>{ this.props.label }</label>
                 <div className="controls">
                     <input
+                        style={ hasErrors ? { borderColor: 'red', } : {} }
                         { ...this.props }
                         type={ this.props.type || 'text' }
                         value={ this.applyMask(this.props.value) }
                         onChange={ this.onChangeHandler }
                     />
+                    <div style={{ marginTop: 0 }}>
+                        {
+                            errors.map(error => <div style={{color: 'red'}}>{error}</div>)
+                        }
+                    </div>
                 </div>
             </div>
         );
