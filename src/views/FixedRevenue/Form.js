@@ -8,7 +8,13 @@ import Select from '../../components/UI/Select';
 import FixedRevenue from '../../dtos/FixedRevenue';
 import SaveOrUpdate from '../../builders/requestBody/fixedFinancialTransaction/SaveOrUpdate';
 
-import { convertIsoDateToBr, getCategoriesSelectOptions, getPeriodicitySelectOptions, getExpirationDaysSelectOptions } from '../../helpers/utils';
+import {
+    convertIsoDateToBr,
+    getCategoriesSelectOptions,
+    getPeriodicitySelectOptions,
+    getExpirationDaysSelectOptions,
+} from '../../helpers/utils';
+
 import icoMenuEdit from '../../img/edit.png';
 import { Currency } from '../../masks/Currency';
 import { Date as DateMask } from '../../masks/Date';
@@ -28,8 +34,9 @@ class ViewFixedRevenueForm extends Component {
                     end_date: '',
                     periodicity: '',
                     expiration_day: '',
-                }
+                },
             },
+            errors: [],
             categories: [],
         };
     }
@@ -63,8 +70,7 @@ class ViewFixedRevenueForm extends Component {
                         }
                     }
                 })
-            })
-            .catch(error => console.log(error));
+            });
     }
 
     isToUpdate() {
@@ -122,11 +128,14 @@ class ViewFixedRevenueForm extends Component {
 
         fetch(`http://localhost:8000/api/fixedRevenue/${this.props.match.params.id}`, requestInfo)
             .then((response) => {
-                if (response.status === 200) alert('Receita fixa atualizada com sucesso.');
+                if (response.status === 200) {
+                    alert('Registro atualizado com sucesso!');
+                };
 
-                if (response.status === 422) alert(response.statusText);
-            })
-            .catch((error) => console.log(error));
+                if (response.status === 422) {
+                    response.json().then(data => this.setState({ ...this.state, errors: data || [] }))
+                };
+            });
     }
 
     save() {
@@ -141,14 +150,20 @@ class ViewFixedRevenueForm extends Component {
 
         fetch('http://localhost:8000/api/fixedRevenue', requestInfo)
             .then((response) => {
-                if (response.status === 201) alert('Receita fixa criada com sucesso!');
+                if (response.status === 201) {
+                    alert('Registro criado com sucesso!');
+                };
 
-                if (response.status === 422) alert(response.statusText);
+                if (response.status === 422) {
+                    response.json().then(data => this.setState({ ...this.state, errors: data || [] }))
+                };
             })
-            .catch((error) => console.log(error));
     }
 
     render() {
+        const { errors } = this.state;
+        const activationControlErrors = errors.activation_control || [];
+
         return (
             <div>
                 <div className="header_walk_links">
@@ -170,6 +185,7 @@ class ViewFixedRevenueForm extends Component {
                                 onChange={ this.onChangeHandler }
                                 maxLength='100'
                                 required
+                                errors={ errors.title }
                             />
 
                             <TextArea
@@ -177,17 +193,19 @@ class ViewFixedRevenueForm extends Component {
                                 name='description'
                                 value={ this.state.form.description }
                                 onChange={ this.onChangeHandler }
-                                maxLength='255' 
+                                maxLength='255'
+                                errors={ errors.description }
                             />
 
                             <Input
                                 label='VALOR:'
                                 name='value'
-                                mask={new Currency()}
+                                mask={ new Currency() }
                                 value={ this.state.form.value }
                                 onChange={ this.onChangeHandler }
                                 required
-                            />
+                                errors={ errors.value }
+                            />  
 
                             <Select 
                                 label="CATEGORIA:"
@@ -196,6 +214,7 @@ class ViewFixedRevenueForm extends Component {
                                 options={ getCategoriesSelectOptions(this.state.categories) }
                                 required
                                 onChange={ this.onChangeHandler }
+                                errors={ errors.category_id }
                             />
 
                             <Input
@@ -205,6 +224,7 @@ class ViewFixedRevenueForm extends Component {
                                 mask={ new DateMask() }
                                 onChange={ this.onChangeActivationControlHandler }
                                 required
+                                errors={ (activationControlErrors.start_date || []) }
                             />
 
                             <Input
@@ -213,6 +233,7 @@ class ViewFixedRevenueForm extends Component {
                                 value={ this.state.form.activation_control.end_date }
                                 mask={ new DateMask() }
                                 onChange={ this.onChangeActivationControlHandler }
+                                errors={ (activationControlErrors.end_date || []) }
                             />
 
                             <Select 
@@ -222,6 +243,7 @@ class ViewFixedRevenueForm extends Component {
                                 options={ getPeriodicitySelectOptions() }
                                 required
                                 onChange={ this.onChangeActivationControlHandler }
+                                errors={ (activationControlErrors.periodicity || []) }
                             />
 
                             <Select 
@@ -231,6 +253,7 @@ class ViewFixedRevenueForm extends Component {
                                 options={ getExpirationDaysSelectOptions() }
                                 required
                                 onChange={ this.onChangeActivationControlHandler }
+                                errors={ (activationControlErrors.expiration_day || []) }
                             />
 
                             <div className="form-actions">

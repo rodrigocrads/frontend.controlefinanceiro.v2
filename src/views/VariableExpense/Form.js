@@ -24,6 +24,7 @@ class ViewVariableExpenseForm extends Component {
                 register_date: '',
                 category_id: '',
             },
+            errors: [],
             categories: [],
         };
     }
@@ -99,9 +100,13 @@ class ViewVariableExpenseForm extends Component {
 
         fetch(`http://localhost:8000/api/variableExpense/${this.props.match.params.id}`, requestInfo)
             .then((response) => {
-                if (response.status === 200) alert('Despesa variável atualizada com sucesso.');
+                if (response.status === 200) {
+                    alert('Registro atualizado com sucesso.');
+                }
 
-                if (response.status === 422) alert(response.statusText);
+                if (response.status === 422) {
+                    response.json().then(data => this.setState({ ...this.state, errors: data || [] }))
+                };
             })
             .catch((error) => console.log(error));
     }
@@ -118,14 +123,20 @@ class ViewVariableExpenseForm extends Component {
 
         fetch('http://localhost:8000/api/variableExpense', requestInfo)
             .then((response) => {
-                if (response.status === 201) alert('Despesa variável criada com sucesso!');
+                if (response.status === 201) {
+                    alert('Registro criado com sucesso!');
+                }
 
-                if (response.status === 422) alert(response.statusText);
+                if (response.status === 422) {
+                    response.json().then(data => this.setState({ ...this.state, errors: data || [] }))
+                };
             })
             .catch((error) => console.log(error));
     }
 
     render() {
+        const { errors } = this.state;
+
         return (
             <div>
                 <div className="header_walk_links">
@@ -147,6 +158,7 @@ class ViewVariableExpenseForm extends Component {
                                 onChange={ this.onChangeHandler }
                                 maxLength='100'
                                 required
+                                errors={ errors.title }
                             />
 
                             <TextArea
@@ -154,16 +166,18 @@ class ViewVariableExpenseForm extends Component {
                                 name='description'
                                 value={ this.state.form.description }
                                 onChange={ this.onChangeHandler }
-                                maxLength='255' 
+                                maxLength='255'
+                                errors={ errors.description }
                             />
 
                             <Input
                                 label='VALOR:'
                                 name='value'
-                                mask={new Currency()}
+                                mask={ new Currency() }
                                 value={ this.state.form.value }
                                 onChange={ this.onChangeHandler }
                                 required
+                                errors={ errors.value }
                             />
 
                             <Select 
@@ -173,6 +187,7 @@ class ViewVariableExpenseForm extends Component {
                                 options={ getCategoriesSelectOptions(this.state.categories) }
                                 required
                                 onChange={ this.onChangeHandler }
+                                errors={ errors.category_id }
                             />
 
                             <Input
@@ -182,6 +197,7 @@ class ViewVariableExpenseForm extends Component {
                                 mask={new DateMask()}
                                 onChange={ this.onChangeHandler }
                                 required
+                                errors={ errors.register_date }
                             />
 
                             <div className="form-actions">

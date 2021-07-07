@@ -9,6 +9,8 @@ import VariableRevenue from '../../dtos/VariableRevenue';
 import { convertIsoDateToBr, getCategoriesSelectOptions } from '../../helpers/utils';
 
 import icoMenuEdit from '../../img/edit.png';
+import { Currency } from '../../masks/Currency';
+import { Date as DateMask } from '../../masks/Date';
 
 class ViewVariableRevenueForm extends Component {
     constructor(props) {
@@ -22,6 +24,7 @@ class ViewVariableRevenueForm extends Component {
                 category_id: '',
                 register_date: '',
             },
+            errors: [],
             categories: [],
         };
     }
@@ -97,11 +100,14 @@ class ViewVariableRevenueForm extends Component {
 
         fetch(`http://localhost:8000/api/variableRevenue/${this.props.match.params.id}`, requestInfo)
             .then((response) => {
-                if (response.status === 200) alert('Receita variável atualizada com sucesso.');
+                if (response.status === 200) {
+                    alert('Registro atualizado com sucesso.');
+                }
 
-                if (response.status === 422) alert(response.statusText);
-            })
-            .catch((error) => console.log(error));
+                if (response.status === 422) {
+                    response.json().then(data => this.setState({ ...this.state, errors: data || [] }))
+                };
+            });
     }
 
     save() {
@@ -116,14 +122,19 @@ class ViewVariableRevenueForm extends Component {
 
         fetch('http://localhost:8000/api/variableRevenue', requestInfo)
             .then((response) => {
-                if (response.status === 201) alert('Receita variável criada com sucesso!');
+                if (response.status === 201) {
+                    alert('Registro criado com sucesso!');
+                }
 
-                if (response.status === 422) alert(response.statusText);
-            })
-            .catch((error) => console.log(error));
+                if (response.status === 422) {
+                    response.json().then(data => this.setState({ ...this.state, errors: data || [] }))
+                };
+            });
     }
 
     render() {
+        const { errors } = this.state;
+
         return (
             <div>
                 <div className="header_walk_links">
@@ -139,12 +150,13 @@ class ViewVariableRevenueForm extends Component {
                     <div className="widget_content">
                         <form onSubmit={ this.onSubmitHandler }>
                             <Input
-                                label='TÍTULO'
+                                label='TÍTULO:'
                                 name='title'
                                 value={ this.state.form.title }
                                 onChange={ this.onChangeHandler }
                                 maxLength='100'
                                 required
+                                errors={ errors.title }
                             />
 
                             <TextArea
@@ -152,15 +164,18 @@ class ViewVariableRevenueForm extends Component {
                                 name='description'
                                 value={ this.state.form.description }
                                 onChange={ this.onChangeHandler }
-                                maxLength='255' 
+                                maxLength='255'
+                                errors={ errors.description }
                             />
 
                             <Input
                                 label='VALOR:'
                                 name='value'
+                                mask={ new Currency() }
                                 value={ this.state.form.value }
                                 onChange={ this.onChangeHandler }
                                 required
+                                errors={ errors.value }
                             />
 
                             <Select 
@@ -170,14 +185,17 @@ class ViewVariableRevenueForm extends Component {
                                 options={ getCategoriesSelectOptions(this.state.categories) }
                                 required
                                 onChange={ this.onChangeHandler }
+                                errors={ errors.category_id }
                             />
 
                             <Input
                                 label='DATA DO REGISTRO:'
                                 name='register_date'
                                 value={ this.state.form.register_date }
+                                mask={new DateMask()}
                                 onChange={ this.onChangeHandler }
                                 required
+                                errors={ errors.register_date }
                             />
 
                             <div className="form-actions">

@@ -4,9 +4,17 @@ import { withRouter } from 'react-router';
 import Input from '../../components/UI/Input';
 import TextArea from '../../components/UI/TextArea';
 import Select from '../../components/UI/Select';
+
 import SaveOrUpdate from '../../builders/requestBody/fixedFinancialTransaction/SaveOrUpdate';
 import FixedExpense from '../../dtos/FixedExpense';
-import { convertIsoDateToBr, getCategoriesSelectOptions, getPeriodicitySelectOptions, getExpirationDaysSelectOptions } from '../../helpers/utils';
+
+import {
+    convertIsoDateToBr,
+    getCategoriesSelectOptions,
+    getPeriodicitySelectOptions,
+    getExpirationDaysSelectOptions,
+} from '../../helpers/utils';
+
 import icoMenuEdit from '../../img/edit.png';
 import { Currency } from '../../masks/Currency';
 import { Date as DateMask } from '../../masks/Date';
@@ -26,8 +34,9 @@ class ViewFixedExpenseForm extends Component {
                     end_date: '',
                     periodicity: '',
                     expiration_day: '',
-                }
+                },
             },
+            errors: [],
             categories: [],
         };
     }
@@ -61,8 +70,7 @@ class ViewFixedExpenseForm extends Component {
                         }
                     }
                 })
-            })
-            .catch(error => console.log(error));
+            });
     }
 
     isToUpdate() {
@@ -120,11 +128,14 @@ class ViewFixedExpenseForm extends Component {
 
         fetch(`http://localhost:8000/api/fixedExpense/${this.props.match.params.id}`, requestInfo)
             .then((response) => {
-                if (response.status === 200) alert('Despesa fixa atualizada com sucesso.');
+                if (response.status === 200) {
+                    alert('Registro atualizado com sucesso!');
+                };
 
-                if (response.status === 422) alert(response.statusText);
-            })
-            .catch((error) => console.log(error));
+                if (response.status === 422) {
+                    response.json().then(data => this.setState({ ...this.state, errors: data || [] }))
+                };
+            });
     }
 
     save() {
@@ -139,14 +150,20 @@ class ViewFixedExpenseForm extends Component {
 
         fetch('http://localhost:8000/api/fixedExpense', requestInfo)
             .then((response) => {
-                if (response.status === 201) alert('Despesa fixa criada com sucesso!');
+                if (response.status === 201) {
+                    alert('Registro criado com sucesso!');
+                };
 
-                if (response.status === 422) alert(response.statusText);
-            })
-            .catch((error) => console.log(error));
+                if (response.status === 422) {
+                    response.json().then(data => this.setState({ ...this.state, errors: data || [] }))
+                };
+            });
     }
 
     render() {
+        const { errors } = this.state;
+        const activationControlErrors = errors.activation_control || [];
+
         return (
             <div>
                 <div className="header_walk_links">
@@ -160,14 +177,15 @@ class ViewFixedExpenseForm extends Component {
                     </div>
 
                     <div className="widget_content">
-                        <form onSubmit={ this.onSubmitHandler }>
+                        <form onSubmit={(ev) => this.onSubmitHandler(ev)}>
                             <Input
-                                label='TÍTULO'
+                                label='TÍTULO:'
                                 name='title'
                                 value={ this.state.form.title }
                                 onChange={ this.onChangeHandler }
                                 maxLength='100'
                                 required
+                                errors={ errors.title }
                             />
 
                             <TextArea
@@ -175,17 +193,19 @@ class ViewFixedExpenseForm extends Component {
                                 name='description'
                                 value={ this.state.form.description }
                                 onChange={ this.onChangeHandler }
-                                maxLength='255' 
+                                maxLength='255'
+                                errors={ errors.description }
                             />
 
                             <Input
                                 label='VALOR:'
                                 name='value'
-                                mask={new Currency()}
+                                mask={ new Currency() }
                                 value={ this.state.form.value }
                                 onChange={ this.onChangeHandler }
                                 required
-                            />
+                                errors={ errors.value }
+                            />  
 
                             <Select 
                                 label="CATEGORIA:"
@@ -194,6 +214,7 @@ class ViewFixedExpenseForm extends Component {
                                 options={ getCategoriesSelectOptions(this.state.categories) }
                                 required
                                 onChange={ this.onChangeHandler }
+                                errors={ errors.category_id }
                             />
 
                             <Input
@@ -203,6 +224,7 @@ class ViewFixedExpenseForm extends Component {
                                 mask={ new DateMask() }
                                 onChange={ this.onChangeActivationControlHandler }
                                 required
+                                errors={ (activationControlErrors.start_date || []) }
                             />
 
                             <Input
@@ -211,6 +233,7 @@ class ViewFixedExpenseForm extends Component {
                                 value={ this.state.form.activation_control.end_date }
                                 mask={ new DateMask() }
                                 onChange={ this.onChangeActivationControlHandler }
+                                errors={ (activationControlErrors.end_date || []) }
                             />
 
                             <Select 
@@ -220,6 +243,7 @@ class ViewFixedExpenseForm extends Component {
                                 options={ getPeriodicitySelectOptions() }
                                 required
                                 onChange={ this.onChangeActivationControlHandler }
+                                errors={ (activationControlErrors.periodicity || []) }
                             />
 
                             <Select 
@@ -229,6 +253,7 @@ class ViewFixedExpenseForm extends Component {
                                 options={ getExpirationDaysSelectOptions() }
                                 required
                                 onChange={ this.onChangeActivationControlHandler }
+                                errors={ (activationControlErrors.expiration_day || []) }
                             />
 
                             <div className="form-actions">

@@ -30,15 +30,15 @@ export default class Input extends React.Component {
                 <label>{ this.props.label }</label>
                 <div className="controls">
                     <input
-                        style={ hasErrors ? { borderColor: 'red', } : {} }
                         { ...this.props }
                         type={ this.props.type || 'text' }
-                        value={ this.applyMask(this.props.value) }
+                        value={ this.applyMask(this.props.value || '') }
+                        className={ hasErrors ? 'field-danger' : '' }
                         onChange={ this.onChangeHandler }
                     />
                     <div style={{ marginTop: 0 }}>
                         {
-                            errors.map(error => <div style={{color: 'red'}}>{error}</div>)
+                            errors.map(error => <div key={error} className={ hasErrors ? 'text-danger' : '' }>{ error }</div>)
                         }
                     </div>
                 </div>
