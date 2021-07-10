@@ -12,39 +12,51 @@ import icoMenuEdit from '../../img/edit.png';
 import { Currency } from '../../masks/Currency';
 import { Date as DateMask } from '../../masks/Date';
 
+const INIT_STATE = {
+    form: {
+        title: '',
+        description: '',
+        value: '',
+        register_date: '',
+        category_id: '',
+    },
+    errors: [],
+    categories: [],
+    id: undefined,
+};
+
 class ViewVariableRevenueForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            form: {
-                title: '',
-                description: '',
-                value: '',
-                category_id: '',
-                register_date: '',
-            },
-            errors: [],
-            categories: [],
-        };
+        this.state = INIT_STATE;
     }
 
     componentDidMount() {
-        this.retrieveCategories();
-
         if (this.isToUpdate()) {
-            this.retrieveVariableRevenueById();
+            this.setState({...this.state, id: this.getIdFromUrl()});
+            this.retrieveVariableRevenueById(this.getIdFromUrl());
+        }
+
+        this.retrieveCategories();
+    }
+
+    componentDidUpdate() {
+        if (!this.isToUpdate() && this.hasValueInStateId()) {
+            this.setState({ ...INIT_STATE });
+
+            this.retrieveCategories();
         }
     }
 
     retrieveCategories() {
-        fetch('http://localhost:8000/api/category?type=revenue')
+        fetch(`${process.env.REACT_APP_API_BASE_URL}category?type=revenue`)
             .then(response => response.json())
             .then(categories => this.setState({ ...this.state, categories }));
     }
 
-    retrieveVariableRevenueById() {
-        fetch(`http://localhost:8000/api/variableRevenue/${this.props.match.params.id}`)
+    retrieveVariableRevenueById(id) {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}variableRevenue/${id}`)
             .then(response => response.json())
             .then(data => {
                 this.setState({
@@ -54,12 +66,19 @@ class ViewVariableRevenueForm extends Component {
                         category_id: data.category.id,
                     } 
                 })
-            })
-            .catch(error => console.log(error));
+            });
+    }
+
+    getIdFromUrl() {
+        return this.props.match.params.id;
+    }
+
+    hasValueInStateId() {
+        return !!this.state.id;
     }
 
     isToUpdate() {
-        return this.props.match.params.id !== undefined;
+        return !!this.props.match.params.id;
     }
 
     onChangeHandler = (event) => {
@@ -68,6 +87,7 @@ class ViewVariableRevenueForm extends Component {
 
     onSubmitHandler = (event) => {
         event.preventDefault();
+
         this.saveOrUpdate();
     }
 
@@ -98,7 +118,7 @@ class ViewVariableRevenueForm extends Component {
             }),
         };
 
-        fetch(`http://localhost:8000/api/variableRevenue/${this.props.match.params.id}`, requestInfo)
+        fetch(`${process.env.REACT_APP_API_BASE_URL}variableRevenue/${this.state.id}`, requestInfo)
             .then((response) => {
                 if (response.status === 200) {
                     alert('Registro atualizado com sucesso.');
@@ -120,7 +140,7 @@ class ViewVariableRevenueForm extends Component {
             }),
         };
 
-        fetch('http://localhost:8000/api/variableRevenue', requestInfo)
+        fetch(`${process.env.REACT_APP_API_BASE_URL}variableRevenue`, requestInfo)
             .then((response) => {
                 if (response.status === 201) {
                     alert('Registro criado com sucesso!');
