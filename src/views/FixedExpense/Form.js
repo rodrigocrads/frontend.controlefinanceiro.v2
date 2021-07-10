@@ -19,34 +19,58 @@ import icoMenuEdit from '../../img/edit.png';
 import { Currency } from '../../masks/Currency';
 import { Date as DateMask } from '../../masks/Date';
 
+const INIT_STATE = {
+    form: {
+        title: '',
+        description: '',
+        value: '',
+        category_id: '',
+        activation_control: {
+            start_date: '',
+            end_date: '',
+            periodicity: '',
+            expiration_day: '',
+        },
+    },
+    errors: [],
+    categories: [],
+    id: undefined,
+};
+
 class ViewFixedExpenseForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            form: {
-                title: '',
-                description: '',
-                value: '',
-                category_id: '',
-                activation_control: {
-                    start_date: '',
-                    end_date: '',
-                    periodicity: '',
-                    expiration_day: '',
-                },
-            },
-            errors: [],
-            categories: [],
-        };
+        this.state = INIT_STATE;
     }
 
     componentDidMount() {
-        this.retrieveCategories();
-
         if (this.isToUpdate()) {
-            this.retrievefixedExpenseById();
+            this.setState({...this.state, id: this.getIdFromUrl()});
+            this.retrieveFixedExpenseBy(this.getIdFromUrl());
         }
+
+        this.retrieveCategories();
+    }
+
+    componentDidUpdate() {
+        if (!this.isToUpdate() && this.hasValueInStateId()) {
+            this.setState({ ...INIT_STATE });
+
+            this.retrieveCategories();
+        }
+    }
+
+    getIdFromUrl() {
+        return this.props.match.params.id;
+    }
+
+    hasValueInStateId() {
+        return !!this.state.id;
+    }
+
+    isToUpdate() {
+        return !!this.props.match.params.id;
     }
 
     retrieveCategories() {
@@ -55,8 +79,8 @@ class ViewFixedExpenseForm extends Component {
             .then(categories => this.setState({ ...this.state, categories }));
     }
 
-    retrievefixedExpenseById() {
-        fetch(`http://localhost:8000/api/fixedExpense/${this.props.match.params.id}`)
+    retrieveFixedExpenseBy(id) {
+        fetch(`http://localhost:8000/api/fixedExpense/${id}`)
             .then(response => response.json())
             .then(data => {
                 this.setState({
@@ -71,10 +95,6 @@ class ViewFixedExpenseForm extends Component {
                     }
                 })
             });
-    }
-
-    isToUpdate() {
-        return this.props.match.params.id !== undefined;
     }
 
     onChangeHandler = (event) => {
@@ -100,8 +120,8 @@ class ViewFixedExpenseForm extends Component {
     }
 
     saveOrUpdate() {
-        if (this.isToUpdate()) {
-            this.update();
+        if (this.isToUpdate() && this.hasValueInStateId()) {
+            this.update(this.getIdFromUrl());
             return;
         }
 
@@ -116,7 +136,7 @@ class ViewFixedExpenseForm extends Component {
         return builderContentRequest.build();
     }
 
-    update() {
+    update(id) {
         const requestInfo = {
             method: 'PUT',
             body: JSON.stringify(this.getBuildRequestContent()),
@@ -126,7 +146,7 @@ class ViewFixedExpenseForm extends Component {
             }),
         };
 
-        fetch(`http://localhost:8000/api/fixedExpense/${this.props.match.params.id}`, requestInfo)
+        fetch(`http://localhost:8000/api/fixedExpense/${id}`, requestInfo)
             .then((response) => {
                 if (response.status === 200) {
                     alert('Registro atualizado com sucesso!');
