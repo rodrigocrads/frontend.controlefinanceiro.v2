@@ -121,7 +121,7 @@ class ViewFixedExpenseForm extends Component {
 
     saveOrUpdate() {
         if (this.isToUpdate() && this.hasValueInStateId()) {
-            this.update(this.getIdFromUrl());
+            this.update();
             return;
         }
 
@@ -136,7 +136,7 @@ class ViewFixedExpenseForm extends Component {
         return builderContentRequest.build();
     }
 
-    update(id) {
+    update() {
         const requestInfo = {
             method: 'PUT',
             body: JSON.stringify(this.getBuildRequestContent()),
@@ -146,7 +146,7 @@ class ViewFixedExpenseForm extends Component {
             }),
         };
 
-        fetch(`${process.env.REACT_APP_API_BASE_URL}fixedExpense/${id}`, requestInfo)
+        fetch(`${process.env.REACT_APP_API_BASE_URL}fixedExpense/${this.state.id}`, requestInfo)
             .then((response) => {
                 if (response.status === 200) {
                     alert('Registro atualizado com sucesso!');
