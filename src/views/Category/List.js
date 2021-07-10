@@ -66,7 +66,7 @@ export default class List extends Component {
                                 <td>{ category.name }</td>
                                 <td>{ category.type === 'expense' ? 'Despesa' : 'Receita' }</td>
                                 <td>
-                                    <Link className="table_action" to={`/categoria/${category.id}`}><img src={icoEdit} /></Link>
+                                    <Link className="table_action" to={`/category/${category.id}`}><img src={icoEdit} /></Link>
 
                                     <a href="#" onClick={ () => this.deleteCategoryHandler(category.id) } className="table_action">
                                         <img src={icoDelete} />
