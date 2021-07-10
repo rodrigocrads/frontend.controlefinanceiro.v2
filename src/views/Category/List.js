@@ -24,7 +24,7 @@ export default class List extends Component {
     }
 
     fetchCategories() {
-        fetch('http://localhost:8000/api/category')
+        fetch(`${process.env.REACT_APP_API_BASE_URL}category`)
             .then(response => response.json())
             .then(categories => this.setState({ ...this.state, categories }))
             .catch(e => { console.log(e) });
@@ -38,7 +38,7 @@ export default class List extends Component {
     }
 
     deleteCategory(categoryIndex) {
-        fetch(`http://localhost:8000/api/category/${categoryIndex}`, { method: 'DELETE' })
+        fetch(`${process.env.REACT_APP_API_BASE_URL}category/${categoryIndex}`, { method: 'DELETE' })
             .then((response) => {
                 if (response.status === 200) alert('Categoria excluida com sucesso.');
 
