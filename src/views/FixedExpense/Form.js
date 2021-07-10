@@ -74,13 +74,13 @@ class ViewFixedExpenseForm extends Component {
     }
 
     retrieveCategories() {
-        fetch('http://localhost:8000/api/category?type=expense')
+        fetch(`${process.env.REACT_APP_API_BASE_URL}category?type=expense`)
             .then(response => response.json())
             .then(categories => this.setState({ ...this.state, categories }));
     }
 
     retrieveFixedExpenseBy(id) {
-        fetch(`http://localhost:8000/api/fixedExpense/${id}`)
+        fetch(`${process.env.REACT_APP_API_BASE_URL}fixedExpense/${id}`)
             .then(response => response.json())
             .then(data => {
                 this.setState({
@@ -146,7 +146,7 @@ class ViewFixedExpenseForm extends Component {
             }),
         };
 
-        fetch(`http://localhost:8000/api/fixedExpense/${id}`, requestInfo)
+        fetch(`${process.env.REACT_APP_API_BASE_URL}fixedExpense/${id}`, requestInfo)
             .then((response) => {
                 if (response.status === 200) {
                     alert('Registro atualizado com sucesso!');
@@ -168,7 +168,7 @@ class ViewFixedExpenseForm extends Component {
             }),
         };
 
-        fetch('http://localhost:8000/api/fixedExpense', requestInfo)
+        fetch(`${process.env.REACT_APP_API_BASE_URL}fixedExpense`, requestInfo)
             .then((response) => {
                 if (response.status === 201) {
                     alert('Registro criado com sucesso!');
