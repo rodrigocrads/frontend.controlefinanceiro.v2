@@ -126,13 +126,6 @@ class Form extends Component {
                     <div className="widget_content">
                         <form onSubmit={(ev) => this.onSubmitHandler(ev)}>
                             <Input
-                                type='hidden'
-                                name='id'
-                                value={ this.props.id }
-                                onChange={ (event) => this.onChangeHandler(event) }
-                            />
-
-                            <Input
                                 label='NOME:'
                                 name='name'
                                 value={ this.state.name }
