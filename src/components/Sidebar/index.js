@@ -11,7 +11,7 @@ function Sidebar() {
                     <a onClick={() => { return false; }}>CATEGORIAS<img className="ico-dropdown" src={icoDown} alt="" /></a>
                     <ul className="menu_dropdown">
                         <li><Link to="/categoria/listar">LISTAR</Link></li>
-                        <li><Link to="/categoria">CRIAR</Link></li>
+                        <li><Link to="/categoria/">CRIAR</Link></li>
                     </ul>
                 </li>
 

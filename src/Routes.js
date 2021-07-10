@@ -28,11 +28,11 @@ const routes = () => {
                 <ViewCategoryList />
             </Route>
 
-            <Route exact path="/categoria">
+            <Route exact path="/categoria/">
                 <ViewCategoryForm />
             </Route>
 
-            <Route exact path="/categoria/:id">
+            <Route path="/categoria/:id">
                 <ViewCategoryForm />
             </Route>
 
