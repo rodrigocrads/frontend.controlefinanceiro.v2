@@ -10,15 +10,15 @@ function Sidebar() {
                 <li className="dropdown">
                     <a onClick={() => { return false; }}>CATEGORIAS<img className="ico-dropdown" src={icoDown} alt="" /></a>
                     <ul className="menu_dropdown">
-                        <li><Link to="/categoria/listar">LISTAR</Link></li>
-                        <li><Link to="/categoria">CRIAR</Link></li>
+                        <li><Link to="/category/list">LISTAR</Link></li>
+                        <li><Link to="/category/">CRIAR</Link></li>
                     </ul>
                 </li>
 
                 <li className="dropdown">
                     <a onClick={() => { return false; }}>RECEITAS FIXAS<img className="ico-dropdown" src={icoDown} alt="" /></a>
                     <ul className="menu_dropdown">
-                        <li><Link to="/fixedRevenue/listar">LISTAR</Link></li>
+                        <li><Link to="/fixedRevenue/list">LISTAR</Link></li>
                         <li><Link to="/fixedRevenue">CRIAR</Link></li>
                     </ul>
                 </li>

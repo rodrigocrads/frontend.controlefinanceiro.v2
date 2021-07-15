@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import icoList from '../../img/ico-list.png';
 import icoEdit from '../../img/edit.png';
 import icoDelete from '../../img/delete.png';
+import FlashMessage from '../../components/UI/FlashMessage';
 
 export default class List extends Component {
     constructor(props) {
@@ -11,6 +12,7 @@ export default class List extends Component {
 
         this.state = {
             categories: [],
+            errors: [],
         };
     }
 
@@ -24,10 +26,9 @@ export default class List extends Component {
     }
 
     fetchCategories() {
-        fetch('http://localhost:8000/api/category')
+        fetch(`${process.env.REACT_APP_API_BASE_URL}category`)
             .then(response => response.json())
-            .then(categories => this.setState({ ...this.state, categories }))
-            .catch(e => { console.log(e) });
+            .then(categories => this.setState({ ...this.state, categories }));
     }
 
     deleteCategoryHandler(categoryIndex) {
@@ -37,14 +38,26 @@ export default class List extends Component {
         }
     }
 
+    errorMessagesByField(response, field) {
+        return response[field];
+    }
+
     deleteCategory(categoryIndex) {
-        fetch(`http://localhost:8000/api/category/${categoryIndex}`, { method: 'DELETE' })
+        fetch(`${process.env.REACT_APP_API_BASE_URL}category/${categoryIndex}`, { method: 'DELETE' })
             .then((response) => {
-                if (response.status === 200) alert('Categoria excluida com sucesso.');
+                if (response.status === 200) {
+                    alert('Categoria excluida com sucesso.');
+                }
+
+                if(response.status === 422) {
+                    response.json()
+                        .then(data => this.setState({
+                            errors : this.errorMessagesByField(data, 'id')
+                        }));
+                }
 
                 this.resetCategoriesList();
-            })
-            .catch((error) => console.log(error));
+            });
     }
 
     renderTable() {
@@ -66,7 +79,7 @@ export default class List extends Component {
                                 <td>{ category.name }</td>
                                 <td>{ category.type === 'expense' ? 'Despesa' : 'Receita' }</td>
                                 <td>
-                                    <Link className="table_action" to={`/categoria/${category.id}`}><img src={icoEdit} /></Link>
+                                    <Link className="table_action" to={`/category/${category.id}`}><img src={icoEdit} /></Link>
 
                                     <a href="#" onClick={ () => this.deleteCategoryHandler(category.id) } className="table_action">
                                         <img src={icoDelete} />
@@ -86,6 +99,16 @@ export default class List extends Component {
         );
     }
 
+    showErrorsMessage() {
+        return this.state.errors.map(error => (
+            <FlashMessage
+                type="danger"
+                title="Atenção!"
+                description={error}
+            />
+        ));
+    }
+
     render() {
         return (
             <div>
@@ -100,6 +123,7 @@ export default class List extends Component {
 
                     <div className="widget_content">
                         <div className="table_area">
+                            { this.showErrorsMessage() }
                             {
                                 this.state.categories.length > 0
                                     ? this.renderTable()

@@ -19,44 +19,68 @@ import icoMenuEdit from '../../img/edit.png';
 import { Currency } from '../../masks/Currency';
 import { Date as DateMask } from '../../masks/Date';
 
+const INIT_STATE = {
+    form: {
+        title: '',
+        description: '',
+        value: '',
+        category_id: '',
+        activation_control: {
+            start_date: '',
+            end_date: '',
+            periodicity: '',
+            expiration_day: '',
+        },
+    },
+    errors: [],
+    categories: [],
+    id: undefined,
+};
+
 class ViewFixedExpenseForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            form: {
-                title: '',
-                description: '',
-                value: '',
-                category_id: '',
-                activation_control: {
-                    start_date: '',
-                    end_date: '',
-                    periodicity: '',
-                    expiration_day: '',
-                },
-            },
-            errors: [],
-            categories: [],
-        };
+        this.state = INIT_STATE;
     }
 
     componentDidMount() {
-        this.retrieveCategories();
-
         if (this.isToUpdate()) {
-            this.retrievefixedExpenseById();
+            this.setState({...this.state, id: this.getIdFromUrl()});
+            this.retrieveFixedExpenseBy(this.getIdFromUrl());
+        }
+
+        this.retrieveCategories();
+    }
+
+    componentDidUpdate() {
+        if (!this.isToUpdate() && this.hasValueInStateId()) {
+            this.setState({ ...INIT_STATE });
+
+            this.retrieveCategories();
         }
     }
 
+    getIdFromUrl() {
+        return this.props.match.params.id;
+    }
+
+    hasValueInStateId() {
+        return !!this.state.id;
+    }
+
+    isToUpdate() {
+        return !!this.props.match.params.id;
+    }
+
     retrieveCategories() {
-        fetch('http://localhost:8000/api/category?type=expense')
+        fetch(`${process.env.REACT_APP_API_BASE_URL}category?type=expense`)
             .then(response => response.json())
             .then(categories => this.setState({ ...this.state, categories }));
     }
 
-    retrievefixedExpenseById() {
-        fetch(`http://localhost:8000/api/fixedExpense/${this.props.match.params.id}`)
+    retrieveFixedExpenseBy(id) {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}fixedExpense/${id}`)
             .then(response => response.json())
             .then(data => {
                 this.setState({
@@ -71,10 +95,6 @@ class ViewFixedExpenseForm extends Component {
                     }
                 })
             });
-    }
-
-    isToUpdate() {
-        return this.props.match.params.id !== undefined;
     }
 
     onChangeHandler = (event) => {
@@ -100,7 +120,7 @@ class ViewFixedExpenseForm extends Component {
     }
 
     saveOrUpdate() {
-        if (this.isToUpdate()) {
+        if (this.isToUpdate() && this.hasValueInStateId()) {
             this.update();
             return;
         }
@@ -126,7 +146,7 @@ class ViewFixedExpenseForm extends Component {
             }),
         };
 
-        fetch(`http://localhost:8000/api/fixedExpense/${this.props.match.params.id}`, requestInfo)
+        fetch(`${process.env.REACT_APP_API_BASE_URL}fixedExpense/${this.state.id}`, requestInfo)
             .then((response) => {
                 if (response.status === 200) {
                     alert('Registro atualizado com sucesso!');
@@ -148,7 +168,7 @@ class ViewFixedExpenseForm extends Component {
             }),
         };
 
-        fetch('http://localhost:8000/api/fixedExpense', requestInfo)
+        fetch(`${process.env.REACT_APP_API_BASE_URL}fixedExpense`, requestInfo)
             .then((response) => {
                 if (response.status === 201) {
                     alert('Registro criado com sucesso!');

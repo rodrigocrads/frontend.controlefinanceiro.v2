@@ -24,19 +24,19 @@ const routes = () => {
                 <Dashboard />
             </Route>
 
-            <Route exact path="/categoria/listar">
+            <Route exact path="/category/list">
                 <ViewCategoryList />
             </Route>
 
-            <Route exact path="/categoria">
+            <Route exact path="/category/">
                 <ViewCategoryForm />
             </Route>
 
-            <Route exact path="/categoria/:id">
+            <Route path="/category/:id">
                 <ViewCategoryForm />
             </Route>
 
-            <Route exact path="/FixedRevenue/listar">
+            <Route exact path="/FixedRevenue/list">
                 <ViewFixedRevenueList />
             </Route>
 

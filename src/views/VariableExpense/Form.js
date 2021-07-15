@@ -12,39 +12,51 @@ import icoMenuEdit from '../../img/edit.png';
 import { Currency } from '../../masks/Currency';
 import { Date as DateMask } from '../../masks/Date';
 
+const INIT_STATE = {
+    form: {
+        title: '',
+        description: '',
+        value: '',
+        register_date: '',
+        category_id: '',
+    },
+    errors: [],
+    categories: [],
+    id: undefined,
+};
+
 class ViewVariableExpenseForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            form: {
-                title: '',
-                description: '',
-                value: '',
-                register_date: '',
-                category_id: '',
-            },
-            errors: [],
-            categories: [],
-        };
+        this.state = INIT_STATE;
     }
 
     componentDidMount() {
-        this.retrieveCategories();
-
         if (this.isToUpdate()) {
-            this.retrieveVariableExpenseById();
+            this.setState({...this.state, id: this.getIdFromUrl()});
+            this.retrieveVariableExpenseById(this.getIdFromUrl());
+        }
+
+        this.retrieveCategories();
+    }
+
+    componentDidUpdate() {
+        if (!this.isToUpdate() && this.hasValueInStateId()) {
+            this.setState({ ...INIT_STATE });
+
+            this.retrieveCategories();
         }
     }
 
     retrieveCategories() {
-        fetch('http://localhost:8000/api/category?type=expense')
+        fetch(`${process.env.REACT_APP_API_BASE_URL}category?type=expense`)
             .then(response => response.json())
             .then(categories => this.setState({ ...this.state, categories }));
     }
 
-    retrieveVariableExpenseById() {
-        fetch(`http://localhost:8000/api/variableExpense/${this.props.match.params.id}`)
+    retrieveVariableExpenseById(id) {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}variableExpense/${id}`)
             .then(response => response.json())
             .then(data => {
                 this.setState({
@@ -54,12 +66,19 @@ class ViewVariableExpenseForm extends Component {
                         category_id: data.category.id,
                     } 
                 })
-            })
-            .catch(error => console.log(error));
+            });
+    }
+
+    getIdFromUrl() {
+        return this.props.match.params.id;
+    }
+
+    hasValueInStateId() {
+        return !!this.state.id;
     }
 
     isToUpdate() {
-        return this.props.match.params.id !== undefined;
+        return !!this.props.match.params.id;
     }
 
     onChangeHandler = (event) => {
@@ -98,7 +117,7 @@ class ViewVariableExpenseForm extends Component {
             }),
         };
 
-        fetch(`http://localhost:8000/api/variableExpense/${this.props.match.params.id}`, requestInfo)
+        fetch(`${process.env.REACT_APP_API_BASE_URL}variableExpense/${this.state.id}`, requestInfo)
             .then((response) => {
                 if (response.status === 200) {
                     alert('Registro atualizado com sucesso.');
@@ -107,8 +126,7 @@ class ViewVariableExpenseForm extends Component {
                 if (response.status === 422) {
                     response.json().then(data => this.setState({ ...this.state, errors: data || [] }))
                 };
-            })
-            .catch((error) => console.log(error));
+            });
     }
 
     save() {
@@ -121,7 +139,7 @@ class ViewVariableExpenseForm extends Component {
             }),
         };
 
-        fetch('http://localhost:8000/api/variableExpense', requestInfo)
+        fetch(`${process.env.REACT_APP_API_BASE_URL}variableExpense`, requestInfo)
             .then((response) => {
                 if (response.status === 201) {
                     alert('Registro criado com sucesso!');
@@ -130,8 +148,7 @@ class ViewVariableExpenseForm extends Component {
                 if (response.status === 422) {
                     response.json().then(data => this.setState({ ...this.state, errors: data || [] }))
                 };
-            })
-            .catch((error) => console.log(error));
+            });
     }
 
     render() {

@@ -1,35 +1,39 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-
+import { withRouter } from 'react-router';
 import Input from '../../components/UI/Input';
 import Select from '../../components/UI/Select';
 
 import icoMenuEdit from '../../img/edit.png';
 
+const INIT_STATE = { id: '',  name: '', type: '' };
+
 class Form extends Component {
     constructor(props) {
         super(props);
-
-        const id = this.props.match.params.id || null;
-        this.state = { id,  name: '', type: '' };
+        this.state = INIT_STATE;
     }
 
     componentDidMount() {
-        const id = this.state.id;
+        const { id } = this.props.match.params;
+
         if (id !== null) {
+            this.setState({...this.state, id })
             this.retriveCategoryById(id);
         }
     }
 
-    clearState() {
-        this.setState({ name: '', type: ''});
+    componentDidUpdate() {
+        const { id } = this.props.match.params;
+
+        if (!id && this.state.id) {
+            this.setState({ ...INIT_STATE, id });
+        }
     }
 
     retriveCategoryById(id) {
-        fetch(`http://localhost:8000/api/category/${id}`)
+        fetch(`${process.env.REACT_APP_API_BASE_URL}category/${id}`)
             .then(response => response.json())
             .then(category => { this.setState({ ...category })})
-            .catch(error => console.log(error));
     }
 
     onChangeHandler(event) {
@@ -43,7 +47,7 @@ class Form extends Component {
     }
 
     saveOrUpdate() {
-        const id = this.state.id;
+        const { id } = this.state;
         if (id !== null) {
             this.update(id);
             return;
@@ -63,13 +67,16 @@ class Form extends Component {
             }),
         };
 
-        fetch(`http://localhost:8000/api/category/${id}`, requestInfo)
+        fetch(`${process.env.REACT_APP_API_BASE_URL}category/${id}`, requestInfo)
             .then((response) => {
-                if (response.status === 200) alert('Categoria atualizada com sucesso.');
+                if (response.status === 200) {
+                    alert('Categoria atualizada com sucesso.');
+                }
 
-                if (response.status === 422) alert(response.statusText);
+                if (response.status === 422) {
+                    alert(response.statusText);
+                }
             })
-            .catch((error) => console.log(error));
     }
 
     save() {
@@ -83,13 +90,16 @@ class Form extends Component {
             }),
         };
 
-        fetch('http://localhost:8000/api/category', requestInfo)
+        fetch(`${process.env.REACT_APP_API_BASE_URL}category`, requestInfo)
             .then((response) => {
-                if (response.status === 201) alert('Categoria criada com sucesso!');
+                if (response.status === 201) {
+                    alert('Categoria criada com sucesso!');
+                }
 
-                if (response.status === 422) alert(response.statusText);
-            })
-            .catch((error) => console.log(error));
+                if (response.status === 422) {
+                    alert(response.statusText);
+                }
+            });
     }
 
     getCategoryTypeOptions() {
@@ -110,7 +120,7 @@ class Form extends Component {
                 <div className="widget">
                     <div className="widget_header">
                         <img src={icoMenuEdit} className="ico" alt="Área de criação de categoria" />
-                        Criar categoria
+                        Categoria
                     </div>
 
                     <div className="widget_content">
@@ -124,7 +134,7 @@ class Form extends Component {
                                 onChange={ (event) => this.onChangeHandler(event) }
                             />
 
-                            <Select 
+                            <Select
                                 label="TIPO:"
                                 name="type"
                                 value={ this.state.type }
