@@ -16,9 +16,9 @@ class Form extends Component {
     componentDidMount() {
         const { id } = this.props.match.params;
 
-        if (id !== null) {
+        if (!!id) {
             this.setState({...this.state, id })
-            this.retriveCategoryById(id);
+            this.retrieveCategoryBy(id);
         }
     }
 
@@ -30,7 +30,7 @@ class Form extends Component {
         }
     }
 
-    retriveCategoryById(id) {
+    retrieveCategoryBy(id) {
         fetch(`${process.env.REACT_APP_API_BASE_URL}category/${id}`)
             .then(response => response.json())
             .then(category => { this.setState({ ...category })})
