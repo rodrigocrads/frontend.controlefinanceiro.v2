@@ -6,10 +6,20 @@ export class Currency {
 
         value = value.toString();
 
-        return value.replace(/(\d)\.(\d{1})$/, "$1.$20")
-            .replace(/\D/g, "")
-            .replace(/(\d)(\d{2})$/, "$1,$2")
-            .replace(/(?=(\d{3})+(\D))\B/g, ".");
+        const hasOnlyIntValue = /(\d{3,99})$/;
+        const hasOnlyOneDecimal = /(\d)\.(\d{1})$/;
+
+        if (hasOnlyIntValue.test(value) || hasOnlyOneDecimal.test(value)) {
+            value = Number.parseFloat(value).toFixed(2);
+        }
+
+        value = value.replace(/\D/g, "");
+
+        value = value.replace(/(\d)(\d{2})$/, "$1,$2");
+
+        value = value.replace(/(?=(\d{3})+(\D))\B/g, ".");
+
+        return value;
     }
 
     unmount(value) {
