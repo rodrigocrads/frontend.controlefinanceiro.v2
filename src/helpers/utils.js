@@ -11,6 +11,24 @@ export const replacePeriodicity = (periodicity) => {
     }
 }
 
+export const replaceMonths = (month) => {
+    switch(month) {
+        case 'january': return 'Janeiro';
+        case 'february': return 'Fevereiro';
+        case 'march': return 'Março';
+        case 'april': return 'Abril';
+        case 'may': return 'Maio';
+        case 'june': return 'Junho';
+        case 'july': return 'Julho';
+        case 'august': return 'Agosto';
+        case 'september': return 'Setembro';
+        case 'october': return 'Outubro';
+        case 'november': return 'Novembro';
+        case 'december': return 'Dezembro';
+        default: return 'Mês não identificado!';
+    }
+}
+
 export const getPeriodicitySelectOptions = () => {
     return [
         {value: '', label: 'Selecione uma periodicidade'},
