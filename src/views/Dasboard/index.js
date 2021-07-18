@@ -1,8 +1,9 @@
 import React from 'react';
+import Chart from "react-google-charts";
 
 import BoxInfo from '../../components/UI/BoxInfo';
 
-import { convertCurrencyToPtBr } from '../../helpers/utils';
+import { convertCurrencyToPtBr, replaceMonths } from '../../helpers/utils';
 
 import icoCharBar from '../../img/chart_bar.png';
 import icoCoinsAdd from '../../img/coins_add.png';
@@ -16,33 +17,54 @@ class ViewDashboard extends React.Component {
         super(props);
 
         this.state = {
-            variableExpenseTotal: 0.0,
-            variableRevenueTotal: 0.0,
-            fixedExpenseTotal: 0.0,
-            fixedRevenueTotal: 0.0,
+            monthTotals: {
+                totalVariableExpense: 0.0,
+                totalVariableRevenue: 0.0,
+                totalFixedExpense: 0.0,
+                totalFixedRevenue: 0.0,
+            },
+            yearTotals: []
         };
     }
 
     componentDidMount() {
         this.fetchTotalsByCurrentMonth();
+        this.fetchYearTotals();
     }
 
     async fetchTotalsByCurrentMonth() {
         await fetch(`${API_BASE_URL}/report/currentMonthTotals`)
             .then(response => response.json())
-            .then(totals => this.setState({...this.state, ...totals}))
+            .then(totals => this.setState( { ...this.state, monthTotals: { ...totals }}))
     }
 
-    render() {
-        const revenueTotal = this.state.fixedRevenueTotal + this.state.variableRevenueTotal;
-        const expenseTotal = this.state.fixedExpenseTotal + this.state.variableExpenseTotal;
+    async fetchYearTotals() {
+        await fetch(`${API_BASE_URL}/report/currentYearTotals`)
+            .then(response => response.json())
+            .then(data => {
+                const totals = (data || []).map(monthTotal => {
+                    const totals = monthTotal.totals;
+                    const revenuesTotals = totals.totalFixedRevenue + totals.totalVariableRevenue;
+                    const expensesTotals = totals.totalFixedExpense + totals.totalVariableExpense;
+
+                    return [
+                        replaceMonths(monthTotal.month),
+                        revenuesTotals,
+                        expensesTotals,
+                    ];
+                });
+
+                this.setState( { ...this.state, yearTotals: [ ...totals ]})
+            })
+    }
+
+    renderMonthEconomy() {
+        const monthTotals = this.state.monthTotals;
+        const revenueTotal = monthTotals.totalFixedRevenue + monthTotals.totalVariableRevenue;
+        const expenseTotal = monthTotals.totalFixedExpense + monthTotals.totalVariableExpense;
 
         return (
-            <div>
-                <div className="header_walk_links">
-                    DASHBOARD
-                </div>
-                <div className="widget">
+            <div className="widget">
                     <div className="widget_header">
                         <img src={icoCharBar} className="ico" alt="" />
                         Economia do mês
@@ -73,6 +95,50 @@ class ViewDashboard extends React.Component {
 
                     </div>
                 </div>
+        );
+    }
+
+    renderTotalsCurrentYearChart() {
+        return (
+            <div className="widget">
+                    <div className="widget_header">
+                        <img src={icoCharBar} className="ico" alt="" />
+                        Evolução Receita/Despesa
+                    </div>
+
+                    <div className="widget_content">
+
+                        <Chart
+                            height={'300px'}
+                            chartType="AreaChart"
+                            loader={<div>Loading Chart</div>}
+                            data={[
+                                ['Mês', 'Receitas', 'Despesas'],
+                                ...this.state.yearTotals,
+                            ]}
+                            options={{
+                            title: 'Company Performance',
+                            hAxis: { title: 'Mês', titleTextStyle: { color: '#333' } },
+                            vAxis: { minValue: 0 },
+                            // For the legend to fit, we make the chart area smaller
+                            chartArea: { width: '75%', height: '70%' },
+                            // lineWidth: 25
+                            }}
+                        />
+
+                    </div>
+                </div>
+        );
+    }
+
+    render() {
+        return (
+            <div>
+                <div className="header_walk_links">
+                    DASHBOARD
+                </div>
+                { this.renderMonthEconomy() }
+                { this.renderTotalsCurrentYearChart() }
             </div>
         );
     }
