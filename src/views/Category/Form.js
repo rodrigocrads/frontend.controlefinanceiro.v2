@@ -48,7 +48,7 @@ class Form extends Component {
 
     saveOrUpdate() {
         const { id } = this.state;
-        if (id !== null) {
+        if (!!id) {
             this.update(id);
             return;
         }
