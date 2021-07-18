@@ -51,6 +51,7 @@ class ViewDashboard extends React.Component {
                         replaceMonths(monthTotal.month),
                         revenuesTotals,
                         expensesTotals,
+                        revenuesTotals - expensesTotals,
                     ];
                 });
 
@@ -67,28 +68,28 @@ class ViewDashboard extends React.Component {
             <div className="widget">
                     <div className="widget_header">
                         <img src={icoCharBar} className="ico" alt="" />
-                        Economia do mês
+                        Acumulado do mês atual
                     </div>
 
                     <div className="widget_content">
 
                         <BoxInfo
                             type="success"
-                            title="Receita total"
+                            title="Receita"
                             imgIco={icoCoinsAdd}
                             content={ convertCurrencyToPtBr(revenueTotal) }
                         />
 
                         <BoxInfo
                             type="danger"
-                            title="Despesa total"
+                            title="Despesa"
                             imgIco={icoCoinsDelete}
                             content={ convertCurrencyToPtBr(expenseTotal) }
                         />
 
                         <BoxInfo
                             type="warning"
-                            title="Economia total"
+                            title="Economia"
                             imgIco={icoCoins}
                             content={ convertCurrencyToPtBr((revenueTotal - expenseTotal)) }
                         />
@@ -103,7 +104,7 @@ class ViewDashboard extends React.Component {
             <div className="widget">
                     <div className="widget_header">
                         <img src={icoCharBar} className="ico" alt="" />
-                        Evolução Receita/Despesa
+                        Evolução receita/despesa
                     </div>
 
                     <div className="widget_content">
@@ -113,15 +114,15 @@ class ViewDashboard extends React.Component {
                             chartType="AreaChart"
                             loader={<div>Loading Chart</div>}
                             data={[
-                                ['Mês', 'Receitas', 'Despesas'],
+                                ['Mês', 'Receitas', 'Despesas', 'Economia'],
                                 ...this.state.yearTotals,
                             ]}
                             options={{
-                            title: 'Company Performance',
+                                title: 'Evolução do total da receita e despesa do ano atual',
                             hAxis: { title: 'Mês', titleTextStyle: { color: '#333' } },
                             vAxis: { minValue: 0 },
                             // For the legend to fit, we make the chart area smaller
-                            chartArea: { width: '75%', height: '70%' },
+                            chartArea: { width: '70%', height: '70%' },
                             // lineWidth: 25
                             }}
                         />
