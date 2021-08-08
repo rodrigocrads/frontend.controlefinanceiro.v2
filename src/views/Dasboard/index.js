@@ -23,13 +23,15 @@ class ViewDashboard extends React.Component {
                 totalFixedExpense: 0.0,
                 totalFixedRevenue: 0.0,
             },
-            yearTotals: []
+            yearTotals: [],
+            expensesTotalsByCategoriesChart: [],
         };
     }
 
     componentDidMount() {
         this.fetchTotalsByCurrentMonth();
         this.fetchYearTotals();
+        this.fetchExpensesTotalsByCategories();
     }
 
     async fetchTotalsByCurrentMonth() {
@@ -57,6 +59,61 @@ class ViewDashboard extends React.Component {
 
                 this.setState( { ...this.state, yearTotals: [ ...totals ]})
             })
+    }
+
+    // todo: melhorar esta lógica
+    async fetchExpensesTotalsByCategories() {
+        await fetch(`${API_BASE_URL}/report/currentYearExpensesTotalsByCategories`)
+            .then(response => response.json())
+            .then(months => {
+                const allCategories = [];
+
+                (months || []).forEach(month => {
+                    month.categories.forEach(category => {
+                        const foundCategoryByName = allCategories.some(cat => cat.name === category.name);
+        
+                        if (!foundCategoryByName) {
+                            allCategories.push({
+                                name: category.name,
+                                total: 0,
+                            });
+                        }
+                    })
+                });
+
+                const totals = months.map(month => {
+                    let baseCategories = [...allCategories];
+
+                    baseCategories.map(category => category.total = 0);
+
+                    month.categories.forEach(category => {
+                        baseCategories.map(baseCategory => {
+                            if (baseCategory.name === category.name) {
+                                baseCategory.total += category.total;
+                                return baseCategory;
+                            }
+
+                            return baseCategory;
+                        });
+                    });
+
+                    return [
+                        replaceMonths(month.name),
+                        ...baseCategories.map(category => category.total),
+                    ];
+                });
+
+                const allCategoriesNames = Object.values(allCategories)
+                    .map(category => category.name);
+
+                this.setState( { ...this.state, expensesTotalsByCategoriesChart: [
+                    [
+                        'Mês',
+                        ...allCategoriesNames,
+                    ],
+                    ...totals
+                ]})
+            });
     }
 
     renderMonthEconomy() {
@@ -102,33 +159,61 @@ class ViewDashboard extends React.Component {
     renderTotalsCurrentYearChart() {
         return (
             <div className="widget">
-                    <div className="widget_header">
-                        <img src={icoCharBar} className="ico" alt="" />
-                        Evolução receita/despesa
-                    </div>
+                <div className="widget_header">
+                    <img src={icoCharBar} className="ico" alt="" />
+                    Evolução receita/despesa
+                </div>
 
-                    <div className="widget_content">
-
-                        <Chart
-                            height={'300px'}
-                            chartType="AreaChart"
-                            loader={<div>Loading Chart</div>}
-                            data={[
-                                ['Mês', 'Receitas', 'Despesas', 'Economia'],
-                                ...this.state.yearTotals,
-                            ]}
-                            options={{
-                                title: 'Evolução do total da receita e despesa do ano atual',
+                <div className="widget_content">
+                    <Chart
+                        height={'300px'}
+                        chartType="AreaChart"
+                        loader={<div>Loading Chart</div>}
+                        data={[
+                            ['Mês', 'Receitas', 'Despesas', 'Economia'],
+                            ...this.state.yearTotals,
+                        ]}
+                        options={{
+                            title: 'Evolução do total da receita e despesa do ano atual',
                             hAxis: { title: 'Mês', titleTextStyle: { color: '#333' } },
                             vAxis: { minValue: 0 },
                             // For the legend to fit, we make the chart area smaller
                             chartArea: { width: '70%', height: '70%' },
                             // lineWidth: 25
-                            }}
-                        />
-
-                    </div>
+                        }}
+                    />
                 </div>
+            </div>
+        );
+    }
+
+    renderTotalsCurrentYearExpensesTotalByCategoriesChart() {
+        return (
+            <div className="widget">
+                <div className="widget_header">
+                    <img src={icoCharBar} className="ico" alt="" />
+                    Despesas por categoria
+                </div>
+
+                <div className="widget_content">
+                    <Chart
+                        height={'300px'}
+                        chartType="ColumnChart"
+                        loader={<div>Loading Chart</div>}
+                        data={[
+                            ...this.state.expensesTotalsByCategoriesChart,
+                        ]}
+                        options={{
+                            title: 'Totais de despesas por categorias de cada mês do ano corrente',
+                            hAxis: { title: 'Mês', titleTextStyle: { color: '#333' } },
+                            vAxis: { minValue: 0 },
+                            // For the legend to fit, we make the chart area smaller
+                            chartArea: { width: '70%', height: '70%' },
+                            // lineWidth: 25
+                        }}
+                    />
+                </div>
+            </div>
         );
     }
 
@@ -140,6 +225,7 @@ class ViewDashboard extends React.Component {
                 </div>
                 { this.renderMonthEconomy() }
                 { this.renderTotalsCurrentYearChart() }
+                { this.renderTotalsCurrentYearExpensesTotalByCategoriesChart() }
             </div>
         );
     }
