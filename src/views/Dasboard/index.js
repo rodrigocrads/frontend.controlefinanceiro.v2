@@ -23,8 +23,8 @@ class ViewDashboard extends React.Component {
                 totalFixedExpense: 0.0,
                 totalFixedRevenue: 0.0,
             },
-            yearTotals: [],
-            expensesTotalsByCategoriesChart: [],
+            yearTotalsChartData: [],
+            expensesTotalsByCategoriesChartData: [],
         };
     }
 
@@ -57,7 +57,10 @@ class ViewDashboard extends React.Component {
                     ];
                 });
 
-                this.setState( { ...this.state, yearTotals: [ ...totals ]})
+                this.setState( { ...this.state, yearTotalsChartData: [
+                    ['Mês', 'Receitas', 'Despesas', 'Economia'],
+                    ...totals
+                ]})
             })
     }
 
@@ -81,7 +84,7 @@ class ViewDashboard extends React.Component {
                     })
                 });
 
-                const totals = months.map(month => {
+                const totals = (months || []).map(month => {
                     let baseCategories = [...allCategories];
 
                     baseCategories.map(category => category.total = 0);
@@ -97,21 +100,23 @@ class ViewDashboard extends React.Component {
                         });
                     });
 
+                    const baseCategoriesTotal = baseCategories.length > 0
+                        ? baseCategories.map(category => category.total)
+                        : [0];
+
                     return [
                         replaceMonths(month.name),
-                        ...baseCategories.map(category => category.total),
+                        ...baseCategoriesTotal,
                     ];
                 });
 
-                const allCategoriesNames = Object.values(allCategories)
-                    .map(category => category.name);
+                const allCategoriesNames = allCategories.length > 0
+                    ? Object.values(allCategories).map(category => category.name)
+                    : ['Nenhuma Categoria Encontrada'];
 
-                this.setState( { ...this.state, expensesTotalsByCategoriesChart: [
-                    [
-                        'Mês',
-                        ...allCategoriesNames,
-                    ],
-                    ...totals
+                this.setState( { ...this.state, expensesTotalsByCategoriesChartData: [
+                    [ 'Mês', ...allCategoriesNames ],
+                    ...totals,
                 ]})
             });
     }
@@ -168,14 +173,11 @@ class ViewDashboard extends React.Component {
                     <Chart
                         height={'300px'}
                         chartType="AreaChart"
-                        loader={<div>Loading Chart</div>}
-                        data={[
-                            ['Mês', 'Receitas', 'Despesas', 'Economia'],
-                            ...this.state.yearTotals,
-                        ]}
+                        loader={<div>Carregando Gráfico...</div>}
+                        data={ [ ...this.state.yearTotalsChartData ] }
                         options={{
                             title: 'Evolução do total da receita e despesa do ano atual',
-                            hAxis: { title: 'Mês', titleTextStyle: { color: '#333' } },
+                            hAxis: { title: 'Meses', titleTextStyle: { color: '#333' } },
                             vAxis: { minValue: 0 },
                             // For the legend to fit, we make the chart area smaller
                             chartArea: { width: '70%', height: '70%' },
@@ -199,13 +201,11 @@ class ViewDashboard extends React.Component {
                     <Chart
                         height={'300px'}
                         chartType="ColumnChart"
-                        loader={<div>Loading Chart</div>}
-                        data={[
-                            ...this.state.expensesTotalsByCategoriesChart,
-                        ]}
+                        loader={<div>Carregando Gráfico...</div>}
+                        data={ [ ...this.state.expensesTotalsByCategoriesChartData ] }
                         options={{
-                            title: 'Totais de despesas por categorias de cada mês do ano corrente',
-                            hAxis: { title: 'Mês', titleTextStyle: { color: '#333' } },
+                            title: 'Totais de despesas de cada mês por categorias',
+                            hAxis: { title: 'Meses', titleTextStyle: { color: '#333' } },
                             vAxis: { minValue: 0 },
                             // For the legend to fit, we make the chart area smaller
                             chartArea: { width: '70%', height: '70%' },
