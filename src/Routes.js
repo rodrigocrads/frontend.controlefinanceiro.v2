@@ -16,73 +16,84 @@ import ViewVariableRevenueForm from './views/VariableRevenue/Form';
 
 import ViewVariableExpenseList from './views/VariableExpense/List';
 import ViewVariableExpenseForm from './views/VariableExpense/Form';
+import PrivateRoute from './PrivateRoute';
+import Login from './views/Login';
+import Callback from './views/Auth/Callback';
 
 const routes = () => {
     return (
         <Switch>
-            <Route exact path="/">
+            <Route exact path="/login">
+                <Login />
+            </Route>
+
+            <Route exact path="/auth/callback">
+                <Callback />
+            </Route>
+
+            <PrivateRoute exact path="/">
                 <Dashboard />
-            </Route>
+            </PrivateRoute>
 
-            <Route exact path="/category/list">
+            <PrivateRoute exact path="/category/list">
                 <ViewCategoryList />
-            </Route>
+            </PrivateRoute>
 
-            <Route exact path="/category/">
+            <PrivateRoute exact path="/category/">
                 <ViewCategoryForm />
-            </Route>
+            </PrivateRoute>
 
-            <Route path="/category/:id">
+            <PrivateRoute path="/category/:id">
                 <ViewCategoryForm />
-            </Route>
+            </PrivateRoute>
 
-            <Route exact path="/FixedRevenue/list">
+            <PrivateRoute exact path="/FixedRevenue/list">
                 <ViewFixedRevenueList />
-            </Route>
+            </PrivateRoute>
 
-            <Route exact path="/FixedRevenue">
+            <PrivateRoute exact path="/FixedRevenue">
                 <ViewFixedRevenueForm />
-            </Route>
+            </PrivateRoute>
 
-            <Route exact path="/FixedRevenue/:id">
+            <PrivateRoute exact path="/FixedRevenue/:id">
                 <ViewFixedRevenueForm />
-            </Route>
+            </PrivateRoute>
 
-            <Route exact path="/fixedExpense/list">
+            <PrivateRoute exact path="/fixedExpense/list">
                 <ViewFixedExpenseList />
-            </Route>
+            </PrivateRoute>
 
-            <Route exact path="/fixedExpense">
+            <PrivateRoute exact path="/fixedExpense">
                 <ViewFixedExpenseForm />
-            </Route>
+            </PrivateRoute>
 
-            <Route exact path="/fixedExpense/:id">
+            <PrivateRoute exact path="/fixedExpense/:id">
                 <ViewFixedExpenseForm />
-            </Route>
+            </PrivateRoute>
 
-            <Route exact path="/variableRevenue/list">
+            <PrivateRoute exact path="/variableRevenue/list">
                 <ViewVariableRevenueList />
-            </Route>
+            </PrivateRoute>
 
-            <Route exact path="/variableRevenue">
+            <PrivateRoute exact path="/variableRevenue">
                 <ViewVariableRevenueForm />
-            </Route>
+            </PrivateRoute>
 
-            <Route exact path="/variableRevenue/:id">
+            <PrivateRoute exact path="/variableRevenue/:id">
                 <ViewVariableRevenueForm />
-            </Route>
+            </PrivateRoute>
 
-            <Route exact path="/variableExpense/list">
+            <PrivateRoute exact path="/variableExpense/list">
                 <ViewVariableExpenseList />
-            </Route>
+            </PrivateRoute>
 
-            <Route exact path="/variableExpense">
+            <PrivateRoute exact path="/variableExpense">
                 <ViewVariableExpenseForm />
-            </Route>
+            </PrivateRoute>
 
-            <Route exact path="/variableExpense/:id">
+            <PrivateRoute exact path="/variableExpense/:id">
                 <ViewVariableExpenseForm />
-            </Route>
+            </PrivateRoute>
         </Switch>
     );
 };
