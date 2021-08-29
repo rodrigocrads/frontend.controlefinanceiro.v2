@@ -12,10 +12,10 @@ class Callback extends Component
 
             const formData = new FormData();
             formData.append('grant_type', 'authorization_code');
-            formData.append('client_id', '1');
+            formData.append('client_id', process.env.REACT_APP_API_CLIENT_ID);
             formData.append('code', params['code']);
-            formData.append('client_secret', 'lHwlOkefAVJlMm5wnoR54hKlBLn2uVm7GPkxVIGY');
-            formData.append('redirect_uri', 'http://localhost:3000/auth/callback');
+            formData.append('client_secret', process.env.REACT_APP_API_SECRET);
+            formData.append('redirect_uri', process.env.REACT_APP_API_REDIRECT_URI);
 
             const requestInfo = { method: 'POST', body: formData };
 

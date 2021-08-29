@@ -1,5 +1,19 @@
-function Login() {
-    return window.location.href='http://localhost:8000/oauth/authorize?client_id=1&redirect_uri=http://localhost:3000/auth/callback&response_type=code&scope=';
+import React from 'react'
+
+class Login extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.redirectToLogin();
+    }
+
+    redirectToLogin() {
+        return window.location.href=`http://localhost:8000/oauth/authorize?client_id=${process.env.REACT_APP_API_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_API_REDIRECT_URI}&response_type=code&scope=`;
+    }
+
+    render() {
+        return false;
+    }
 }
 
 export default Login;
