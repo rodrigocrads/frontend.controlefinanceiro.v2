@@ -10,8 +10,6 @@ import icoCoinsAdd from '../../img/coins_add.png';
 import icoCoins from '../../img/coins.png';
 import icoCoinsDelete from '../../img/coins_delete.png';
 
-const API_BASE_URL = "http://localhost:8000/api";
-
 class ViewDashboard extends React.Component {
     constructor(props) {
         super(props);
@@ -35,13 +33,13 @@ class ViewDashboard extends React.Component {
     }
 
     async fetchTotalsByCurrentMonth() {
-        await fetch(`${API_BASE_URL}/report/currentMonthTotals`)
+        await fetch(`${process.env.REACT_APP_API_BASE_URL}/report/currentMonthTotals`)
             .then(response => response.json())
             .then(totals => this.setState( { ...this.state, monthTotals: { ...totals }}))
     }
 
     async fetchYearTotals() {
-        await fetch(`${API_BASE_URL}/report/currentYearTotals`)
+        await fetch(`${process.env.REACT_APP_API_BASE_URL}/report/currentYearTotals`)
             .then(response => response.json())
             .then(data => {
                 const totals = (data || []).map(monthTotal => {
@@ -66,7 +64,7 @@ class ViewDashboard extends React.Component {
 
     // todo: melhorar esta lógica
     async fetchExpensesTotalsByCategories() {
-        await fetch(`${API_BASE_URL}/report/currentYearExpensesTotalsByCategories`)
+        await fetch(`${process.env.REACT_APP_API_BASE_URL}/report/currentYearExpensesTotalsByCategories`)
             .then(response => response.json())
             .then(months => {
                 const allCategories = [];
