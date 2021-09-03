@@ -5,7 +5,7 @@ import TextArea from '../../components/UI/TextArea';
 import Select from '../../components/UI/Select';
 
 import SaveOrUpdate from '../../builders/requestBody/variableFinancialTransaction/SaveOrUpdate';
-import { convertIsoDateToBr, getCategoriesSelectOptions } from '../../helpers/utils';
+import { convertIsoDateToBr, fetchWithAuth, getCategoriesSelectOptions } from '../../helpers/utils';
 import VariableExpense from '../../dtos/VariableExpense';
 
 import icoMenuEdit from '../../img/edit.png';
@@ -50,13 +50,13 @@ class ViewVariableExpenseForm extends Component {
     }
 
     retrieveCategories() {
-        fetch(`${process.env.REACT_APP_API_BASE_URL}category?type=expense`)
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}category?type=expense`)
             .then(response => response.json())
             .then(categories => this.setState({ ...this.state, categories }));
     }
 
     retrieveVariableExpenseById(id) {
-        fetch(`${process.env.REACT_APP_API_BASE_URL}variableExpense/${id}`)
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}variableExpense/${id}`)
             .then(response => response.json())
             .then(data => {
                 this.setState({
@@ -108,16 +108,7 @@ class ViewVariableExpenseForm extends Component {
     }
 
     update() {
-        const requestInfo = {
-            method: 'PUT',
-            body: JSON.stringify(this.getBuildRequestContent()),
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }),
-        };
-
-        fetch(`${process.env.REACT_APP_API_BASE_URL}variableExpense/${this.state.id}`, requestInfo)
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}variableExpense/${this.state.id}`, 'PUT', this.getBuildRequestContent())
             .then((response) => {
                 if (response.status === 200) {
                     alert('Registro atualizado com sucesso.');
@@ -130,16 +121,7 @@ class ViewVariableExpenseForm extends Component {
     }
 
     save() {
-        const requestInfo = {
-            method: 'POST',
-            body: JSON.stringify(this.getBuildRequestContent()),
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }),
-        };
-
-        fetch(`${process.env.REACT_APP_API_BASE_URL}variableExpense`, requestInfo)
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}variableExpense`, 'POST', this.getBuildRequestContent())
             .then((response) => {
                 if (response.status === 201) {
                     alert('Registro criado com sucesso!');

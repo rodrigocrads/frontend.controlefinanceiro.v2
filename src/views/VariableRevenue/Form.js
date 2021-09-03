@@ -6,7 +6,7 @@ import Select from '../../components/UI/Select';
 
 import SaveOrUpdate from '../../builders/requestBody/variableFinancialTransaction/SaveOrUpdate';
 import VariableRevenue from '../../dtos/VariableRevenue';
-import { convertIsoDateToBr, getCategoriesSelectOptions } from '../../helpers/utils';
+import { convertIsoDateToBr, fetchWithAuth, getCategoriesSelectOptions } from '../../helpers/utils';
 
 import icoMenuEdit from '../../img/edit.png';
 import { Currency } from '../../masks/Currency';
@@ -50,13 +50,13 @@ class ViewVariableRevenueForm extends Component {
     }
 
     retrieveCategories() {
-        fetch(`${process.env.REACT_APP_API_BASE_URL}category?type=revenue`)
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}category?type=revenue`)
             .then(response => response.json())
             .then(categories => this.setState({ ...this.state, categories }));
     }
 
     retrieveVariableRevenueById(id) {
-        fetch(`${process.env.REACT_APP_API_BASE_URL}variableRevenue/${id}`)
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}variableRevenue/${id}`)
             .then(response => response.json())
             .then(data => {
                 this.setState({
@@ -109,16 +109,7 @@ class ViewVariableRevenueForm extends Component {
     }
 
     update() {
-        const requestInfo = {
-            method: 'PUT',
-            body: JSON.stringify(this.getBuildRequestContent()),
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }),
-        };
-
-        fetch(`${process.env.REACT_APP_API_BASE_URL}variableRevenue/${this.state.id}`, requestInfo)
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}variableRevenue/${this.state.id}`, 'PUT', this.getBuildRequestContent())
             .then((response) => {
                 if (response.status === 200) {
                     alert('Registro atualizado com sucesso.');
@@ -131,16 +122,7 @@ class ViewVariableRevenueForm extends Component {
     }
 
     save() {
-        const requestInfo = {
-            method: 'POST',
-            body: JSON.stringify(this.getBuildRequestContent()),
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }),
-        };
-
-        fetch(`${process.env.REACT_APP_API_BASE_URL}variableRevenue`, requestInfo)
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}variableRevenue`, 'POST', this.getBuildRequestContent())
             .then((response) => {
                 if (response.status === 201) {
                     alert('Registro criado com sucesso!');

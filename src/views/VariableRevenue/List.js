@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import icoList from '../../img/ico-list.png';
 import icoEdit from '../../img/edit.png';
 import icoDelete from '../../img/delete.png';
-import { convertCurrencyToPtBr, convertIsoDateToBr } from '../../helpers/utils';
+import { convertCurrencyToPtBr, convertIsoDateToBr, fetchWithAuth } from '../../helpers/utils';
 
 export default class ViewVariableRevenueList extends Component {
     constructor(props) {
@@ -25,21 +25,21 @@ export default class ViewVariableRevenueList extends Component {
     }
 
     fetchCategories() {
-        fetch('http://localhost:8000/api/variableRevenue')
+        fetchWithAuth('http://localhost:8000/api/variableRevenue')
             .then(response => response.json())
             .then(variableRevenues => this.setState({ ...this.state, variableRevenues }))
             .catch(e => { console.log(e) });
     }
 
-    deleteCategoryHandler(categoryIndex) {
+    deleteCategoryHandler(id) {
         const isConfirm = window.confirm("Realmente deseja excluir este registro?");
         if (isConfirm) {
-            this.deleteCategory(categoryIndex);
+            this.deleteCategory(id);
         }
     }
 
-    deleteCategory(categoryIndex) {
-        fetch(`http://localhost:8000/api/variableRevenue/${ categoryIndex }`, { method: 'DELETE' })
+    deleteCategory(id) {
+        fetchWithAuth(`http://localhost:8000/api/variableRevenue/${ id }`, 'DELETE')
             .then((response) => {
                 if (response.status === 200) alert('Receita fixa excluida com sucesso.');
 

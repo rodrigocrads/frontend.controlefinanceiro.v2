@@ -13,6 +13,7 @@ import {
     getCategoriesSelectOptions,
     getPeriodicitySelectOptions,
     getExpirationDaysSelectOptions,
+    fetchWithAuth,
 } from '../../helpers/utils';
 
 import icoMenuEdit from '../../img/edit.png';
@@ -74,13 +75,13 @@ class ViewFixedExpenseForm extends Component {
     }
 
     retrieveCategories() {
-        fetch(`${process.env.REACT_APP_API_BASE_URL}category?type=expense`)
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}category?type=expense`)
             .then(response => response.json())
             .then(categories => this.setState({ ...this.state, categories }));
     }
 
     retrieveFixedExpenseBy(id) {
-        fetch(`${process.env.REACT_APP_API_BASE_URL}fixedExpense/${id}`)
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}fixedExpense/${id}`)
             .then(response => response.json())
             .then(data => {
                 this.setState({
@@ -137,16 +138,7 @@ class ViewFixedExpenseForm extends Component {
     }
 
     update() {
-        const requestInfo = {
-            method: 'PUT',
-            body: JSON.stringify(this.getBuildRequestContent()),
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }),
-        };
-
-        fetch(`${process.env.REACT_APP_API_BASE_URL}fixedExpense/${this.state.id}`, requestInfo)
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}fixedExpense/${this.state.id}`, 'PUT', this.getBuildRequestContent())
             .then((response) => {
                 if (response.status === 200) {
                     alert('Registro atualizado com sucesso!');
@@ -159,16 +151,7 @@ class ViewFixedExpenseForm extends Component {
     }
 
     save() {
-        const requestInfo = {
-            method: 'POST',
-            body: JSON.stringify(this.getBuildRequestContent()),
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }),
-        };
-
-        fetch(`${process.env.REACT_APP_API_BASE_URL}fixedExpense`, requestInfo)
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}fixedExpense`, 'POST', this.getBuildRequestContent())
             .then((response) => {
                 if (response.status === 201) {
                     alert('Registro criado com sucesso!');

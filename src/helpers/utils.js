@@ -82,3 +82,17 @@ export const convertIsoDateToBr = (date) => {
 
     return date.split('-').reverse().join('/');
 }
+
+export const fetchWithAuth = (url, method = 'GET', body = null) => {
+    const params = {
+        method,
+        body: body ? JSON.stringify(body) : null,
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + (localStorage.getItem('financial_control_access_token') || ''),
+        })
+    }
+
+    return fetch(url, params);
+};

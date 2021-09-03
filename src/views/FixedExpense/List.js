@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import { convertCurrencyToPtBr, convertIsoDateToBr, replacePeriodicity } from '../../helpers/utils';
+import { convertCurrencyToPtBr, convertIsoDateToBr, fetchWithAuth, replacePeriodicity } from '../../helpers/utils';
 import icoList from '../../img/ico-list.png';
 import icoEdit from '../../img/edit.png';
 import icoDelete from '../../img/delete.png';
@@ -25,21 +25,21 @@ export default class ViewFixedExpenseList extends Component {
     }
 
     fetchCategories() {
-        fetch('http://localhost:8000/api/fixedExpense')
+        fetchWithAuth('http://localhost:8000/api/fixedExpense')
             .then(response => response.json())
             .then(fixedExpenses => this.setState({ ...this.state, fixedExpenses }))
             .catch(e => { console.log(e) });
     }
 
-    deleteCategoryHandler(categoryIndex) {
+    deleteCategoryHandler(id) {
         const isConfirm = window.confirm("Realmente deseja excluir este registro?");
         if (isConfirm) {
-            this.deleteCategory(categoryIndex);
+            this.deleteCategory(id);
         }
     }
 
-    deleteCategory(categoryIndex) {
-        fetch(`http://localhost:8000/api/fixedExpense/${categoryIndex}`, { method: 'DELETE' })
+    deleteCategory(id) {
+        fetchWithAuth(`http://localhost:8000/api/fixedExpense/${id}`, 'DELETE')
             .then((response) => {
                 if (response.status === 200) alert('Despesa fixa excluida com sucesso.');
 

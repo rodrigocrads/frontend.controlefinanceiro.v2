@@ -5,6 +5,7 @@ import icoList from '../../img/ico-list.png';
 import icoEdit from '../../img/edit.png';
 import icoDelete from '../../img/delete.png';
 import FlashMessage from '../../components/UI/FlashMessage';
+import { fetchWithAuth } from '../../helpers/utils';
 
 export default class List extends Component {
     constructor(props) {
@@ -26,15 +27,15 @@ export default class List extends Component {
     }
 
     fetchCategories() {
-        fetch(`${process.env.REACT_APP_API_BASE_URL}category`)
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}category`)
             .then(response => response.json())
             .then(categories => this.setState({ ...this.state, categories }));
     }
 
-    deleteCategoryHandler(categoryIndex) {
+    deleteCategoryHandler(id) {
         const isConfirm = window.confirm("Realmente deseja excluir este registro?");
         if (isConfirm) {
-            this.deleteCategory(categoryIndex);
+            this.deleteCategory(id);
         }
     }
 
@@ -42,8 +43,8 @@ export default class List extends Component {
         return response[field];
     }
 
-    deleteCategory(categoryIndex) {
-        fetch(`${process.env.REACT_APP_API_BASE_URL}category/${categoryIndex}`, { method: 'DELETE' })
+    deleteCategory(id) {
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}category/${id}`, 'DELETE')
             .then((response) => {
                 if (response.status === 200) {
                     alert('Categoria excluida com sucesso.');

@@ -3,7 +3,7 @@ import Chart from "react-google-charts";
 
 import BoxInfo from '../../components/UI/BoxInfo';
 
-import { convertCurrencyToPtBr, replaceMonths } from '../../helpers/utils';
+import { convertCurrencyToPtBr, fetchWithAuth, replaceMonths } from '../../helpers/utils';
 
 import icoCharBar from '../../img/chart_bar.png';
 import icoCoinsAdd from '../../img/coins_add.png';
@@ -33,13 +33,13 @@ class ViewDashboard extends React.Component {
     }
 
     async fetchTotalsByCurrentMonth() {
-        await fetch(`${process.env.REACT_APP_API_BASE_URL}/report/currentMonthTotals`)
+        await fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}report/currentMonthTotals`)
             .then(response => response.json())
             .then(totals => this.setState( { ...this.state, monthTotals: { ...totals }}))
     }
 
     async fetchYearTotals() {
-        await fetch(`${process.env.REACT_APP_API_BASE_URL}/report/currentYearTotals`)
+        await fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}report/currentYearTotals`)
             .then(response => response.json())
             .then(data => {
                 const totals = (data || []).map(monthTotal => {
@@ -64,7 +64,7 @@ class ViewDashboard extends React.Component {
 
     // todo: melhorar esta lógica
     async fetchExpensesTotalsByCategories() {
-        await fetch(`${process.env.REACT_APP_API_BASE_URL}/report/currentYearExpensesTotalsByCategories`)
+        await fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}report/currentYearExpensesTotalsByCategories`)
             .then(response => response.json())
             .then(months => {
                 const allCategories = [];

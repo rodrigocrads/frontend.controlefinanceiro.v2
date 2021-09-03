@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import Input from '../../components/UI/Input';
 import Select from '../../components/UI/Select';
+import { fetchWithAuth } from '../../helpers/utils';
 
 import icoMenuEdit from '../../img/edit.png';
 
@@ -31,7 +32,7 @@ class Form extends Component {
     }
 
     retrieveCategoryBy(id) {
-        fetch(`${process.env.REACT_APP_API_BASE_URL}category/${id}`)
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}category/${id}`)
             .then(response => response.json())
             .then(category => { this.setState({ ...category })})
     }
@@ -58,16 +59,7 @@ class Form extends Component {
 
     update(id) {
         const data = { ...this.state }
-        const requestInfo = {
-            method: 'PUT',
-            body: JSON.stringify(data),
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }),
-        };
-
-        fetch(`${process.env.REACT_APP_API_BASE_URL}category/${id}`, requestInfo)
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}category/${id}`, 'PUT', data)
             .then((response) => {
                 if (response.status === 200) {
                     alert('Categoria atualizada com sucesso.');
@@ -81,16 +73,7 @@ class Form extends Component {
 
     save() {
         const data = { ...this.state }
-        const requestInfo = {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }),
-        };
-
-        fetch(`${process.env.REACT_APP_API_BASE_URL}category`, requestInfo)
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}category`, 'POST', data)
             .then((response) => {
                 if (response.status === 201) {
                     alert('Categoria criada com sucesso!');

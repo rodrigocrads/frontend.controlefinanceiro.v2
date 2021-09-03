@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import icoList from '../../img/ico-list.png';
 import icoEdit from '../../img/edit.png';
 import icoDelete from '../../img/delete.png';
-import { convertCurrencyToPtBr, convertIsoDateToBr } from '../../helpers/utils';
+import { convertCurrencyToPtBr, convertIsoDateToBr, fetchWithAuth } from '../../helpers/utils';
 
 export default class ViewVariableExpenseList extends Component {
     constructor(props) {
@@ -25,21 +25,21 @@ export default class ViewVariableExpenseList extends Component {
     }
 
     fetchCategories() {
-        fetch('http://localhost:8000/api/variableExpense')
+        fetchWithAuth('http://localhost:8000/api/variableExpense')
             .then(response => response.json())
             .then(variableExpenses => this.setState({ ...this.state, variableExpenses }))
             .catch(e => { console.log(e) });
     }
 
-    deleteCategoryHandler(categoryIndex) {
+    deleteCategoryHandler(id) {
         const isConfirm = window.confirm("Realmente deseja excluir este registro?");
         if (isConfirm) {
-            this.deleteCategory(categoryIndex);
+            this.deleteCategory(id);
         }
     }
 
-    deleteCategory(categoryIndex) {
-        fetch(`http://localhost:8000/api/variableExpense/${ categoryIndex }`, { method: 'DELETE' })
+    deleteCategory(id) {
+        fetchWithAuth(`http://localhost:8000/api/variableExpense/${ id }`, 'DELETE')
             .then((response) => {
                 if (response.status === 200) alert('Despesa variável excluida com sucesso.');
 
