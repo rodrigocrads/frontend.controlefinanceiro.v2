@@ -183,6 +183,7 @@ h6{font-size:0.8em;font-weight:normal;}
 .dropdown ul{
     display:none;
 }
+.active ul { display: block; }
 
 /*---- MENSAGENS DE ALERTA ----*/
 .alert{

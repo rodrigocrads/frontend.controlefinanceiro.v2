@@ -1,58 +1,60 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-import icoDown from '../../img/down.png';
+import Dropdown from './Dropdown';
 
-function Sidebar() {
-    return (
-        <div id="main_menu">
-            <ul>
-                <li><Link to="/">DASHBOARD</Link></li>
-                <li className="dropdown">
-                    <a onClick={() => { return false; }}>CATEGORIAS<img className="ico-dropdown" src={icoDown} alt="" /></a>
-                    <ul className="menu_dropdown">
-                        <li><Link to="/category/list">LISTAR</Link></li>
-                        <li><Link to="/category/">CRIAR</Link></li>
-                    </ul>
-                </li>
+export default class Sidebar extends React.Component {
+    render() {
+        return (
+            <div id="main_menu">
+                <ul>
+                    <li><Link to="/">DASHBOARD</Link></li>
 
-                <li className="dropdown">
-                    <a onClick={() => { return false; }}>RECEITAS FIXAS<img className="ico-dropdown" src={icoDown} alt="" /></a>
-                    <ul className="menu_dropdown">
-                        <li><Link to="/fixedRevenue/list">LISTAR</Link></li>
-                        <li><Link to="/fixedRevenue">CRIAR</Link></li>
-                    </ul>
-                </li>
+                    <Dropdown
+                        name="CATEGORIAS"
+                        links={[
+                            {name: 'LISTAR', path: '/category/list'},
+                            {name: 'CRIAR', path: '/category/'}
+                        ]}
+                    />
 
-                <li className="dropdown">
-                    <a onClick={() => { return false; }}>DESPESAS FIXAS<img className="ico-dropdown" src={icoDown} alt="" /></a>
-                    <ul className="menu_dropdown">
-                        <li><Link to="/fixedExpense/list">LISTAR</Link></li>
-                        <li><Link to="/fixedExpense">CRIAR</Link></li>
-                    </ul>
-                </li>
+                    <Dropdown
+                        name="RECEITAS FIXAS"
+                        links={[
+                            {name: 'LISTAR', path: '/fixedRevenue/list'},
+                            {name: 'CRIAR', path: '/fixedRevenue/'}
+                        ]}
+                    />
 
-                <li className="dropdown">
-                    <a onClick={() => { return false; }}>RECEITAS VARIÁVEIS<img className="ico-dropdown" src={icoDown} alt="" /></a>
-                    <ul className="menu_dropdown">
-                        <li><Link to="/variableRevenue/list">LISTAR</Link></li>
-                        <li><Link to="/variableRevenue">CRIAR</Link></li>
-                    </ul>
-                </li>
+                    <Dropdown
+                        name="DESPESAS FIXAS"
+                        links={[
+                            {name: 'LISTAR', path: '/fixedExpense/list'},
+                            {name: 'CRIAR', path: '/fixedExpense/'}
+                        ]}
+                    />
 
-                <li className="dropdown">
-                    <a onClick={() => { return false; }}>DESPESAS VARIÁVEIS<img className="ico-dropdown" src={icoDown} alt="" /></a>
-                    <ul className="menu_dropdown">
-                        <li><Link to="/variableExpense/list">LISTAR</Link></li>
-                        <li><Link to="/variableExpense">CRIAR</Link></li>
-                    </ul>
-                </li>
+                    <Dropdown
+                        name="RECEITAS VARIÁVEIS"
+                        links={[
+                            {name: 'LISTAR', path: '/variableRevenue/list'},
+                            {name: 'CRIAR', path: '/variableRevenue/'}
+                        ]}
+                    />
 
-                <li className="dropdown">
-                    <Link to="/logout">SAIR</Link>
-                </li>
-            </ul>
-        </div>
-    );
+                    <Dropdown
+                        name="DESPESAS VARIÁVEIS"
+                        links={[
+                            {name: 'LISTAR', path: '/variableExpense/list'},
+                            {name: 'CRIAR', path: '/variableExpense/'}
+                        ]}
+                    />
+    
+                    <li className="dropdown">
+                        <Link to="/logout">SAIR</Link>
+                    </li>
+                </ul>
+            </div>
+        );
+    }
 }
-
-export default Sidebar;

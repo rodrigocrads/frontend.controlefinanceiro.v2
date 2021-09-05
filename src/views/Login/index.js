@@ -1,19 +1,7 @@
-import React from 'react'
+function Login() {
+    window.location.href=`${process.env.REACT_APP_API_DOMAIN}oauth/authorize?client_id=${process.env.REACT_APP_API_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_API_REDIRECT_URI}&response_type=code&scope=`;
 
-class Login extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.redirectToLogin();
-    }
-
-    redirectToLogin() {
-        return window.location.href=`${process.env.REACT_APP_API_DOMAIN}oauth/authorize?client_id=${process.env.REACT_APP_API_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_API_REDIRECT_URI}&response_type=code&scope=`;
-    }
-
-    render() {
-        return false;
-    }
+    return false;
 }
 
 export default Login;
