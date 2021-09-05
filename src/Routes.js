@@ -36,7 +36,7 @@ const routes = () => {
                 <Callback />
             </Route>
 
-            <PrivateRoute exact path="/">
+            <PrivateRoute path="/">
                 <Dashboard />
             </PrivateRoute>
 
