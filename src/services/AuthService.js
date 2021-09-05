@@ -1,3 +1,5 @@
+import { fetchWithAuth } from "../helpers/utils";
+
 class AuthService
 {
     accessToken = null;
@@ -24,6 +26,14 @@ class AuthService
 
     saveAccessToken(token) {
         localStorage.setItem(this.accessTokenKey, token)
+    }
+
+    logout() {
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}logout`, 'POST')
+            .then(response => {
+                console.log(response);
+                localStorage.removeItem(this.accessTokenKey);
+            });
     }
 }
 

@@ -19,12 +19,17 @@ import ViewVariableExpenseForm from './views/VariableExpense/Form';
 import PrivateRoute from './PrivateRoute';
 import Login from './views/Login';
 import Callback from './views/Auth/Callback';
+import Logout from './views/Logout';
 
 const routes = () => {
     return (
         <Switch>
             <Route exact path="/login">
                 <Login />
+            </Route>
+
+            <Route exact path="/logout">
+                <Logout />
             </Route>
 
             <Route exact path="/auth/callback">

@@ -46,6 +46,10 @@ function Sidebar() {
                         <li><Link to="/variableExpense">CRIAR</Link></li>
                     </ul>
                 </li>
+
+                <li className="dropdown">
+                    <Link to="/logout">SAIR</Link>
+                </li>
             </ul>
         </div>
     );

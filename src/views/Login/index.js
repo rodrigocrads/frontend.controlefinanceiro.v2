@@ -8,7 +8,7 @@ class Login extends React.Component {
     }
 
     redirectToLogin() {
-        return window.location.href=`http://localhost:8000/oauth/authorize?client_id=${process.env.REACT_APP_API_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_API_REDIRECT_URI}&response_type=code&scope=`;
+        return window.location.href=`${process.env.REACT_APP_API_DOMAIN}oauth/authorize?client_id=${process.env.REACT_APP_API_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_API_REDIRECT_URI}&response_type=code&scope=`;
     }
 
     render() {
