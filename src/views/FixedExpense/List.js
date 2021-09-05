@@ -25,7 +25,7 @@ export default class ViewFixedExpenseList extends Component {
     }
 
     fetchCategories() {
-        fetchWithAuth('http://localhost:8000/api/fixedExpense')
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}fixedExpense`)
             .then(response => response.json())
             .then(fixedExpenses => this.setState({ ...this.state, fixedExpenses }))
             .catch(e => { console.log(e) });
@@ -39,7 +39,7 @@ export default class ViewFixedExpenseList extends Component {
     }
 
     deleteCategory(id) {
-        fetchWithAuth(`http://localhost:8000/api/fixedExpense/${id}`, 'DELETE')
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}fixedExpense/${id}`, 'DELETE')
             .then((response) => {
                 if (response.status === 200) alert('Despesa fixa excluida com sucesso.');
 

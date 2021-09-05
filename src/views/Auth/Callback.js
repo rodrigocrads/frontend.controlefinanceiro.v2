@@ -19,7 +19,7 @@ class Callback extends Component
 
             const requestInfo = { method: 'POST', body: formData };
 
-            await fetch(`http://localhost:8000/oauth/token`, requestInfo)
+            await fetch(`${process.env.REACT_APP_API_DOMAIN}oauth/token`, requestInfo)
                 .then(response => response.json())
                 .then(data => {
                     if (!!data.access_token) {

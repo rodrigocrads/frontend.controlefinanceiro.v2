@@ -25,7 +25,7 @@ export default class ViewFixedRevenueList extends Component {
     }
 
     fetchCategories() {
-        fetchWithAuth('http://localhost:8000/api/fixedRevenue')
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}fixedRevenue`)
             .then(response => response.json())
             .then(fixedRevenues => this.setState({ ...this.state, fixedRevenues }))
             .catch(e => { console.log(e) });
@@ -39,7 +39,7 @@ export default class ViewFixedRevenueList extends Component {
     }
 
     deleteCategory(id) {
-        fetchWithAuth(`http://localhost:8000/api/fixedRevenue/${id}`, 'DELETE')
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}fixedRevenue/${id}`, 'DELETE')
             .then((response) => {
                 if (response.status === 200) alert('Receita fixa excluida com sucesso.');
 

@@ -25,7 +25,7 @@ export default class ViewVariableExpenseList extends Component {
     }
 
     fetchCategories() {
-        fetchWithAuth('http://localhost:8000/api/variableExpense')
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}variableExpense`)
             .then(response => response.json())
             .then(variableExpenses => this.setState({ ...this.state, variableExpenses }))
             .catch(e => { console.log(e) });
@@ -39,7 +39,7 @@ export default class ViewVariableExpenseList extends Component {
     }
 
     deleteCategory(id) {
-        fetchWithAuth(`http://localhost:8000/api/variableExpense/${ id }`, 'DELETE')
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}variableExpense/${ id }`, 'DELETE')
             .then((response) => {
                 if (response.status === 200) alert('Despesa variável excluida com sucesso.');
 

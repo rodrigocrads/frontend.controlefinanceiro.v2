@@ -25,7 +25,7 @@ export default class ViewVariableRevenueList extends Component {
     }
 
     fetchCategories() {
-        fetchWithAuth('http://localhost:8000/api/variableRevenue')
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}variableRevenue`)
             .then(response => response.json())
             .then(variableRevenues => this.setState({ ...this.state, variableRevenues }))
             .catch(e => { console.log(e) });
@@ -39,7 +39,7 @@ export default class ViewVariableRevenueList extends Component {
     }
 
     deleteCategory(id) {
-        fetchWithAuth(`http://localhost:8000/api/variableRevenue/${ id }`, 'DELETE')
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}variableRevenue/${ id }`, 'DELETE')
             .then((response) => {
                 if (response.status === 200) alert('Receita fixa excluida com sucesso.');
 
