@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Dashboard from './views/Dasboard/index';
+import Dashboard from './views/Dashboard/index';
 import ViewCategoryList from './views/Category/List';
 import ViewCategoryForm from './views/Category/Form';
 
