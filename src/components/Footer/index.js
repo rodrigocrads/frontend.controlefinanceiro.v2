@@ -1,8 +1,7 @@
 function Footer() {
     return (
         <div id="rodape">
-            © 2015 Rodrigo Cunha Rodrigues, All Rights Reserved.
-            <p><a target='_blank' href="https://linkedin.com/in/rodrigo-cr-ads">Linkedin</a></p>
+            © 2021 <a target='_blank' href="https://linkedin.com/in/rodrigo-cr-ads">Rodrigo Cunha</a>, All Rights Reserved.
         </div>
     );
 }
