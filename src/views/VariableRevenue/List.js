@@ -26,16 +26,56 @@ export default class ViewVariableRevenueList extends Component {
     }
 
     componentDidMount() {
+        this.fetchVariableRevenues();
         this.fetchCategories();
     }
 
-    resetCategoriesList() {
+    resetVariableRevenueList() {
         this.setState({ variableRevenues: [] });
-        this.fetchCategories();
+        this.fetchVariableRevenues();
+    }
+
+    getQueryParams() {
+        const queryParams = [];
+
+        if (this.state.form.title)
+            queryParams.push(`params[title]=${this.state.form.title}`);
+
+        if (this.state.form.category_id)
+            queryParams.push(`params[category_id]=${this.state.form.category_id}`);
+
+        if (this.state.form.start_date)
+            queryParams.push(`params[start_date]=${this.state.form.start_date}`);
+
+        if (this.state.form.end_date)
+            queryParams.push(`params[end_date]=${this.state.form.end_date}`);
+
+        return queryParams;
+    }
+
+    buildUrlWithQueryParams(url) {
+        const queryParams = this.getQueryParams();
+
+        for(var i = 0; i < queryParams.length; i++) {
+            if (i===0) {
+                url += queryParams[i];
+                continue;
+            }
+
+            url += `&${queryParams[i]}`;
+        }
+
+        return url;
     }
 
     fetchCategories() {
-        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}variableRevenue`)
+        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}category?type=revenue`)
+            .then(response => response.json())
+            .then(categories => this.setState({ ...this.state, categories }));
+    }
+
+    fetchVariableRevenues() {
+        fetchWithAuth(this.buildUrlWithQueryParams(`${process.env.REACT_APP_API_BASE_URL}variableRevenue?`))
             .then(response => response.json())
             .then(variableRevenues => this.setState({ ...this.state, variableRevenues }))
             .catch(e => { console.log(e) });
@@ -53,7 +93,7 @@ export default class ViewVariableRevenueList extends Component {
             .then((response) => {
                 if (response.status === 200) alert('Receita fixa excluida com sucesso.');
 
-                this.resetCategoriesList();
+                this.resetVariableRevenueList();
             })
             .catch((error) => console.log(error));
     }
@@ -61,7 +101,7 @@ export default class ViewVariableRevenueList extends Component {
     onSubmitHandler = (event) => {
         event.preventDefault();
 
-        alert('OnSubmit');
+        this.fetchVariableRevenues();
     }
 
     onChangeHandler = (event) => {
@@ -106,12 +146,6 @@ export default class ViewVariableRevenueList extends Component {
                     }
                 </tbody>
             </table>
-        );
-    }
-
-    renderNotFound() {
-        return (
-            <div>Nenhuma receita variável encontrada!</div>
         );
     }
 
@@ -164,6 +198,7 @@ export default class ViewVariableRevenueList extends Component {
     }
 
     render() {
+        const foundLength = this.state.variableRevenues.length;
         return (
             <div>
                 <div className="header_walk_links">
@@ -183,13 +218,10 @@ export default class ViewVariableRevenueList extends Component {
                         </div>
 
                         <div className="table_area">
-                            <h3>Resultado da busca:</h3>
+                            <p>Encontrados: { foundLength === 1 ? `${foundLength} registro` : `${foundLength} registros` }, com o valor total de: { convertCurrencyToPtBr(this.state.variableRevenues.reduce((total, item) => item.value + total, 0)) } </p>
                             <br />
-                            {
-                                this.state.variableRevenues.length > 0
-                                ? this.renderTable()
-                                : this.renderNotFound()
-                            }
+
+                            { this.state.variableRevenues.length > 0 ? this.renderTable() : '' }
                         </div>
                     </div>
                 </div>
