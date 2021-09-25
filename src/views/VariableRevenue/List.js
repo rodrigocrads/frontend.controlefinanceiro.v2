@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import icoList from '../../img/ico-list.png';
 import icoEdit from '../../img/edit.png';
 import icoDelete from '../../img/delete.png';
-import { convertCurrencyToPtBr, convertIsoDateToBr, fetchWithAuth, getCategoriesSelectOptions } from '../../helpers/utils';
+import { convertBrDateToIso, convertCurrencyToPtBr, convertIsoDateToBr, fetchWithAuth, getCategoriesSelectOptions } from '../../helpers/utils';
 import Input from '../../components/UI/Input';
 import Select from '../../components/UI/Select';
 import { Date as DateMask } from '../../masks/Date';
@@ -45,10 +45,10 @@ export default class ViewVariableRevenueList extends Component {
             queryParams.push(`params[category_id]=${this.state.form.category_id}`);
 
         if (this.state.form.start_date)
-            queryParams.push(`params[start_date]=${this.state.form.start_date}`);
+            queryParams.push(`params[start_date]=${convertBrDateToIso(this.state.form.start_date)}`);
 
         if (this.state.form.end_date)
-            queryParams.push(`params[end_date]=${this.state.form.end_date}`);
+            queryParams.push(`params[end_date]=${convertBrDateToIso(this.state.form.end_date)}`);
 
         return queryParams;
     }
