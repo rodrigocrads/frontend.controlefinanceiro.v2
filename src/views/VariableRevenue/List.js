@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom';
 import icoList from '../../img/ico-list.png';
 import icoEdit from '../../img/edit.png';
 import icoDelete from '../../img/delete.png';
-import { convertCurrencyToPtBr, convertIsoDateToBr, fetchWithAuth } from '../../helpers/utils';
+import { convertCurrencyToPtBr, convertIsoDateToBr, fetchWithAuth, getCategoriesSelectOptions } from '../../helpers/utils';
+import Input from '../../components/UI/Input';
+import Select from '../../components/UI/Select';
+import { Date as DateMask } from '../../masks/Date';
 
 export default class ViewVariableRevenueList extends Component {
     constructor(props) {
@@ -12,6 +15,13 @@ export default class ViewVariableRevenueList extends Component {
 
         this.state = {
             variableRevenues: [],
+            categories: [],
+            form: {
+                title: '',
+                category_id: '',
+                start_date: '',
+                end_date: '',
+            }
         };
     }
 
@@ -46,6 +56,16 @@ export default class ViewVariableRevenueList extends Component {
                 this.resetCategoriesList();
             })
             .catch((error) => console.log(error));
+    }
+
+    onSubmitHandler = (event) => {
+        event.preventDefault();
+
+        alert('OnSubmit');
+    }
+
+    onChangeHandler = (event) => {
+        this.setState({ form: { ...this.state.form, [event.target.name]: event.target.value }});
     }
 
     renderTable() {
@@ -95,6 +115,54 @@ export default class ViewVariableRevenueList extends Component {
         );
     }
 
+    renderFilterForm() {
+        return (
+            <form onSubmit={ this.onSubmitHandler }>
+                <div className="col_2 float_left">
+                    <Input
+                        label='TÍTULO:'
+                        name='title'
+                        value={ this.state.form.title }
+                        onChange={ this.onChangeHandler }
+                        maxLength='100'
+                    />
+
+                    <Select
+                        label="CATEGORIA:"
+                        name="category_id"
+                        value={ this.state.form.category_id }
+                        options={ getCategoriesSelectOptions(this.state.categories) }
+                        onChange={ this.onChangeHandler }
+                    />
+                </div>
+
+                <div className="col_2 float_left">
+                    <Input
+                        label='DATA INÍCIO:'
+                        name='start_date'
+                        value={ this.state.form.start_date }
+                        mask={new DateMask()}
+                        onChange={ this.onChangeHandler }
+                    />
+
+                    <Input
+                        label='DATA FIM:'
+                        name='end_date'
+                        value={ this.state.form.end_date }
+                        mask={new DateMask()}
+                        onChange={ this.onChangeHandler }
+                    />
+                </div>
+
+                <div className="form-actions">
+                    <div className="form-action">
+                        <input type="submit" className="btn" value="Buscar" />
+                    </div>
+                </div>
+            </form>
+        );
+    }
+
     render() {
         return (
             <div>
@@ -108,7 +176,15 @@ export default class ViewVariableRevenueList extends Component {
                     </div>
 
                     <div className="widget_content">
+                        <div className="filter_area">
+                            <h3>Filtros de busca:</h3>
+                            <br />
+                            { this.renderFilterForm() }
+                        </div>
+
                         <div className="table_area">
+                            <h3>Resultado da busca:</h3>
+                            <br />
                             {
                                 this.state.variableRevenues.length > 0
                                 ? this.renderTable()
