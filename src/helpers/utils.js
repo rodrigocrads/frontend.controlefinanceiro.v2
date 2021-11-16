@@ -1,13 +1,9 @@
 export const replacePeriodicity = (periodicity) => {
     switch(periodicity) {
-        case 'quarterly':
-            return 'Trimestral';
-        case 'semiannual':
-            return 'Semestral';
-        case 'annual':
-            return 'Anual';
-        default:
-            return 'Mensal';
+        case 'quarterly': return 'Trimestral';
+        case 'semiannual': return 'Semestral';
+        case 'annual': return 'Anual';
+        default: return 'Mensal';
     }
 }
 
@@ -30,13 +26,17 @@ export const replaceMonths = (month) => {
 }
 
 export const getPeriodicitySelectOptions = () => {
-    return [
-        {value: '', label: 'Selecione uma periodicidade'},
-        {value: 'monthly', label: 'Mensal'},
-        {value: 'quarterly', label: 'Trimestral'},
-        {value: 'semiannual', label: 'Semestral'},
-        {value: 'annual', label: 'Anual'},
-    ];
+    return [{ value: 'monthly', label: 'Mensal' }];
+
+    // TODO: desativado outras formas de periodicidade além de Mensal, 
+    // devido a API ainda não ter implementado a lógica em cima dessas outras periodicidades
+    // return [
+    //     {value: '', label: 'Selecione uma periodicidade'},
+    //     {value: 'monthly', label: 'Mensal'},
+    //     {value: 'quarterly', label: 'Trimestral'},
+    //     {value: 'semiannual', label: 'Semestral'},
+    //     {value: 'annual', label: 'Anual'},
+    // ];
 }
 
 export const getCategoriesSelectOptions = (categories = []) => {
