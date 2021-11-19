@@ -1,23 +1,15 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
 import CategoryForm from '../../components/Category/Form';
 import icoMenuEdit from '../../img/edit.png';
-import { fetchWithAuth } from '../../helpers/utils';
+import { bindActionCreators } from 'redux';
+import { updateCategory } from '../../redux/actions/categoryAction';
 
 class Update extends Component {
     onSubmitHandler(data) {
         const { id } = this.props.match.params;
-
-        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}category/${id}`, 'PUT', data)
-            .then((response) => {
-                if (response.status === 200) {
-                    alert('Categoria atualizada com sucesso.');
-                }
-
-                if (response.status === 422) {
-                    alert(response.statusText);
-                }
-            });
+        this.props.updateCategory(id, data);
     }
 
     render() {
@@ -45,4 +37,8 @@ class Update extends Component {
     };
 }
 
-export default withRouter(Update);
+const mapDispatchToProps = (dispatch) => (
+    bindActionCreators({ updateCategory }, dispatch)
+);
+
+export default withRouter(connect(null, mapDispatchToProps)(Update));

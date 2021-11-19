@@ -3,14 +3,40 @@ import CategoryController from '../../controllers/CategoryController';
 import {
     GET_CATEGORY_BY_ID,
     STORE_CATEGORY,
+    UPDATE_CATEGORY,
+    CREATE_CATEGORY,
 } from '../types/categoryTypes';
 
 export const getCategoryById = id => ({
     type: GET_CATEGORY_BY_ID,
     payload: async dispatch => {
         const categoryController = new CategoryController();
-        const category = await categoryController.getCategorybyId(id);
+        const category = await categoryController.getById(id);
 
         dispatch({ type: STORE_CATEGORY, payload: category });
     }
 });
+
+export const updateCategory = (id, category) => {
+    return {
+        type: UPDATE_CATEGORY,
+        payload: async dispatch => {
+            const categoryController = new CategoryController();
+            await categoryController.update(id, category);
+
+            dispatch({ type: STORE_CATEGORY, payload: category });
+        }
+    }
+};
+
+export const createCategory = (category) => {
+    return {
+        type: CREATE_CATEGORY,
+        payload: async dispatch => {
+            const categoryController = new CategoryController();
+            await categoryController.create(category);
+
+            dispatch({ type: STORE_CATEGORY, payload: category });
+        }
+    }
+};

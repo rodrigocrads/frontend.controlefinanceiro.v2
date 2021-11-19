@@ -3,24 +3,16 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import CategoryForm from '../../components/Category/Form';
 import icoMenuEdit from '../../img/edit.png';
-import { fetchWithAuth } from '../../helpers/utils';
+import { bindActionCreators } from 'redux';
+import { createCategory } from '../../redux/actions/categoryAction';
 
 class Create extends Component {
     onSubmitHandler(data) {
         this.save(data);
     }
 
-    save(data) {
-        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}category`, 'POST', data)
-            .then((response) => {
-                if (response.status === 201) {
-                    alert('Categoria criada com sucesso!');
-                }
-
-                if (response.status === 422) {
-                    alert(response.statusText);
-                }
-            });
+    save(data) { 
+        this.props.createCategory(data);
     }
 
     render() {
@@ -45,4 +37,8 @@ class Create extends Component {
     };
 }
 
-export default withRouter(connect(null, null)(Create));
+const mapDispatchToProps = (dispatch) => (
+    bindActionCreators({ createCategory }, dispatch)
+);
+
+export default withRouter(connect(null, mapDispatchToProps)(Create));
