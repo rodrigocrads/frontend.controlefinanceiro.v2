@@ -4,14 +4,14 @@ import { bindActionCreators } from 'redux';
 import { reduxForm, Field } from 'redux-form';
 import Input from '../reduxFormsUI/Input';
 import Select from '../reduxFormsUI/Select';
-import { fetchCategory } from '../../redux/actions/categoryAction';
+import { getCategoryById } from '../../redux/actions/categoryAction';
 
 class FormBase extends Component {
     constructor(props) {
         super(props);
 
         if (!!this.props.id) {
-            this.props.fetchCategory(this.props.id);
+            this.props.getCategoryById(this.props.id);
         }
     }
 
@@ -56,7 +56,7 @@ class FormBase extends Component {
 
 const mapDispatchToProps = (dispatch) => (
     bindActionCreators({
-        fetchCategory,
+        getCategoryById,
     }, dispatch)
 );
 

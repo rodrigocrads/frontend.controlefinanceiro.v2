@@ -1,15 +1,16 @@
 import CategoryController from '../../controllers/CategoryController';
 
-import { 
-    FETCH_CATEGORY,
+import {
+    GET_CATEGORY_BY_ID,
+    STORE_CATEGORY,
 } from '../types/categoryTypes';
 
-export const fetchCategory = id => {
-    const categoryController = new CategoryController();
-    const category = categoryController.getCategorybyId(id);
+export const getCategoryById = id => ({
+    type: GET_CATEGORY_BY_ID,
+    payload: async dispatch => {
+        const categoryController = new CategoryController();
+        const category = await categoryController.getCategorybyId(id);
 
-    return {
-        type: FETCH_CATEGORY,
-        payload: category,
+        dispatch({ type: STORE_CATEGORY, payload: category });
     }
-};
+});

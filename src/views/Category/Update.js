@@ -35,8 +35,8 @@ class Update extends Component {
 
                     <div className="widget_content">
                         <CategoryForm
-                            onSubmit={(data) => this.onSubmitHandler(data)}
-                            id={this.props.match.params.id}
+                            onSubmit={ (data) => this.onSubmitHandler(data) }
+                            id={ this.props.match.params.id }
                         />
                     </div>
                 </div>

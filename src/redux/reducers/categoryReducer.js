@@ -1,12 +1,12 @@
 import { 
-    FETCH_CATEGORY,
+    STORE_CATEGORY,
 } from '../types/categoryTypes';
 
 const initialState = {};
 
 export const categoryReducer = (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_CATEGORY:
+        case STORE_CATEGORY:
             return {
                 ...state,
                 ...action.payload,
