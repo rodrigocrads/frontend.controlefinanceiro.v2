@@ -20,10 +20,6 @@ export default class CategoryService
                 if (response.status === 200) {
                     alert('Categoria atualizada com sucesso.');
                 }
-
-                if (response.status === 422) {
-                    alert(response.statusText);
-                }
             })
             .catch(err => console.log(err));
     }
@@ -33,10 +29,6 @@ export default class CategoryService
             .then((response) => {
                 if (response.status === 201) {
                     alert('Categoria criada com sucesso.');
-                }
-
-                if (response.status === 422) {
-                    alert(response.statusText);
                 }
             })
             .catch(err => console.log(err));
@@ -48,20 +40,19 @@ export default class CategoryService
                 if (response.status === 200) {
                     alert('Categoria excluida com sucesso.');
                 }
-
-                if(response.status === 422) {
-                    response.json()
-                        .then(data => this.setState({ errors : data['id'] }));
-                }
             })
-            .catch(err => console.log(err));
+            .catch(error => {
+                // @todo: criar lógica para recuperar os atributos de erro de forma dinâmica
+                if (error.response.status === 422) {
+                    const idError = error.response.data.id; 
+                    alert("Erros de validação: " + idError[0]);
+                }
+            });
     }
 
     static fetchAll() {
         return axios.get(`${process.env.REACT_APP_API_BASE_URL}category`, { headers: headers })
-            .then(response => {
-                return response.data;   
-            })
+            .then(response => response.data)
             .catch(err => console.log(err));
     }
 }
