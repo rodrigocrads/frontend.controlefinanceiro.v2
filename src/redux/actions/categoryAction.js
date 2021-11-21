@@ -12,39 +12,33 @@ export const getCategoryById = id => ({
     }
 });
 
-export const updateCategory = (id, category) => {
-    return {
-        type: type.UPDATE_CATEGORY,
-        payload: async dispatch => {
-            const categoryController = new CategoryController();
-            await categoryController.update(id, category);
+export const updateCategory = (id, category) => ({
+    type: type.UPDATE_CATEGORY,
+    payload: async dispatch => {
+        const categoryController = new CategoryController();
+        await categoryController.update(id, category);
 
-            dispatch({ type: type.STORE_SELECTED_CATEGORY, payload: category });
-        }
+        dispatch({ type: type.STORE_SELECTED_CATEGORY, payload: category });
     }
-};
+});
 
-export const createCategory = (category) => {
-    return {
-        type: type.CREATE_CATEGORY,
-        payload: async () => {
-            const categoryController = new CategoryController();
-            await categoryController.create(category);
-        }
+export const createCategory = (category) => ({
+    type: type.CREATE_CATEGORY,
+    payload: async () => {
+        const categoryController = new CategoryController();
+        await categoryController.create(category);
     }
-};
+});
 
-export const deleteCategory = (id) => {
-    return {
-        type: type.DELETE_CATEGORY,
-        payload: async dispatch => {
-            const categoryController = new CategoryController();
-            await categoryController.delete(id);
+export const deleteCategory = (id) => ({
+    type: type.DELETE_CATEGORY,
+    payload: async dispatch => {
+        const categoryController = new CategoryController();
+        await categoryController.delete(id);
 
-            dispatch(fetchCategories());
-        }
+        dispatch(fetchCategories());
     }
-}
+});
 
 export const fetchCategories = () => ({
     type: type.FETCH_CATEGORIES,
