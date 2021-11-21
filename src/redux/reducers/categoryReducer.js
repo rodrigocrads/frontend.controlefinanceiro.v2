@@ -1,19 +1,31 @@
 import { 
-    STORE_CATEGORY,
-    CLEAR_CATEGORY,
+    STORE_SELECTED_CATEGORY,
+    CLEAR_SELECTED_CATEGORY,
+    STORE_ALL_CATEGORIES,
 } from '../types/categoryTypes';
 
-const initialState = {};
+const initialState = {
+    selected: {},
+    all: [],
+};
 
 export const categoryReducer = (state = initialState, action) => {
     switch (action.type) {
-        case STORE_CATEGORY:
+        case STORE_SELECTED_CATEGORY:
             return {
                 ...state,
-                ...action.payload,
+                selected: { ...action.payload },
             };
-        case CLEAR_CATEGORY:
-            return { ...initialState };
+        case STORE_ALL_CATEGORIES:
+            return {
+                ...state,
+                all: action.payload,
+            };
+        case CLEAR_SELECTED_CATEGORY:
+            return {
+                ...state,
+                selected: {},
+            };
         default:
             return state;
     }

@@ -7,10 +7,18 @@ export default class CategoryController
     }
 
     update(id, data) {
-        CategoryService.update(id, data);
+        return CategoryService.update(id, data);
     }
 
     create(data) {
-        CategoryService.create(data);
+        return CategoryService.create(data);
+    }
+
+    delete(id) {
+        return CategoryService.delete(id);
+    }
+
+    fetchAll() {
+        return CategoryService.fetchAll();
     }
 }

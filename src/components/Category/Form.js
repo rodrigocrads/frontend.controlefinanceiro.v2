@@ -4,11 +4,11 @@ import { bindActionCreators } from 'redux';
 import { reduxForm, Field } from 'redux-form';
 import Input from '../reduxFormsUI/Input';
 import Select from '../reduxFormsUI/Select';
-import { getCategoryById, clearCategory } from '../../redux/actions/categoryAction';
+import { getCategoryById, clearSelectedCategory } from '../../redux/actions/categoryAction';
 
 class FormBase extends Component {
     componentDidMount() {
-        this.props.clearCategory();
+        this.props.clearSelectedCategory();
 
         if (!!this.props.id) {
             this.props.getCategoryById(this.props.id);
@@ -57,12 +57,12 @@ class FormBase extends Component {
 const mapDispatchToProps = (dispatch) => (
     bindActionCreators({
         getCategoryById,
-        clearCategory,
+        clearSelectedCategory,
     }, dispatch)
 );
 
 const mapStateToProps = state => ({
-    initialValues: state.category,
+    initialValues: state.category.selected,
 });
 
 const Form = reduxForm({
