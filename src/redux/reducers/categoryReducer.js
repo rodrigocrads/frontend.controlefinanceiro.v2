@@ -1,5 +1,6 @@
 import { 
     STORE_CATEGORY,
+    CLEAR_CATEGORY,
 } from '../types/categoryTypes';
 
 const initialState = {};
@@ -11,6 +12,8 @@ export const categoryReducer = (state = initialState, action) => {
                 ...state,
                 ...action.payload,
             };
+        case CLEAR_CATEGORY:
+            return { ...initialState };
         default:
             return state;
     }

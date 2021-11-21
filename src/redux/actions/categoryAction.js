@@ -5,6 +5,7 @@ import {
     STORE_CATEGORY,
     UPDATE_CATEGORY,
     CREATE_CATEGORY,
+    CLEAR_CATEGORY,
 } from '../types/categoryTypes';
 
 export const getCategoryById = id => ({
@@ -32,11 +33,11 @@ export const updateCategory = (id, category) => {
 export const createCategory = (category) => {
     return {
         type: CREATE_CATEGORY,
-        payload: async dispatch => {
+        payload: async () => {
             const categoryController = new CategoryController();
             await categoryController.create(category);
-
-            dispatch({ type: STORE_CATEGORY, payload: category });
         }
     }
 };
+
+export const clearCategory = () => ({ type: CLEAR_CATEGORY });
