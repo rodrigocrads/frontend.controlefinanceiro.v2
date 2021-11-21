@@ -41,9 +41,9 @@ class List extends Component {
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>NOME</th>
-                            <th>TIPO</th>
-                            <th>AÇÕES</th>
+                            <th>Nome</th>
+                            <th>Tipo</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,9 +70,10 @@ class List extends Component {
     }
 
     render() {
-        return this.props.categories.length === 0 ?
-            this.renderNotFoundCategories() :
-            this.renderTable()
+        const hasSomeCategories = this.props.categories.length > 0;
+        return hasSomeCategories
+            ? this.renderTable()
+            : this.renderNotFoundCategories();
     }
 }
 
