@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import CategoryForm from '../../components/Category/Form';
 import icoMenuEdit from '../../img/edit.png';
@@ -8,10 +7,6 @@ import { createCategory } from '../../redux/actions/categoryAction';
 
 class Create extends Component {
     onSubmitHandler(data) {
-        this.save(data);
-    }
-
-    save(data) { 
         this.props.createCategory(data);
     }
 
@@ -41,4 +36,4 @@ const mapDispatchToProps = (dispatch) => (
     bindActionCreators({ createCategory }, dispatch)
 );
 
-export default withRouter(connect(null, mapDispatchToProps)(Create));
+export default connect(null, mapDispatchToProps)(Create);
