@@ -1,5 +1,5 @@
 import CategoryController from '../../controllers/CategoryController';
-import { actionsTypes as type } from '../types';
+import type from '../actionTypes';
 
 export const getCategoryById = id => ({
     type: type.GET_CATEGORY_BY_ID,

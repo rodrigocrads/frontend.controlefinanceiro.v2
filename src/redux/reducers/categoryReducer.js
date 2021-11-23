@@ -1,4 +1,4 @@
-import { actionsTypes as type } from '../types';
+import type from '../actionTypes';
 
 const initialState = {
     selected: {},
