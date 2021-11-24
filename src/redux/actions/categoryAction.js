@@ -43,7 +43,7 @@ export const fetchCategories = () => ({
     type: type.FETCH_CATEGORIES,
     payload: async dispatch => {
         const categoryController = new CategoryController();
-        const categories = await categoryController.fetchAll();
+        const categories = await categoryController.list();
 
         dispatch({ type: type.STORE_ALL_CATEGORIES, payload: categories });
     }
