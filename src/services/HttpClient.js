@@ -31,8 +31,6 @@ class HttpClient {
         return {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('financial_control_access_token')}`,
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
             }
         };
     }
