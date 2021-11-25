@@ -3,7 +3,8 @@ import { Switch, Route } from 'react-router-dom';
 
 import Dashboard from './views/Dashboard/index';
 import ViewCategoryList from './views/Category/List';
-import ViewCategoryForm from './views/Category/Form';
+import ViewCategoryCreate from './views/Category/Create';
+import ViewCategoryUpdate from './views/Category/Update';
 
 import ViewFixedRevenueList from './views/FixedRevenue/List';
 import ViewFixedRevenueForm from './views/FixedRevenue/Form';
@@ -45,11 +46,11 @@ const routes = () => {
             </PrivateRoute>
 
             <PrivateRoute exact path="/category/">
-                <ViewCategoryForm />
+                <ViewCategoryCreate />
             </PrivateRoute>
 
             <PrivateRoute path="/category/:id">
-                <ViewCategoryForm />
+                <ViewCategoryUpdate />
             </PrivateRoute>
 
             <PrivateRoute exact path="/FixedRevenue/list">
