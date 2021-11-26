@@ -1,9 +1,8 @@
-import CategoryService from "../services/CategoryService";
+import VariableRevenueService from "../services/VariableRevenueService";
 
-export default class CategoryController
-{
+class VariableRevenueController {
     constructor() {
-        this.service = new CategoryService();
+        this.service = new VariableRevenueService();
     }
 
     service;
@@ -27,8 +26,6 @@ export default class CategoryController
     list() {
         return this.service.list();
     }
-
-    listByType(type) {
-        return this.service.listByType(type);
-    }
 }
+
+export default VariableRevenueController;

@@ -49,4 +49,18 @@ export const fetchCategories = () => ({
     }
 });
 
+export const fetchCategoriesByType = (categoryType) => ({
+    type: type.FETCH_CATEGORIES_BY_TYPE,
+    payload: async dispatch => {
+        const categoryController = new CategoryController();
+        const categories = await categoryController.listByType(categoryType);
+
+        if (categoryType === 'revenue') {
+            await dispatch({ type: type.STORE_REVENUE_TYPE_CATEGORIES, payload: categories });
+        } else {
+            await dispatch({ type: type.STORE_EXPENSE_TYPE_CATEGORIES, payload: categories });
+        }
+    }
+});
+
 export const clearSelectedCategory = () => ({ type: type.CLEAR_SELECTED_CATEGORY });

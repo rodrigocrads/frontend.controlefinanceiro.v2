@@ -25,7 +25,7 @@ const INIT_STATE = {
     id: undefined,
 };
 
-class ViewVariableRevenueForm extends Component {
+class Update extends Component {
     constructor(props) {
         super(props);
 
@@ -49,11 +49,11 @@ class ViewVariableRevenueForm extends Component {
         }
     }
 
-    retrieveCategories() {
-        fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}category?type=revenue`)
-            .then(response => response.json())
-            .then(categories => this.setState({ ...this.state, categories }));
-    }
+    // retrieveCategories() {
+    //     fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}category?type=revenue`)
+    //         .then(response => response.json())
+    //         .then(categories => this.setState({ ...this.state, categories }));
+    // }
 
     retrieveVariableRevenueById(id) {
         fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}variableRevenue/${id}`)
@@ -213,4 +213,4 @@ class ViewVariableRevenueForm extends Component {
     };
 }
 
-export default withRouter(ViewVariableRevenueForm);
+export default withRouter(Update);
