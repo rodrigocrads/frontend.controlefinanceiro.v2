@@ -42,7 +42,7 @@ class FilterFormBase extends Component {
                             mask={new DateMask()}
                         />
 
-                        <Input
+                        <Field
                             name='end_date'
                             component={Input}
                             label='Data fim:'
