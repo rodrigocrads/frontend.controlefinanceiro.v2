@@ -12,7 +12,7 @@ export const variableRevenueReducer = (state = initialState, action) => {
                 ...state,
                 selected: { ...action.payload },
             };
-        case type.STORE_ALL_CATEGORIES:
+        case type.STORE_ALL_VARIABLES_REVENUES:
             return {
                 ...state,
                 all: action.payload,

@@ -2,36 +2,26 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { deleteCategory, fetchCategories } from '../../redux/actions/categoryAction';
+import { deleteVariableRevenue, fetchVariablesRevenues } from '../../redux/actions/variableRevenueAction';
 
 import icoEdit from '../../img/edit.png';
 import icoDelete from '../../img/delete.png';
-// import FlashMessage from '../UI/FlashMessage';
+import { convertCurrencyToPtBr, convertIsoDateToBr } from '../../helpers/utils';
 
 class List extends Component {
     componentDidMount() {
-        this.props.fetchCategories();
+        this.props.fetchVariablesRevenues();
     }
 
-    deleteCategoryHandler(id) {
+    deleteHandler(id) {
         const isConfirm = window.confirm("Realmente deseja excluir este registro?");
         if (isConfirm) {
-            this.props.deleteCategory(id);
+            this.props.deleteVariableRevenue(id);
         }
     }
 
-    // showErrorsMessage() {
-    //     return this.state.errors.map(error => (
-    //         <FlashMessage
-    //             type="danger"
-    //             title="Atenção!"
-    //             description={error}
-    //         />
-    //     ));
-    // }
-
-    renderNotFoundCategories() {
-        return <div>Nenhuma categoria encontrada!</div>;
+    renderNotFound() {
+        return <div>Nenhuma receita variável encontrada!</div>;
     }
 
     renderTable() {
@@ -41,22 +31,30 @@ class List extends Component {
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Nome</th>
-                            <th>Tipo</th>
+                            <th>Título</th>
+                            <th>Descrição</th>
+                            <th>Valor</th>
+                            <th>Data do registro</th>
+                            <th>Categoria</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
                         { 
-                            this.props.categories.map((category, index) => (
-                                <tr key={ category.id }>
+                            this.props.variablesRevenues.map((variableRevenue, index) => (
+                                <tr key={ variableRevenue.id }>
                                     <td>{ index + 1 }</td>
-                                    <td>{ category.name }</td>
-                                    <td>{ category.type === 'expense' ? 'Despesa' : 'Receita' }</td>
+                                    <td>{ variableRevenue.title }</td>
+                                    <td>{ variableRevenue.description || 'Não Informado' }</td>
+                                    <td>{ convertCurrencyToPtBr(variableRevenue.value) }</td>
+                                    <td>{ convertIsoDateToBr(variableRevenue.register_date) }</td>
+                                    <td>{ variableRevenue.category.name }</td>
                                     <td>
-                                        <Link className="table_action" to={`/category/${category.id}`}><img src={icoEdit} /></Link>
+                                        <Link className="table_action" to={`/variableRevenue/${ variableRevenue.id }`}>
+                                            <img src={ icoEdit } />
+                                        </Link>
 
-                                        <a href="#" onClick={ () => this.deleteCategoryHandler(category.id) } className="table_action">
+                                        <a href="#" onClick={ () => this.deleteHandler(variableRevenue.id) } className="table_action">
                                             <img src={icoDelete} />
                                         </a> 
                                     </td>
@@ -70,21 +68,20 @@ class List extends Component {
     }
 
     render() {
-        const hasSomeCategories = this.props.categories.length > 0;
-        return hasSomeCategories
+        return this.props.variablesRevenues.length > 0
             ? this.renderTable()
-            : this.renderNotFoundCategories();
+            : this.renderNotFound();
     }
 }
 
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
-        deleteCategory,
-        fetchCategories,
+        deleteVariableRevenue,
+        fetchVariablesRevenues,
 }, dispatch));
 
 const mapStateToProps = state => ({
-    categories: state.category.all,
+    variablesRevenues: state.variableRevenue.all,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

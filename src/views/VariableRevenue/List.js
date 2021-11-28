@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 import icoList from '../../img/ico-list.png';
-import icoEdit from '../../img/edit.png';
-import icoDelete from '../../img/delete.png';
-import { convertBrDateToIso, convertCurrencyToPtBr, convertIsoDateToBr, fetchWithAuth, getCategoriesSelectOptions } from '../../helpers/utils';
+import { convertBrDateToIso, convertCurrencyToPtBr, fetchWithAuth, getCategoriesSelectOptions } from '../../helpers/utils';
 import Input from '../../components/UI/Input';
 import Select from '../../components/UI/Select';
 import { Date as DateMask } from '../../masks/Date';
+import VariableRevenueList from '../../components/VariableRevenue/List';
 
 export default class ViewVariableRevenueList extends Component {
     constructor(props) {
@@ -108,47 +106,6 @@ export default class ViewVariableRevenueList extends Component {
         this.setState({ form: { ...this.state.form, [event.target.name]: event.target.value }});
     }
 
-    renderTable() {
-        return (
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>TÍTULO</th>
-                        <th>DESCRIÇÃO</th>
-                        <th>VALOR</th>
-                        <th>DATA DO REGISTRO</th>
-                        <th>CATEGORIA</th>
-                        <th>AÇÕES</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        this.state.variableRevenues.map((variableRevenue, index) => (
-                            <tr key={ variableRevenue.id }>
-                                <td>{ index + 1 }</td>
-                                <td>{ variableRevenue.title }</td>
-                                <td>{ variableRevenue.description || 'Não Informado' }</td>
-                                <td>{ convertCurrencyToPtBr(variableRevenue.value) }</td>
-                                <td>{ convertIsoDateToBr(variableRevenue.register_date) }</td>
-                                <td>{ variableRevenue.category.name }</td>
-                                <td>
-                                    <Link className="table_action" to={`/variableRevenue/${ variableRevenue.id }`}>
-                                        <img src={ icoEdit } />
-                                    </Link>
-
-                                    <a href="#" onClick={ () => this.deleteCategoryHandler(variableRevenue.id) } className="table_action">
-                                        <img src={icoDelete} />
-                                    </a> 
-                                </td>
-                            </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
-        );
-    }
-
     renderFilterForm() {
         return (
             <form onSubmit={ this.onSubmitHandler }>
@@ -221,7 +178,7 @@ export default class ViewVariableRevenueList extends Component {
                             <p>Encontrados: { foundLength === 1 ? `${foundLength} registro` : `${foundLength} registros` }, com o valor total de: { convertCurrencyToPtBr(this.state.variableRevenues.reduce((total, item) => item.value + total, 0)) } </p>
                             <br />
 
-                            { this.state.variableRevenues.length > 0 ? this.renderTable() : '' }
+                            <VariableRevenueList />
                         </div>
                     </div>
                 </div>

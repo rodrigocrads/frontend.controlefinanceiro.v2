@@ -6,7 +6,7 @@ import { getVariableRevenueById, clearSelectedVariableRevenue } from '../../redu
 import { fetchCategoriesByType } from '../../redux/actions/categoryAction';
 import Input from '../reduxFormsUI/Input';
 import Select from '../reduxFormsUI/Select';
-import { getCategoriesSelectOptions } from '../../helpers/utils';
+import { convertIsoDateToBr, getCategoriesSelectOptions } from '../../helpers/utils';
 import { Date as DateMask } from '../../masks/Date';
 import { Currency } from '../../masks/Currency';
 import TextArea from '../reduxFormsUI/TextArea';
@@ -16,6 +16,14 @@ class FormBase extends Component {
         this.props.clearSelectedVariableRevenue();
         this.props.fetchCategoriesByType('revenue');
 
+        if (!!this.props.id) {
+            this.props.getVariableRevenueById(this.props.id);
+        }
+    }
+
+    componentDidUpdate() {
+        // @todo: foi colocado mais uma chamada aqui, pois o redux forms está perdendo a referência do dado
+        // category_id
         if (!!this.props.id) {
             this.props.getVariableRevenueById(this.props.id);
         }
@@ -84,7 +92,11 @@ const mapDispatchToProps = (dispatch) => (
 );
 
 const mapStateToProps = state => ({
-    initialValues: state.variableRevenue.selected,
+    initialValues: {
+        ...state.variableRevenue.selected,
+        register_date: convertIsoDateToBr(state.variableRevenue.selected?.register_date),
+        category_id: state.variableRevenue.selected?.category?.id,
+    },
     categories: state.category.revenueType,
 });
 

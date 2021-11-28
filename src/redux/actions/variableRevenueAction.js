@@ -17,7 +17,7 @@ export const updateVariableRevenue = (id, variableRevenue) => ({
         const variableRevenueController = new VariableRevenueController();
         await variableRevenueController.update(id, variableRevenue);
 
-        dispatch({ type: type.STORE_SELECTED_VARIABLE_REVENUE, payload: variableRevenue });
+        await dispatch({ type: type.STORE_SELECTED_VARIABLE_REVENUE, payload: variableRevenue });
     }
 });
 
@@ -35,11 +35,11 @@ export const deleteVariableRevenue = (id) => ({
         const variableRevenueController = new VariableRevenueController();
         await variableRevenueController.delete(id);
 
-        dispatch(fetchCategories());
+        dispatch(fetchVariablesRevenues());
     }
 });
 
-export const fetchCategories = () => ({
+export const fetchVariablesRevenues = () => ({
     type: type.FETCH_VARIABLES_REVENUES,
     payload: async dispatch => {
         const variableRevenueController = new VariableRevenueController();
