@@ -32,7 +32,7 @@ export default class Input extends React.Component {
                     <input
                         { ...this.props }
                         type={ this.props.type || 'text' }
-                        value={ this.applyMask(this.props.input.value || '') }
+                        value={ this.applyMask(this.props?.input?.value || '') }
                         className={ hasErrors ? 'field-danger' : '' }
                         onChange={ this.onChangeHandler }
                     />

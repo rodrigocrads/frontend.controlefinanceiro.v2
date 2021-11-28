@@ -15,6 +15,7 @@ class List extends Component {
 
     deleteHandler(id) {
         const isConfirm = window.confirm("Realmente deseja excluir este registro?");
+
         if (isConfirm) {
             this.props.deleteVariableRevenue(id);
         }
@@ -24,9 +25,18 @@ class List extends Component {
         return <div>Nenhuma receita variável encontrada!</div>;
     }
 
+    sumTotalValues() {
+        return convertCurrencyToPtBr(this.props.variablesRevenues.reduce((total, item) => item.value + total, 0));
+    }
+
     renderTable() {
+        const { variablesRevenues } = this.props; 
+        const foundLength = variablesRevenues.length;
+
         return (
             <>
+                <p>Encontrados: <b>{ foundLength === 1 ? `${foundLength} registro` : `${foundLength} registros` }</b>, com o valor total de: <b>{ this.sumTotalValues() }</b>.</p>
+                <br />
                 <table className="table">
                     <thead>
                         <tr>
@@ -41,7 +51,7 @@ class List extends Component {
                     </thead>
                     <tbody>
                         { 
-                            this.props.variablesRevenues.map((variableRevenue, index) => (
+                            variablesRevenues.map((variableRevenue, index) => (
                                 <tr key={ variableRevenue.id }>
                                     <td>{ index + 1 }</td>
                                     <td>{ variableRevenue.title }</td>

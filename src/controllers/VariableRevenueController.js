@@ -23,8 +23,8 @@ class VariableRevenueController {
         return this.service.delete(id);
     }
 
-    list() {
-        return this.service.list();
+    list(params) {
+        return this.service.list(params);
     }
 }
 

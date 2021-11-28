@@ -42,11 +42,11 @@ export const deleteVariableRevenue = (id) => ({
     }
 });
 
-export const fetchVariablesRevenues = () => ({
+export const fetchVariablesRevenues = (params = []) => ({
     type: type.FETCH_VARIABLES_REVENUES,
     payload: async dispatch => {
         const variableRevenueController = new VariableRevenueController();
-        const variablesRevenues = await variableRevenueController.list();
+        const variablesRevenues = await variableRevenueController.list(params);
 
         dispatch({ type: type.STORE_ALL_VARIABLES_REVENUES, payload: variablesRevenues });
     }

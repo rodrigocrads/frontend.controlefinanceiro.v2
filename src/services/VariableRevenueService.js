@@ -8,8 +8,8 @@ class VariableRevenueService extends BaseApiService
             .catch(err => console.log(err));
     }
 
-    list() {
-        return this.httpClient.get(`variableRevenue`)
+    list(params = []) {
+        return this.httpClient.get(`variableRevenue`, params)
             .then(response => response.data)
             .catch(err => console.log(err));
     }
