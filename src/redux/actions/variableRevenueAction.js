@@ -1,3 +1,4 @@
+import { reset } from 'redux-form';
 import VariableRevenueController from '../../controllers/VariableRevenueController';
 import type from '../actionTypes';
 
@@ -23,9 +24,11 @@ export const updateVariableRevenue = (id, variableRevenue) => ({
 
 export const createVariableRevenue = (variableRevenue) => ({
     type: type.CREATE_VARIABLE_REVENUE,
-    payload: async () => {
+    payload: async (dispatch) => {
         const variableRevenueController = new VariableRevenueController();
         await variableRevenueController.create(variableRevenue);
+
+        await dispatch(reset('variableRevenueForm'));
     }
 });
 

@@ -1,3 +1,4 @@
+import { reset } from 'redux-form';
 import CategoryController from '../../controllers/CategoryController';
 import type from '../actionTypes';
 
@@ -23,9 +24,11 @@ export const updateCategory = (id, category) => ({
 
 export const createCategory = (category) => ({
     type: type.CREATE_CATEGORY,
-    payload: async () => {
+    payload: async (dispatch) => {
         const categoryController = new CategoryController();
         await categoryController.create(category);
+
+        await dispatch(reset('variableRevenueForm'));
     }
 });
 
