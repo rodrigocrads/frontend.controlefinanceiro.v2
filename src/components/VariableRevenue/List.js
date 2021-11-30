@@ -9,10 +9,6 @@ import icoDelete from '../../img/delete.png';
 import { convertCurrencyToPtBr, convertIsoDateToBr } from '../../helpers/utils';
 
 class List extends Component {
-    componentDidMount() {
-        this.props.fetchVariablesRevenues();
-    }
-
     deleteHandler(id) {
         const isConfirm = window.confirm("Realmente deseja excluir este registro?");
 

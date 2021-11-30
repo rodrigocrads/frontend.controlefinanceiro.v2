@@ -2,14 +2,25 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import icoList from '../../img/ico-list.png';
-import { convertBrDateToIso } from '../../helpers/utils';
+import { convertBrDateToIso, getCurrentDateBrFormat, getLastDayOfMonth } from '../../helpers/utils';
 import VariableRevenueList from '../../components/VariableRevenue/List';
 import FilterForm from '../../components/VariableRevenue/FilterForm';
 import { fetchVariablesRevenues } from '../../redux/actions/variableRevenueAction';
+import { fetchCategories } from '../../redux/actions/categoryAction';
 
 class List extends Component {
+    componentDidMount() {
+        this.props.fetchCategories();
+
+        this.props.fetchVariablesRevenues([
+            `params[start_date]=${getCurrentDateBrFormat(1)}`,
+            `params[end_date]=${getCurrentDateBrFormat(getLastDayOfMonth())}`
+        ]);
+    }
+
     onSubmitFilterFormHandler = (data) => {
         const params = this.getParams(data);
+
         this.props.fetchVariablesRevenues(params);
     }
 
@@ -59,6 +70,7 @@ class List extends Component {
 const mapDispatchToProps = (dispatch) => (
     bindActionCreators({
         fetchVariablesRevenues,
+        fetchCategories,
     }, dispatch)
 );
 

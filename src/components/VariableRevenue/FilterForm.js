@@ -5,15 +5,11 @@ import { deleteVariableRevenue, fetchVariablesRevenues } from '../../redux/actio
 import { fetchCategories } from '../../redux/actions/categoryAction';
 import Input from '../reduxFormsUI/Input';
 import Select from '../reduxFormsUI/Select';
-import { getCategoriesSelectOptions } from '../../helpers/utils';
+import { getCategoriesSelectOptions, getCurrentDateBrFormat, getLastDayOfMonth } from '../../helpers/utils';
 import { Date as DateMask } from '../../masks/Date';
 import { Field, reduxForm } from 'redux-form';
 
 class FilterFormBase extends Component {
-    componentDidMount() {
-        this.props.fetchCategories();
-    }
-
     render() {
         return (
             <>
@@ -73,8 +69,8 @@ const mapStateToProps = state => ({
     initialValues: {
         title: '',
         category_id: '',
-        start_date: '',
-        end_date: '',
+        start_date: getCurrentDateBrFormat("01"),
+        end_date: getCurrentDateBrFormat(getLastDayOfMonth()),
     },
 });
 
