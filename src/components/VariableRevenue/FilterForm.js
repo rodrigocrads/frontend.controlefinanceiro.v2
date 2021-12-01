@@ -65,7 +65,7 @@ const mapDispatchToProps = dispatch => (
 }, dispatch));
 
 const mapStateToProps = state => ({
-    categories: state.category.all,
+    categories: state.category.revenueType,
     initialValues: {
         title: '',
         category_id: '',

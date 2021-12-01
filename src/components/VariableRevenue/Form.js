@@ -12,23 +12,6 @@ import { Currency } from '../../masks/Currency';
 import TextArea from '../reduxFormsUI/TextArea';
 
 class FormBase extends Component {
-    componentDidMount() {
-        this.props.clearSelectedVariableRevenue();
-        this.props.fetchCategoriesByType('revenue');
-
-        if (!!this.props.id) {
-            this.props.getVariableRevenueById(this.props.id);
-        }
-    }
-
-    componentDidUpdate() {
-        // @todo: foi colocado mais uma chamada aqui, pois o redux forms está perdendo a referência do dado
-        // category_id
-        if (!!this.props.id) {
-            this.props.getVariableRevenueById(this.props.id);
-        }
-    }
-
     render() {
         return (
             <>

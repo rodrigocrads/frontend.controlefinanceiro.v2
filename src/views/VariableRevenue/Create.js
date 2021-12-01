@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { createVariableRevenue } from '../../redux/actions/variableRevenueAction';
+import { createVariableRevenue, clearSelectedVariableRevenue } from '../../redux/actions/variableRevenueAction';
+import { fetchCategoriesByType } from '../../redux/actions/categoryAction';
 import VariableRevenueForm from '../../components/VariableRevenue/Form';
 import icoMenuEdit from '../../img/edit.png';
 import SaveOrUpdate from '../../builders/requestBody/variableFinancialTransaction/SaveOrUpdate';
 import VariableExpense from '../../dtos/VariableExpense';
 
 class Create extends Component {
+    componentDidMount() {
+        this.props.clearSelectedVariableRevenue();
+        this.props.fetchCategoriesByType('revenue');
+    }
+
     onSubmitHandler(data) {
         const builderContentRequest = new SaveOrUpdate(
             new VariableExpense({ ...data })
@@ -38,7 +44,11 @@ class Create extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => (
-    bindActionCreators({ createVariableRevenue }, dispatch)
+    bindActionCreators({
+        createVariableRevenue,
+        clearSelectedVariableRevenue,
+        fetchCategoriesByType
+    }, dispatch)
 );
 
 export default connect(null, mapDispatchToProps)(Create);

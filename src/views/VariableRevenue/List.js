@@ -6,11 +6,11 @@ import { convertBrDateToIso, getCurrentDateBrFormat, getLastDayOfMonth } from '.
 import VariableRevenueList from '../../components/VariableRevenue/List';
 import FilterForm from '../../components/VariableRevenue/FilterForm';
 import { fetchVariablesRevenues } from '../../redux/actions/variableRevenueAction';
-import { fetchCategories } from '../../redux/actions/categoryAction';
+import { fetchCategoriesByType } from '../../redux/actions/categoryAction';
 
 class List extends Component {
     componentDidMount() {
-        this.props.fetchCategories();
+        this.props.fetchCategoriesByType('revenue');
 
         this.props.fetchVariablesRevenues([
             `params[start_date]=${getCurrentDateBrFormat(1)}`,
@@ -70,7 +70,7 @@ class List extends Component {
 const mapDispatchToProps = (dispatch) => (
     bindActionCreators({
         fetchVariablesRevenues,
-        fetchCategories,
+        fetchCategoriesByType,
     }, dispatch)
 );
 

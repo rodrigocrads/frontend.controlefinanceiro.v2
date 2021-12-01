@@ -1,20 +1,30 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateVariableRevenue } from '../../redux/actions/variableRevenueAction';
+import { updateVariableRevenue, clearSelectedVariableRevenue, getVariableRevenueById } from '../../redux/actions/variableRevenueAction';
+import { fetchCategoriesByType } from '../../redux/actions/categoryAction';
 import VariableRevenueForm from '../../components/VariableRevenue/Form';
-import icoMenuEdit from '../../img/edit.png';
+
 import SaveOrUpdate from '../../builders/requestBody/variableFinancialTransaction/SaveOrUpdate';
 import VariableExpense from '../../dtos/VariableExpense';
-import { withRouter } from 'react-router';
+import icoMenuEdit from '../../img/edit.png';
 
-class Create extends Component {
+class Update extends Component {
+    componentDidMount() {
+        this.props.clearSelectedVariableRevenue();
+        this.props.fetchCategoriesByType('revenue');
+
+        if (!!this.props.match.params.id) {
+            this.props.getVariableRevenueById(this.props.match.params.id);
+        }
+    }
+
     onSubmitHandler(data) {
-        const { id } = this.props.match.params;
-        const builderContentRequest = new SaveOrUpdate(
-            new VariableExpense({ ...data })
-        );
-        this.props.updateVariableRevenue(id, builderContentRequest.build());
+        const builderContentRequest = new SaveOrUpdate( new VariableExpense({ ...data }));
+
+        this.props.updateVariableRevenue(this.props.match.params.id, builderContentRequest.build());
+        this.props.getVariableRevenueById(this.props.match.params.id);
     }
 
     render() {
@@ -31,10 +41,7 @@ class Create extends Component {
                     </div>
 
                     <div className="widget_content">
-                        <VariableRevenueForm
-                            id={ this.props.match.params.id }
-                            onSubmit={(data) => this.onSubmitHandler(data)}
-                        />
+                        <VariableRevenueForm onSubmit={(data) => this.onSubmitHandler(data)} />
                     </div>
                 </div>
             </div>
@@ -43,7 +50,12 @@ class Create extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => (
-    bindActionCreators({ updateVariableRevenue }, dispatch)
+    bindActionCreators({
+        updateVariableRevenue,
+        fetchCategoriesByType,
+        clearSelectedVariableRevenue,
+        getVariableRevenueById,
+    }, dispatch)
 );
 
-export default withRouter(connect(null, mapDispatchToProps)(Create));
+export default withRouter(connect(null, mapDispatchToProps)(Update));
