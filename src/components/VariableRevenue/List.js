@@ -74,7 +74,7 @@ class List extends Component {
     }
 
     render() {
-        return this.props.variablesRevenues.length > 0
+        return this.props.variablesRevenues?.length > 0
             ? this.renderTable()
             : this.renderNotFound();
     }
