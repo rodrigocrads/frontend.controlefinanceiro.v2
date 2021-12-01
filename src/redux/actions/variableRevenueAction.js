@@ -48,7 +48,7 @@ export const fetchVariablesRevenues = (params = []) => ({
         const variableRevenueController = new VariableRevenueController();
         const variablesRevenues = await variableRevenueController.list(params);
 
-        dispatch({ type: type.STORE_ALL_VARIABLES_REVENUES, payload: variablesRevenues });
+        await dispatch({ type: type.STORE_ALL_VARIABLES_REVENUES, payload: variablesRevenues });
     }
 });
 
