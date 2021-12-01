@@ -8,50 +8,50 @@ export default class Sidebar extends React.Component {
         return (
             <div id="main_menu">
                 <ul>
-                    <li><Link to="/">DASHBOARD</Link></li>
+                    <li><Link to="/">Dashboard</Link></li>
 
                     <Dropdown
-                        name="CATEGORIAS"
+                        name="Despesas Variáveis"
                         links={[
-                            {name: 'LISTAR', path: '/category/list'},
-                            {name: 'CRIAR', path: '/category/'}
+                            {name: 'Listar', path: '/variableExpense/list'},
+                            {name: 'Criar', path: '/variableExpense/'}
                         ]}
                     />
 
                     <Dropdown
-                        name="RECEITAS FIXAS"
+                        name="Receitas Variáveis"
                         links={[
-                            {name: 'LISTAR', path: '/fixedRevenue/list'},
-                            {name: 'CRIAR', path: '/fixedRevenue/'}
+                            {name: 'Listar', path: '/variableRevenue/list'},
+                            {name: 'Criar', path: '/variableRevenue/'}
                         ]}
                     />
 
                     <Dropdown
-                        name="DESPESAS FIXAS"
+                        name="Despesas Fixas"
                         links={[
-                            {name: 'LISTAR', path: '/fixedExpense/list'},
-                            {name: 'CRIAR', path: '/fixedExpense/'}
+                            {name: 'Listar', path: '/fixedExpense/list'},
+                            {name: 'Criar', path: '/fixedExpense/'}
                         ]}
                     />
 
                     <Dropdown
-                        name="RECEITAS VARIÁVEIS"
+                        name="Receitas Fixas"
                         links={[
-                            {name: 'LISTAR', path: '/variableRevenue/list'},
-                            {name: 'CRIAR', path: '/variableRevenue/'}
+                            {name: 'Listar', path: '/fixedRevenue/list'},
+                            {name: 'Criar', path: '/fixedRevenue/'}
                         ]}
                     />
 
                     <Dropdown
-                        name="DESPESAS VARIÁVEIS"
+                        name="Categorias"
                         links={[
-                            {name: 'LISTAR', path: '/variableExpense/list'},
-                            {name: 'CRIAR', path: '/variableExpense/'}
+                            {name: 'Listar', path: '/category/list'},
+                            {name: 'Criar', path: '/category/'}
                         ]}
                     />
     
                     <li className="dropdown">
-                        <Link to="/logout">SAIR</Link>
+                        <Link to="/logout">Sair</Link>
                     </li>
                 </ul>
             </div>

@@ -13,7 +13,8 @@ import ViewFixedExpenseList from './views/FixedExpense/List';
 import ViewFixedExpenseForm from './views/FixedExpense/Form';
 
 import ViewVariableRevenueList from './views/VariableRevenue/List';
-import ViewVariableRevenueForm from './views/VariableRevenue/Form';
+import ViewVariableRevenueCreate from './views/VariableRevenue/Create';
+import ViewVariableRevenueUpdate from './views/VariableRevenue/Update';
 
 import ViewVariableExpenseList from './views/VariableExpense/List';
 import ViewVariableExpenseForm from './views/VariableExpense/Form';
@@ -82,11 +83,11 @@ const routes = () => {
             </PrivateRoute>
 
             <PrivateRoute exact path="/variableRevenue">
-                <ViewVariableRevenueForm />
+                <ViewVariableRevenueCreate />
             </PrivateRoute>
 
             <PrivateRoute exact path="/variableRevenue/:id">
-                <ViewVariableRevenueForm />
+                <ViewVariableRevenueUpdate />
             </PrivateRoute>
 
             <PrivateRoute exact path="/variableExpense/list">

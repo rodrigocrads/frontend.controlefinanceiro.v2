@@ -1,3 +1,4 @@
+import { reset } from 'redux-form';
 import CategoryController from '../../controllers/CategoryController';
 import type from '../actionTypes';
 
@@ -23,9 +24,11 @@ export const updateCategory = (id, category) => ({
 
 export const createCategory = (category) => ({
     type: type.CREATE_CATEGORY,
-    payload: async () => {
+    payload: async (dispatch) => {
         const categoryController = new CategoryController();
         await categoryController.create(category);
+
+        await dispatch(reset('variableRevenueForm'));
     }
 });
 
@@ -46,6 +49,20 @@ export const fetchCategories = () => ({
         const categories = await categoryController.list();
 
         dispatch({ type: type.STORE_ALL_CATEGORIES, payload: categories });
+    }
+});
+
+export const fetchCategoriesByType = (categoryType) => ({
+    type: type.FETCH_CATEGORIES_BY_TYPE,
+    payload: async dispatch => {
+        const categoryController = new CategoryController();
+        const categories = await categoryController.listByType(categoryType);
+
+        if (categoryType === 'revenue') {
+            await dispatch({ type: type.STORE_REVENUE_TYPE_CATEGORIES, payload: categories });
+        } else {
+            await dispatch({ type: type.STORE_EXPENSE_TYPE_CATEGORIES, payload: categories });
+        }
     }
 });
 

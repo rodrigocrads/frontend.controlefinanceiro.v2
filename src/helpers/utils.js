@@ -96,3 +96,23 @@ export const fetchWithAuth = (url, method = 'GET', body = null) => {
 
     return fetch(url, params);
 };
+
+export const getCurrentDateBrFormat = (customDay = null) => {
+    const date = new Date();
+
+    if (!!customDay) {
+        return `${customDay}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    }
+
+    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+}
+
+export const getLastDayOfMonth = (month = null) => {
+    const now = new Date();
+
+    if (!!month) {
+        return new Date(now.getFullYear(), month, 0).getDate();
+    }
+
+    return new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+}

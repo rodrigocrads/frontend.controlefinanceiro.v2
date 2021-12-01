@@ -1,7 +1,6 @@
 import BaseApiService from './BaseApiService';
 
-class CategoryService extends BaseApiService
-{
+class CategoryService extends BaseApiService {
     getById(id) {
         return this.httpClient.get(`category/${id}`)
             .then(resp => resp.data)
@@ -10,6 +9,12 @@ class CategoryService extends BaseApiService
 
     list() {
         return this.httpClient.get(`category`)
+            .then(response => response.data)
+            .catch(err => console.log(err));
+    }
+
+    listByType(type) {
+        return this.httpClient.get(`category?type=${type}`)
             .then(response => response.data)
             .catch(err => console.log(err));
     }
