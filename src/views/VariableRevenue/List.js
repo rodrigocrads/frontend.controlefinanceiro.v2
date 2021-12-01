@@ -13,8 +13,14 @@ class List extends Component {
         this.props.fetchCategoriesByType('revenue');
 
         this.props.fetchVariablesRevenues([
-            `params[start_date]=${getCurrentDateBrFormat(1)}`,
-            `params[end_date]=${getCurrentDateBrFormat(getLastDayOfMonth())}`
+            `params[start_date]=${convertBrDateToIso(
+                getCurrentDateBrFormat(1)
+            )}`,
+            `params[end_date]=${convertBrDateToIso(
+                getCurrentDateBrFormat(
+                    getLastDayOfMonth()
+                )
+            )}`
         ]);
     }
 
