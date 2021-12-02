@@ -1,48 +1,48 @@
 import BaseApiService from './BaseApiService';
 
-class VariableRevenueService extends BaseApiService
+class VariableExpenseService extends BaseApiService
 {
     getById(id) {
-        return this.httpClient.get(`variableRevenue/${id}`)
+        return this.httpClient.get(`variableExpense/${id}`)
             .then(resp => resp.data)
             .catch(err => console.log(err));
     }
 
     list(params = []) {
-        return this.httpClient.get(`variableRevenue`, params)
+        return this.httpClient.get(`variableExpense`, params)
             .then(response => response.data)
             .catch(err => console.log(err));
     }
 
     update(id, data) {
-        return this.httpClient.put(`variableRevenue/${id}`, data)
+        return this.httpClient.put(`variableExpense/${id}`, data)
             .then((response) => {
                 if (response.status === 200) {
-                    alert('Receita variável atualizada com sucesso.');
+                    alert('Despesa variável atualizada com sucesso.');
                 }
             })
             .catch(err => console.log(err));
     }
 
     create(data) {
-        return this.httpClient.post(`variableRevenue`, data)
+        return this.httpClient.post(`variableExpense`, data)
             .then((response) => {
                 if (response.status === 201) {
-                    alert('Receita variável criada com sucesso.');
+                    alert('Despesa variável criada com sucesso.');
                 }
             })
             .catch(err => console.log(err));
     }
 
     delete(id) {
-        return this.httpClient.delete(`variableRevenue/${id}`)
+        return this.httpClient.delete(`variableExpense/${id}`)
             .then((response) => {
                 if (response.status === 200) {
-                    alert('Receita variável excluida com sucesso.');
+                    alert('Despesa variável excluida com sucesso.');
                 }
             })
             .catch(err => console.log(err));
     }
 }
 
-export default VariableRevenueService;
+export default VariableExpenseService;

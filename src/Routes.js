@@ -17,7 +17,8 @@ import ViewVariableRevenueCreate from './views/VariableRevenue/Create';
 import ViewVariableRevenueUpdate from './views/VariableRevenue/Update';
 
 import ViewVariableExpenseList from './views/VariableExpense/List';
-import ViewVariableExpenseForm from './views/VariableExpense/Form';
+import ViewVariableExpenseCreate from './views/VariableExpense/Create';
+import ViewVariableExpenseUpdate from './views/VariableExpense/Update';
 import PrivateRoute from './PrivateRoute';
 import Login from './views/Login';
 import Callback from './views/Auth/Callback';
@@ -95,11 +96,11 @@ const routes = () => {
             </PrivateRoute>
 
             <PrivateRoute exact path="/variableExpense">
-                <ViewVariableExpenseForm />
+                <ViewVariableExpenseCreate />
             </PrivateRoute>
 
             <PrivateRoute exact path="/variableExpense/:id">
-                <ViewVariableExpenseForm />
+                <ViewVariableExpenseUpdate />
             </PrivateRoute>
         </Switch>
     );
