@@ -6,12 +6,6 @@ import ViewCategoryList from './views/Category/List';
 import ViewCategoryCreate from './views/Category/Create';
 import ViewCategoryUpdate from './views/Category/Update';
 
-import ViewFixedRevenueList from './views/FixedRevenue/List';
-import ViewFixedRevenueForm from './views/FixedRevenue/Form';
-
-import ViewFixedExpenseList from './views/FixedExpense/List';
-import ViewFixedExpenseForm from './views/FixedExpense/Form';
-
 import ViewVariableRevenueList from './views/VariableRevenue/List';
 import ViewVariableRevenueCreate from './views/VariableRevenue/Create';
 import ViewVariableRevenueUpdate from './views/VariableRevenue/Update';
@@ -53,30 +47,6 @@ const routes = () => {
 
             <PrivateRoute path="/category/:id">
                 <ViewCategoryUpdate />
-            </PrivateRoute>
-
-            <PrivateRoute exact path="/FixedRevenue/list">
-                <ViewFixedRevenueList />
-            </PrivateRoute>
-
-            <PrivateRoute exact path="/FixedRevenue">
-                <ViewFixedRevenueForm />
-            </PrivateRoute>
-
-            <PrivateRoute exact path="/FixedRevenue/:id">
-                <ViewFixedRevenueForm />
-            </PrivateRoute>
-
-            <PrivateRoute exact path="/fixedExpense/list">
-                <ViewFixedExpenseList />
-            </PrivateRoute>
-
-            <PrivateRoute exact path="/fixedExpense">
-                <ViewFixedExpenseForm />
-            </PrivateRoute>
-
-            <PrivateRoute exact path="/fixedExpense/:id">
-                <ViewFixedExpenseForm />
             </PrivateRoute>
 
             <PrivateRoute exact path="/variableRevenue/list">
