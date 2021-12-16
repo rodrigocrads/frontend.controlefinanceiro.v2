@@ -128,7 +128,7 @@ class ViewDashboard extends React.Component {
             <div className="widget">
                     <div className="widget_header">
                         <img src={icoCharBar} className="ico" alt="" />
-                        Acumulado do mês atual
+                        Balanço do mês atual
                     </div>
 
                     <div className="widget_content">
