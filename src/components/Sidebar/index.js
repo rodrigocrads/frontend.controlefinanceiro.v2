@@ -27,22 +27,6 @@ export default class Sidebar extends React.Component {
                     />
 
                     <Dropdown
-                        name="Despesas Fixas"
-                        links={[
-                            {name: 'Listar', path: '/fixedExpense/list'},
-                            {name: 'Criar', path: '/fixedExpense/'}
-                        ]}
-                    />
-
-                    <Dropdown
-                        name="Receitas Fixas"
-                        links={[
-                            {name: 'Listar', path: '/fixedRevenue/list'},
-                            {name: 'Criar', path: '/fixedRevenue/'}
-                        ]}
-                    />
-
-                    <Dropdown
                         name="Categorias"
                         links={[
                             {name: 'Listar', path: '/category/list'},

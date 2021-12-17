@@ -18,8 +18,6 @@ class ViewDashboard extends React.Component {
             monthTotals: {
                 totalVariableExpense: 0.0,
                 totalVariableRevenue: 0.0,
-                totalFixedExpense: 0.0,
-                totalFixedRevenue: 0.0,
             },
             yearTotalsChartData: [],
             expensesTotalsByCategoriesChartData: [],
@@ -44,14 +42,12 @@ class ViewDashboard extends React.Component {
             .then(data => {
                 const totals = (data || []).map(monthTotal => {
                     const totals = monthTotal.totals;
-                    const revenuesTotals = totals.totalFixedRevenue + totals.totalVariableRevenue;
-                    const expensesTotals = totals.totalFixedExpense + totals.totalVariableExpense;
 
                     return [
                         replaceMonths(monthTotal.month),
-                        revenuesTotals,
-                        expensesTotals,
-                        revenuesTotals - expensesTotals,
+                        totals.totalVariableRevenue,
+                        totals.totalVariableExpense,
+                        totals.totalVariableRevenue - totals.totalVariableExpense,
                     ];
                 });
 
@@ -121,14 +117,12 @@ class ViewDashboard extends React.Component {
 
     renderMonthEconomy() {
         const monthTotals = this.state.monthTotals;
-        const revenueTotal = monthTotals.totalFixedRevenue + monthTotals.totalVariableRevenue;
-        const expenseTotal = monthTotals.totalFixedExpense + monthTotals.totalVariableExpense;
 
         return (
             <div className="widget">
                     <div className="widget_header">
                         <img src={icoCharBar} className="ico" alt="" />
-                        Acumulado do mês atual
+                        Balanço do mês atual
                     </div>
 
                     <div className="widget_content">
@@ -137,21 +131,21 @@ class ViewDashboard extends React.Component {
                             type="success"
                             title="Receita"
                             imgIco={icoCoinsAdd}
-                            content={ convertCurrencyToPtBr(revenueTotal) }
+                            content={ convertCurrencyToPtBr(monthTotals.totalVariableRevenue) }
                         />
 
                         <BoxInfo
                             type="danger"
                             title="Despesa"
                             imgIco={icoCoinsDelete}
-                            content={ convertCurrencyToPtBr(expenseTotal) }
+                            content={ convertCurrencyToPtBr(monthTotals.totalVariableExpense) }
                         />
 
                         <BoxInfo
                             type="warning"
                             title="Economia"
                             imgIco={icoCoins}
-                            content={ convertCurrencyToPtBr((revenueTotal - expenseTotal)) }
+                            content={ convertCurrencyToPtBr((monthTotals.totalVariableRevenue - monthTotals.totalVariableExpense)) }
                         />
 
                     </div>

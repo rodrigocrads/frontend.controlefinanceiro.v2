@@ -16,22 +16,6 @@ class FilterFormBase extends Component {
                 <form onSubmit={ this.props.handleSubmit }>
                     <div className="col_2 float_left">
                         <Field
-                            name='title'
-                            component={Input}
-                            label='Título:'
-                            maxLength='100'
-                        />
-
-                        <Field
-                            name="category_id"
-                            component={Select}
-                            label="Categoria:"
-                            options={getCategoriesSelectOptions(this.props.categories || [])}
-                        />
-                    </div>
-
-                    <div className="col_2 float_left">
-                        <Field
                             name='start_date'
                             component={Input}
                             label='Data início:'
@@ -43,6 +27,22 @@ class FilterFormBase extends Component {
                             component={Input}
                             label='Data fim:'
                             mask={new DateMask()}
+                        />
+                    </div>
+
+                    <div className="col_2 float_left">
+                        <Field
+                            name='title'
+                            component={Input}
+                            label='Título:'
+                            maxLength='100'
+                        />
+
+                        <Field
+                            name="category_id"
+                            component={Select}
+                            label="Categoria:"
+                            options={getCategoriesSelectOptions(this.props.categories || [])}
                         />
                     </div>
 
