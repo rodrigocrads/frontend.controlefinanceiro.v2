@@ -18,7 +18,7 @@ class List extends Component {
     }
 
     renderNotFound() {
-        return <div>Nenhuma transação encontrada!</div>;
+        return <div>Nenhuma financeira encontrada!</div>;
     }
 
     sumTotalValuesByType(type) {

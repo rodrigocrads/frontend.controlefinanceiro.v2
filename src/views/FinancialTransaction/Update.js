@@ -42,7 +42,7 @@ class Update extends Component {
                 <div className="widget">
                     <div className="widget_header">
                         <img src={icoMenuEdit} className="ico" alt="Área de atualização do registro de transação financeira" />
-                        Transação
+                        Transação financeira
                     </div>
 
                     <div className="widget_content">

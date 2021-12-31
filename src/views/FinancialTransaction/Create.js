@@ -29,7 +29,7 @@ class Create extends Component {
                 <div className="widget">
                     <div className="widget_header">
                         <img src={icoMenuEdit} className="ico" alt="Área de criação de registro de transação" />
-                        Transação
+                        Transação financeira
                     </div>
 
                     <div className="widget_content">
