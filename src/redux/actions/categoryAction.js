@@ -48,7 +48,7 @@ export const fetchCategories = () => ({
         const categoryController = new CategoryController();
         const categories = await categoryController.list();
 
-        dispatch({ type: type.STORE_ALL_CATEGORIES, payload: categories });
+        await dispatch({ type: type.STORE_ALL_CATEGORIES, payload: categories });
     }
 });
 
@@ -58,11 +58,7 @@ export const fetchCategoriesByType = (categoryType) => ({
         const categoryController = new CategoryController();
         const categories = await categoryController.listByType(categoryType);
 
-        if (categoryType === 'revenue') {
-            await dispatch({ type: type.STORE_REVENUE_TYPE_CATEGORIES, payload: categories });
-        } else {
-            await dispatch({ type: type.STORE_EXPENSE_TYPE_CATEGORIES, payload: categories });
-        }
+        await dispatch({ type: type.STORE_ALL_CATEGORIES, payload: categories });
     }
 });
 

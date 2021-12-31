@@ -33,6 +33,14 @@ export default class Sidebar extends React.Component {
                             {name: 'Criar', path: '/category/'}
                         ]}
                     />
+
+                    <Dropdown
+                        name="Transações"
+                        links={[
+                            {name: 'Listar', path: '/financialTransaction/list'},
+                            {name: 'Criar', path: '/financialTransaction/'}
+                        ]}
+                    />
     
                     <li className="dropdown">
                         <Link to="/logout">Sair</Link>

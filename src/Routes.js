@@ -13,6 +13,11 @@ import ViewVariableRevenueUpdate from './views/VariableRevenue/Update';
 import ViewVariableExpenseList from './views/VariableExpense/List';
 import ViewVariableExpenseCreate from './views/VariableExpense/Create';
 import ViewVariableExpenseUpdate from './views/VariableExpense/Update';
+
+import ViewFinancialTransactionList from './views/FinancialTransaction/List';
+import ViewFinancialTransactionCreate from './views/FinancialTransaction/Create';
+import ViewFinancialTransactionUpdate from './views/FinancialTransaction/Update';
+
 import PrivateRoute from './PrivateRoute';
 import Login from './views/Login';
 import Callback from './views/Auth/Callback';
@@ -71,6 +76,18 @@ const routes = () => {
 
             <PrivateRoute exact path="/variableExpense/:id">
                 <ViewVariableExpenseUpdate />
+            </PrivateRoute>
+
+            <PrivateRoute exact path="/financialTransaction/list">
+                <ViewFinancialTransactionList />
+            </PrivateRoute>
+
+            <PrivateRoute exact path="/financialTransaction">
+                <ViewFinancialTransactionCreate />
+            </PrivateRoute>
+
+            <PrivateRoute exact path="/financialTransaction/:id">
+                <ViewFinancialTransactionUpdate />
             </PrivateRoute>
         </Switch>
     );

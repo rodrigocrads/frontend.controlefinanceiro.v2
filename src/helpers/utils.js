@@ -7,6 +7,15 @@ export const replacePeriodicity = (periodicity) => {
     }
 }
 
+export const replaceFinancialTransactionType = (type) => {
+    switch(type) {
+        case 'expense': return 'Despesa';
+        case 'revenue': return 'Receita';
+
+        default: return 'Não identificado';
+    }
+}
+
 export const replaceMonths = (month) => {
     switch(month) {
         case 'january': return 'Janeiro';
