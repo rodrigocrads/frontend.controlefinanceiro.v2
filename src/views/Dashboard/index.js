@@ -16,11 +16,11 @@ class ViewDashboard extends React.Component {
 
         this.state = {
             monthTotals: {
-                totalVariableExpense: 0.0,
-                totalVariableRevenue: 0.0,
+                expense: 0.0,
+                revenue: 0.0,
             },
             yearTotalsChartData: [],
-            expensesTotalsByCategoriesChartData: [],
+            totalsExpensesByCategoriesChartData: [],
         };
     }
 
@@ -45,9 +45,9 @@ class ViewDashboard extends React.Component {
 
                     return [
                         replaceMonths(monthTotal.month),
-                        totals.totalVariableRevenue,
-                        totals.totalVariableExpense,
-                        totals.totalVariableRevenue - totals.totalVariableExpense,
+                        totals.revenue,
+                        totals.expense,
+                        totals.revenue - totals.expense,
                     ];
                 });
 
@@ -99,7 +99,7 @@ class ViewDashboard extends React.Component {
                         : [0];
 
                     return [
-                        replaceMonths(month.name),
+                        replaceMonths(month.month),
                         ...baseCategoriesTotal,
                     ];
                 });
@@ -108,7 +108,7 @@ class ViewDashboard extends React.Component {
                     ? Object.values(allCategories).map(category => category.name)
                     : ['Nenhuma Categoria Encontrada'];
 
-                this.setState( { ...this.state, expensesTotalsByCategoriesChartData: [
+                this.setState( { ...this.state, totalsExpensesByCategoriesChartData: [
                     [ 'Mês', ...allCategoriesNames ],
                     ...totals,
                 ]})
@@ -131,21 +131,21 @@ class ViewDashboard extends React.Component {
                             type="success"
                             title="Receita"
                             imgIco={icoCoinsAdd}
-                            content={ convertCurrencyToPtBr(monthTotals.totalVariableRevenue) }
+                            content={ convertCurrencyToPtBr(monthTotals.revenue) }
                         />
 
                         <BoxInfo
                             type="danger"
                             title="Despesa"
                             imgIco={icoCoinsDelete}
-                            content={ convertCurrencyToPtBr(monthTotals.totalVariableExpense) }
+                            content={ convertCurrencyToPtBr(monthTotals.expense) }
                         />
 
                         <BoxInfo
                             type="warning"
                             title="Economia"
                             imgIco={icoCoins}
-                            content={ convertCurrencyToPtBr((monthTotals.totalVariableRevenue - monthTotals.totalVariableExpense)) }
+                            content={ convertCurrencyToPtBr((monthTotals.revenue - monthTotals.expense)) }
                         />
 
                     </div>
@@ -194,9 +194,9 @@ class ViewDashboard extends React.Component {
                         height={'300px'}
                         chartType="ColumnChart"
                         loader={<div>Carregando Gráfico...</div>}
-                        data={ [ ...this.state.expensesTotalsByCategoriesChartData ] }
+                        data={ [ ...this.state.totalsExpensesByCategoriesChartData ] }
                         options={{
-                            title: 'Totais de despesas de cada mês por categorias',
+                            title: 'Totais de despesas por categoria de cada mês',
                             hAxis: { title: 'Meses', titleTextStyle: { color: '#333' } },
                             vAxis: { minValue: 0 },
                             // For the legend to fit, we make the chart area smaller

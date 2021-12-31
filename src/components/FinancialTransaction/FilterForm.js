@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { deleteVariableExpense, fetchVariablesExpenses } from '../../redux/actions/variableExpenseAction';
+import { deleteFinancialTransaction, fetchFinancialTransactions } from '../../redux/actions/financialTransactionAction';
 import { fetchCategories } from '../../redux/actions/categoryAction';
 import Input from '../reduxFormsUI/Input';
 import Select from '../reduxFormsUI/Select';
@@ -74,8 +74,8 @@ class FilterFormBase extends Component {
 
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
-        deleteVariableExpense,
-        fetchVariablesExpenses,
+        deleteFinancialTransaction,
+        fetchFinancialTransactions,
         fetchCategories,
 }, dispatch));
 
@@ -91,7 +91,7 @@ const mapStateToProps = state => ({
 });
 
 const FilterForm = reduxForm({
-    form: 'variableExpenseFilterForm',
+    form: 'FinancialTransactionFilterForm',
     enableReinitialize: true
 })(FilterFormBase);
 

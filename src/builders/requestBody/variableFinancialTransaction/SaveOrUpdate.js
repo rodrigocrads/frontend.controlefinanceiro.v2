@@ -1,16 +1,16 @@
 import { convertBrDateToIso } from "../../../helpers/utils";
 
 export default class SaveOrUpdate {
-    variableRevenueOrExpense;
+    financialTransaction;
 
-    constructor(variableRevenueOrExpense) {
-        this.variableRevenueOrExpense = variableRevenueOrExpense;
+    constructor(financialTransaction) {
+        this.financialTransaction = financialTransaction;
     }
 
     build() {
         return {
-            ...this.variableRevenueOrExpense,
-            register_date: convertBrDateToIso(this.variableRevenueOrExpense.register_date),
+            ...this.financialTransaction,
+            register_date: convertBrDateToIso(this.financialTransaction.register_date),
         }
     }
 }

@@ -28,7 +28,7 @@ export const createCategory = (category) => ({
         const categoryController = new CategoryController();
         await categoryController.create(category);
 
-        await dispatch(reset('variableRevenueForm'));
+        await dispatch(reset('categoryForm'));
     }
 });
 
