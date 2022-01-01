@@ -117,6 +117,8 @@ class ViewDashboard extends React.Component {
 
     renderMonthEconomy() {
         const monthTotals = this.state.monthTotals;
+        const totalRevenue = monthTotals.revenue || 0.0;
+        const totalExpense = monthTotals.expense || 0.0;
 
         return (
             <div className="widget">
@@ -131,21 +133,21 @@ class ViewDashboard extends React.Component {
                             type="success"
                             title="Receita"
                             imgIco={icoCoinsAdd}
-                            content={ convertCurrencyToPtBr(monthTotals.revenue) }
+                            content={ convertCurrencyToPtBr(totalRevenue) }
                         />
 
                         <BoxInfo
                             type="danger"
                             title="Despesa"
                             imgIco={icoCoinsDelete}
-                            content={ convertCurrencyToPtBr(monthTotals.expense) }
+                            content={ convertCurrencyToPtBr(totalExpense) }
                         />
 
                         <BoxInfo
                             type="warning"
                             title="Economia"
                             imgIco={icoCoins}
-                            content={ convertCurrencyToPtBr((monthTotals.revenue - monthTotals.expense)) }
+                            content={ convertCurrencyToPtBr((totalRevenue - totalExpense)) }
                         />
 
                     </div>
