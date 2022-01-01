@@ -36,7 +36,7 @@ class Update extends Component {
         return (
             <div>
                 <div className="header_walk_links">
-                    TRANSAÇÕES / ATUALIZAR
+                    TRANSAÇÕES FINANCEIRAS / ATUALIZAR
                 </div>
 
                 <div className="widget">

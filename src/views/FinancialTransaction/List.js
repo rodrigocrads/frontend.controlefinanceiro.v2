@@ -54,12 +54,12 @@ class List extends Component {
         return (
             <div>
                 <div className="header_walk_links">
-                    TRANSAÇÕES / LISTAR
+                    TRANSAÇÕES FINANCEIRAS / LISTAR
                 </div>
                 <div className="widget">
                     <div className="widget_header">
                         <img src={ icoList } className="ico" alt="" />
-                        Transações
+                        Transações financeiras
                     </div>
 
                     <div className="widget_content">

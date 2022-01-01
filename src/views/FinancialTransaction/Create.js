@@ -23,7 +23,7 @@ class Create extends Component {
         return (
             <div>
                 <div className="header_walk_links">
-                    TRANSAÇÕES / CRIAR
+                    TRANSAÇÕES FINANCEIRAS / CRIAR
                 </div>
 
                 <div className="widget">
