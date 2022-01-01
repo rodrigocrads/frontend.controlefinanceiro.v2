@@ -6,13 +6,10 @@ import ViewCategoryList from './views/Category/List';
 import ViewCategoryCreate from './views/Category/Create';
 import ViewCategoryUpdate from './views/Category/Update';
 
-import ViewVariableRevenueList from './views/VariableRevenue/List';
-import ViewVariableRevenueCreate from './views/VariableRevenue/Create';
-import ViewVariableRevenueUpdate from './views/VariableRevenue/Update';
+import ViewFinancialTransactionList from './views/FinancialTransaction/List';
+import ViewFinancialTransactionCreate from './views/FinancialTransaction/Create';
+import ViewFinancialTransactionUpdate from './views/FinancialTransaction/Update';
 
-import ViewVariableExpenseList from './views/VariableExpense/List';
-import ViewVariableExpenseCreate from './views/VariableExpense/Create';
-import ViewVariableExpenseUpdate from './views/VariableExpense/Update';
 import PrivateRoute from './PrivateRoute';
 import Login from './views/Login';
 import Callback from './views/Auth/Callback';
@@ -49,28 +46,16 @@ const routes = () => {
                 <ViewCategoryUpdate />
             </PrivateRoute>
 
-            <PrivateRoute exact path="/variableRevenue/list">
-                <ViewVariableRevenueList />
+            <PrivateRoute exact path="/financialTransaction/list">
+                <ViewFinancialTransactionList />
             </PrivateRoute>
 
-            <PrivateRoute exact path="/variableRevenue">
-                <ViewVariableRevenueCreate />
+            <PrivateRoute exact path="/financialTransaction">
+                <ViewFinancialTransactionCreate />
             </PrivateRoute>
 
-            <PrivateRoute exact path="/variableRevenue/:id">
-                <ViewVariableRevenueUpdate />
-            </PrivateRoute>
-
-            <PrivateRoute exact path="/variableExpense/list">
-                <ViewVariableExpenseList />
-            </PrivateRoute>
-
-            <PrivateRoute exact path="/variableExpense">
-                <ViewVariableExpenseCreate />
-            </PrivateRoute>
-
-            <PrivateRoute exact path="/variableExpense/:id">
-                <ViewVariableExpenseUpdate />
+            <PrivateRoute exact path="/financialTransaction/:id">
+                <ViewFinancialTransactionUpdate />
             </PrivateRoute>
         </Switch>
     );

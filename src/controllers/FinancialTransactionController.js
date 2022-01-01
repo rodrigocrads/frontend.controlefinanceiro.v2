@@ -1,8 +1,8 @@
-import VariableRevenueService from "../services/VariableRevenueService";
+import FinancialTransactionService from "../services/FinancialTransactionService";
 
-class VariableRevenueController {
+class FinancialTransactionController {
     constructor() {
-        this.service = new VariableRevenueService();
+        this.service = new FinancialTransactionService();
     }
 
     service;
@@ -28,4 +28,4 @@ class VariableRevenueController {
     }
 }
 
-export default VariableRevenueController;
+export default FinancialTransactionController;

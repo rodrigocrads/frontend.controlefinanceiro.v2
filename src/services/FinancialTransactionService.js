@@ -1,48 +1,48 @@
 import BaseApiService from './BaseApiService';
 
-class VariableExpenseService extends BaseApiService
+class FinancialTransactionService extends BaseApiService
 {
     getById(id) {
-        return this.httpClient.get(`variableExpense/${id}`)
+        return this.httpClient.get(`financialTransaction/${id}`)
             .then(resp => resp.data)
             .catch(err => console.log(err));
     }
 
     list(params = []) {
-        return this.httpClient.get(`variableExpense`, params)
+        return this.httpClient.get(`financialTransaction`, params)
             .then(response => response.data)
             .catch(err => console.log(err));
     }
 
     update(id, data) {
-        return this.httpClient.put(`variableExpense/${id}`, data)
+        return this.httpClient.put(`financialTransaction/${id}`, data)
             .then((response) => {
                 if (response.status === 200) {
-                    alert('Despesa variável atualizada com sucesso.');
+                    alert('Registro atualizado com sucesso.');
                 }
             })
             .catch(err => console.log(err));
     }
 
     create(data) {
-        return this.httpClient.post(`variableExpense`, data)
+        return this.httpClient.post(`financialTransaction`, data)
             .then((response) => {
                 if (response.status === 201) {
-                    alert('Despesa variável criada com sucesso.');
+                    alert('Registro criado com sucesso.');
                 }
             })
             .catch(err => console.log(err));
     }
 
     delete(id) {
-        return this.httpClient.delete(`variableExpense/${id}`)
+        return this.httpClient.delete(`financialTransaction/${id}`)
             .then((response) => {
                 if (response.status === 200) {
-                    alert('Despesa variável excluida com sucesso.');
+                    alert('Registro excluído com sucesso.');
                 }
             })
             .catch(err => console.log(err));
     }
 }
 
-export default VariableExpenseService;
+export default FinancialTransactionService;

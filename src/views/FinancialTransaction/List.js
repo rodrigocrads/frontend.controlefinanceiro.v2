@@ -2,17 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import icoList from '../../img/ico-list.png';
-import { convertBrDateToIso, getCurrentDateBrFormat, getLastDayOfMonth } from '../../helpers/utils';
-import VariableExpenseList from '../../components/VariableExpense/List';
-import FilterForm from '../../components/VariableExpense/FilterForm';
-import { fetchVariablesExpenses } from '../../redux/actions/variableExpenseAction';
-import { fetchCategoriesByType } from '../../redux/actions/categoryAction';
+import {
+    convertBrDateToIso,
+    getCurrentDateBrFormat,
+    getLastDayOfMonth
+} from '../../helpers/utils';
+import FinancialTransactionList from '../../components/FinancialTransaction/List';
+import FilterForm from '../../components/FinancialTransaction/FilterForm';
+import { fetchFinancialTransactions } from '../../redux/actions/financialTransactionAction';
+import { fetchCategories } from '../../redux/actions/categoryAction';
 
 class List extends Component {
     componentDidMount() {
-        this.props.fetchCategoriesByType('expense');
+        this.props.fetchCategories();
 
-        this.props.fetchVariablesExpenses([
+        this.props.fetchFinancialTransactions([
             `params[start_date]=${convertBrDateToIso(
                 getCurrentDateBrFormat(1)
             )}`,
@@ -27,7 +31,7 @@ class List extends Component {
     onSubmitFilterFormHandler = (data) => {
         const params = this.getParams(data);
 
-        this.props.fetchVariablesExpenses(params);
+        this.props.fetchFinancialTransactions(params);
     }
 
     getParams(data) {
@@ -41,6 +45,8 @@ class List extends Component {
 
         if (data.end_date) params.push(`params[end_date]=${convertBrDateToIso(data.end_date)}`);
 
+        if (data.type) params.push(`params[type]=${data.type}`);
+
         return params;
     }
 
@@ -48,12 +54,12 @@ class List extends Component {
         return (
             <div>
                 <div className="header_walk_links">
-                    DESPESAS VARIÁVEIS / LISTAR
+                    TRANSAÇÕES / LISTAR
                 </div>
                 <div className="widget">
                     <div className="widget_header">
                         <img src={ icoList } className="ico" alt="" />
-                        Despesas variáveis
+                        Transações
                     </div>
 
                     <div className="widget_content">
@@ -64,7 +70,7 @@ class List extends Component {
                         </div>
 
                         <div className="table_area">
-                            <VariableExpenseList />
+                            <FinancialTransactionList />
                         </div>
                     </div>
                 </div>
@@ -75,8 +81,8 @@ class List extends Component {
 
 const mapDispatchToProps = (dispatch) => (
     bindActionCreators({
-        fetchVariablesExpenses,
-        fetchCategoriesByType,
+        fetchFinancialTransactions,
+        fetchCategories,
     }, dispatch)
 );
 

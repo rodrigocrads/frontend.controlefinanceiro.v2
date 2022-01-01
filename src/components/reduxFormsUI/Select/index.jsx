@@ -6,14 +6,14 @@ export default class Select extends React.Component {
     }
 
     render() {
-        const { label, input, options, required} = this.props;
+        const { label, input, options, required, disabled} = this.props;
 
         return (
             <div className="form-group">
                 <label>{ label }</label>
 
                 <div className="controls">
-                    <select { ...input } required={ required } >
+                    <select { ...input } required={ required } disabled={ disabled } >
                         { this.renderOptions(options) }
                     </select>
                 </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { deleteVariableRevenue, fetchVariablesRevenues } from '../../redux/actions/variableRevenueAction';
+import { deleteFinancialTransaction, fetchFinancialTransactions } from '../../redux/actions/financialTransactionAction';
 import { fetchCategories } from '../../redux/actions/categoryAction';
 import Input from '../reduxFormsUI/Input';
 import Select from '../reduxFormsUI/Select';
@@ -14,14 +14,15 @@ class FilterFormBase extends Component {
         return (
             <>
                 <form onSubmit={ this.props.handleSubmit }>
-                    <div className="col_2 float_left">
+                    <div className='col_2 float_left'>
                         <Field
                             name='start_date'
                             component={Input}
                             label='Data início:'
                             mask={new DateMask()}
                         />
-
+                    </div>
+                    <div className='col_2 float_left'>
                         <Field
                             name='end_date'
                             component={Input}
@@ -29,20 +30,34 @@ class FilterFormBase extends Component {
                             mask={new DateMask()}
                         />
                     </div>
-
                     <div className="col_2 float_left">
                         <Field
-                            name='title'
-                            component={Input}
-                            label='Título:'
-                            maxLength='100'
+                            name='type'
+                            component={Select}
+                            label='Tipo:'
+                            options={[
+                                { value: '', label: 'Selecione um tipo' },
+                                { value: 'expense', label: 'Despesa' },
+                                { value: 'revenue', label: 'Receita' },
+                            ]}
                         />
+                    </div>
 
+                    <div className="col_2 float_left">
                         <Field
                             name="category_id"
                             component={Select}
                             label="Categoria:"
                             options={getCategoriesSelectOptions(this.props.categories || [])}
+                        />
+                    </div>
+
+                    <div>
+                        <Field
+                            name='title'
+                            component={Input}
+                            label='Título:'
+                            maxLength='100'
                         />
                     </div>
 
@@ -59,23 +74,24 @@ class FilterFormBase extends Component {
 
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
-        deleteVariableRevenue,
-        fetchVariablesRevenues,
+        deleteFinancialTransaction,
+        fetchFinancialTransactions,
         fetchCategories,
 }, dispatch));
 
 const mapStateToProps = state => ({
-    categories: state.category.revenueType,
+    categories: state.category.all,
     initialValues: {
         title: '',
         category_id: '',
         start_date: getCurrentDateBrFormat("01"),
         end_date: getCurrentDateBrFormat(getLastDayOfMonth()),
+        type: '',
     },
 });
 
 const FilterForm = reduxForm({
-    form: 'variableRevenueFilterForm',
+    form: 'FinancialTransactionFilterForm',
     enableReinitialize: true
 })(FilterFormBase);
 
