@@ -108,12 +108,13 @@ export const fetchWithAuth = (url, method = 'GET', body = null) => {
 
 export const getCurrentDateBrFormat = (customDay = null) => {
     const date = new Date();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
 
     if (!!customDay) {
-        return `${customDay}/${date.getMonth() + 1}/${date.getFullYear()}`;
+        return `${customDay}/${month}/${date.getFullYear()}`;
     }
 
-    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    return `${date.getDate()}/${month}/${date.getFullYear()}`;
 }
 
 export const getLastDayOfMonth = (month = null) => {
