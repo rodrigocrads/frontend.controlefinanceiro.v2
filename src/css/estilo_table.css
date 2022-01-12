@@ -17,17 +17,16 @@
 .table tr:hover{background: #eee;}
 
 .table th{
-    background: -o-linear-gradient(#ededed, #dcdcdc, #cbcccb);
-    background: -moz-linear-gradient(#ededed, #dcdcdc, #cbcccb);
-    background: linear-gradient(#ededed, #dcdcdc, #cbcccb);
-    background: linear-gradient(#ededed, #dcdcdc, #cbcccb);
-    color: #000;
-    padding: 12px 4px;
-    font-size:1em;
-    font-weight: bold;
-    border-right:1px solid #bbb;
-    border-bottom:1px solid #aaa;
-    border-top:1px solid #ccc;
+    font-size: 1em;
+    background: linear-gradient(#fefefe,#dedede);
+    background: -moz-linear-gradient(#fefefe,#dedede);
+    background: -o-linear-gradient(#fefefe,#dedede);
+    background: -webkit-linear-gradient(#fefefe,#dedede);
+    color: #444;
+    box-sizing: border-box;
+    padding: 10px 10px;
+    margin-bottom: 8px;
+    border: 1px solid #bbb;
 }
 
 .table_secundary th{
