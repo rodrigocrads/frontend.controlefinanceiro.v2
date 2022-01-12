@@ -8,26 +8,26 @@ export default class Sidebar extends React.Component {
         return (
             <div id="main_menu">
                 <ul>
-                    <li><Link to="/">Dashboard</Link></li>
+                    <li><Link to="/">DASHBOARD</Link></li>
 
                     <Dropdown
-                        name="Categorias"
+                        name="TRANSAÇÕES FINANCEIRAS"
                         links={[
-                            {name: 'Listar', path: '/category/list'},
-                            {name: 'Criar', path: '/category/'}
+                            {name: 'LISTAR', path: '/financialTransaction/list'},
+                            {name: 'CRIAR', path: '/financialTransaction/'}
                         ]}
                     />
 
                     <Dropdown
-                        name="Transações financeiras"
+                        name="CATEGORIAS"
                         links={[
-                            {name: 'Listar', path: '/financialTransaction/list'},
-                            {name: 'Criar', path: '/financialTransaction/'}
+                            {name: 'LISTAR', path: '/category/list'},
+                            {name: 'Criar', path: '/category/'}
                         ]}
                     />
     
                     <li className="dropdown">
-                        <Link to="/logout">Sair</Link>
+                        <Link to="/logout">SAIR</Link>
                     </li>
                 </ul>
             </div>
