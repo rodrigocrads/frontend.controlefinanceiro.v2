@@ -13,15 +13,15 @@ export default class Sidebar extends React.Component {
                     <Dropdown
                         name="TRANSAÇÕES FINANCEIRAS"
                         links={[
-                            {name: 'LISTAR', path: '/financialTransaction/list'},
-                            {name: 'CRIAR', path: '/financialTransaction/'}
+                            {name: 'Listar', path: '/financialTransaction/list'},
+                            {name: 'Criar', path: '/financialTransaction/'}
                         ]}
                     />
 
                     <Dropdown
                         name="CATEGORIAS"
                         links={[
-                            {name: 'LISTAR', path: '/category/list'},
+                            {name: 'Listar', path: '/category/list'},
                             {name: 'Criar', path: '/category/'}
                         ]}
                     />
