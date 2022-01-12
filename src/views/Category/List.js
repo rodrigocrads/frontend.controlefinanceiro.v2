@@ -12,7 +12,7 @@ export default class List extends Component {
                 <div className="widget">
                     <div className="widget_header">
                         <img src={icoList} className="ico" alt="" />
-                        Lista de categorias
+                        Categorias
                     </div>
 
                     <div className="widget_content">
