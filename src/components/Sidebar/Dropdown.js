@@ -11,14 +11,14 @@ export default class Dropdown extends React.Component {
         this.state = { open: false }
     }
 
-    toggle() {
+    toggl() {
         this.setState({ open: !this.state.open });
     }
 
     render() {
         return (
             <li className={`dropdown ${this.state.open ? 'active' : ''}`}>
-                <a onClick={() => this.toggle()}>
+                <a onClick={() => this.toggl()}>
                     {this.props.name}
                     <img className="ico-dropdown" src={this.state.open ? icoUp : icoDown} alt="" />
                 </a>
