@@ -1,0 +1,1 @@
+export const TOGGL_SIDEBAR_SHOW = 'TOGGL_SIDEBAR_SHOW';

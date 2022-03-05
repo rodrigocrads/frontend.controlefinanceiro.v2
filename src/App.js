@@ -9,17 +9,16 @@ import Routes from './Routes.js';
 function App() {
 	return (
 		<BrowserRouter>
-			<div id="fundo_total"></div>
-				<div id="container">
-					<Header />
-					<Sidebar />
+			<div id="container">
+				<Header />
+				<Sidebar />
 
-					<div id="principal">
-						<Routes />
-					</div>
-
-					<Footer />
+				<div id="principal">
+					<Routes />
 				</div>
+
+				<Footer />
+			</div>
 		</BrowserRouter>
 	);
 }
