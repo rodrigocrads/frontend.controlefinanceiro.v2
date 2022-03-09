@@ -57,6 +57,10 @@ const routes = () => {
             <PrivateRoute exact path="/financialTransaction/:id">
                 <ViewFinancialTransactionUpdate />
             </PrivateRoute>
+
+            <Route path='*' exact>
+                <Login />
+            </Route>
         </Switch>
     );
 };
