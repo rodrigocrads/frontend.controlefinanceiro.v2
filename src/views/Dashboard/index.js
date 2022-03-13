@@ -123,7 +123,6 @@ class ViewDashboard extends React.Component {
         return (
             <div className="widget">
                     <div className="widget_header">
-                        <img src={icoCharBar} className="ico" alt="" />
                         Balanço do mês atual
                     </div>
 
