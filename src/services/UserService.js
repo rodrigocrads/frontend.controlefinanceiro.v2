@@ -9,12 +9,12 @@ class UserService extends BaseApiService {
 
     update(data) {
         return this.httpClient.patch(`user`, data)
-        .then((response) => {
-            if (response.status === 200) {
-                alert('Usuário atualizado com sucesso.');
-            }
-        })
-        .catch(err => console.log(err));
+            .then((response) => {
+                if (response.status === 200) {
+                    alert('Usuário atualizado com sucesso.');
+                }
+            })
+            .catch(err => console.log(err));
     }
 }
 
