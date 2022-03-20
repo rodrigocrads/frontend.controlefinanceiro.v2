@@ -19,6 +19,10 @@ class HttpClient {
         return axios.put(this.buildUrl(url, params), body, this.getHeaders());
     }
 
+    patch(url, body, params) {
+        return axios.patch(this.buildUrl(url, params), body, this.getHeaders());
+    }
+
     delete(url) {
         return axios.delete(this.buildUrl(url), this.getHeaders());
     }

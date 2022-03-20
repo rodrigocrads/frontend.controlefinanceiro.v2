@@ -14,6 +14,7 @@ import PrivateRoute from './PrivateRoute';
 import Login from './views/Login';
 import Callback from './views/Auth/Callback';
 import Logout from './views/Logout';
+import ViewYourData from './views/YourData';
 
 const routes = () => {
     return (
@@ -56,6 +57,10 @@ const routes = () => {
 
             <PrivateRoute exact path="/financialTransaction/:id">
                 <ViewFinancialTransactionUpdate />
+            </PrivateRoute>
+
+            <PrivateRoute path="/yourData">
+                <ViewYourData />
             </PrivateRoute>
 
             <Route path='*' exact>

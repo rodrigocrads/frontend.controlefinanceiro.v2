@@ -31,7 +31,9 @@ class Sidebar extends React.Component {
                                 {name: 'Criar', path: '/category/'}
                             ]}
                         />
-        
+
+                        <li><Link to="/yourData">SEUS DADOS</Link></li>
+
                         <li className="dropdown">
                             <Link to="/logout">SAIR</Link>
                         </li>

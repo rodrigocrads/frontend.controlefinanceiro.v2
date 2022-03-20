@@ -3,12 +3,14 @@ import { reducer as formReducer } from 'redux-form';
 import { categoryReducer } from './reducers/categoryReducer';
 import { financialTransactionReducer } from './reducers/financialTransactionReducer';
 import { sidebarReducer } from './reducers/sidebarReducer';
+import { userReducer } from './reducers/userReducer';
 
 const rootReducer = combineReducers({
     form: formReducer,
     category: categoryReducer,
     financialTransaction: financialTransactionReducer,
     sidebar: sidebarReducer,
+    user: userReducer,
 });
 
 export default rootReducer;
