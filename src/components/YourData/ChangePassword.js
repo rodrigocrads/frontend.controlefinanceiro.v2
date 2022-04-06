@@ -42,6 +42,7 @@ class ChangePasswordForm extends Component {
 const Form = reduxForm({
     form: formTypes.CHANGE_PASSWORD_FORM,
     enableReinitialize: true,
+    validate: () => {},
 })(ChangePasswordForm);
 
 export default Form;
