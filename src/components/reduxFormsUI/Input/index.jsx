@@ -22,7 +22,7 @@ export default class Input extends React.Component {
     }
 
     render() {
-        const errors = (this.props.errors || []);
+        const errors = (this.props.meta.error || []);
         const hasErrors = errors.length > 0;
 
         return (

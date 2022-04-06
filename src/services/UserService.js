@@ -1,10 +1,11 @@
 import BaseApiService from './BaseApiService';
+import resolveError from '../helpers/resolveError';
 
 class UserService extends BaseApiService {
     get() {
         return this.httpClient.get(`user`)
             .then(resp => resp.data)
-            .catch(err => console.log(err));
+            .catch(error => { resolveError(error) });
     }
 
     update(data) {
@@ -14,7 +15,17 @@ class UserService extends BaseApiService {
                     alert('Usuário atualizado com sucesso.');
                 }
             })
-            .catch(err => console.log(err));
+            .catch(error => { resolveError(error) });
+    }
+
+    changePassword(data) {
+        return this.httpClient.patch(`changePassword`, data)
+            .then((response) => {
+                if (response.status === 200) {
+                    alert('Senha atualizada com sucesso.');
+                }
+            })
+            .catch(error => { resolveError(error) });
     }
 }
 

@@ -1,12 +1,10 @@
 import UserService from "../services/UserService";
 
 export default class UserController
-{
+{    
     constructor() {
         this.service = new UserService();
     }
-
-    service;
 
     get() {
         return this.service.get();
@@ -14,5 +12,9 @@ export default class UserController
 
     update(data) {
         return this.service.update(data);
+    }
+
+    changePassword(data) {
+        return this.service.changePassword(data);
     }
 }
