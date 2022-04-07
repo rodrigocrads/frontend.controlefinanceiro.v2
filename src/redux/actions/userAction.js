@@ -17,9 +17,14 @@ export const updateUser = data => ({
     type: types.UPDATE_USER_DATA,
     payload: async dispatch => {
         const userController = new UserController();
-        await userController.update(data);
+        try {
+            await userController.update(data);
 
-        dispatch({ type: types.STORE_CURRENT_USER_DATA, payload: data });
+            dispatch({ type: types.STORE_CURRENT_USER_DATA, payload: data });
+
+        } catch(error) {
+            await errorHandler(error, dispatch, formTypes.BASIC_DATA_FORM);
+        }
     }
 });
 

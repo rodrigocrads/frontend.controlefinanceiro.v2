@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { reduxForm, Field } from 'redux-form';
 import Input from '../reduxFormsUI/Input';
 import { getUser } from '../../redux/actions/userAction';
+import formTypes from '../../redux/formTypes';
 
 class BasicDataForm extends Component {
     componentDidMount() {
@@ -26,8 +27,6 @@ class BasicDataForm extends Component {
                         name='email'
                         component={Input}
                         label='Email:'
-                        maxLength='100'
-                        required
                         disabled
                     />
 
@@ -53,8 +52,9 @@ const mapStateToProps = state => ({
 });
 
 const Form = reduxForm({
-    form: 'basicDataForm',
-    enableReinitialize: true
+    form: formTypes.BASIC_DATA_FORM,
+    enableReinitialize: true,
+    validate: () => {},
 })(BasicDataForm);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
