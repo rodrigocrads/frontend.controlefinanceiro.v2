@@ -6,7 +6,7 @@ import Input from '../reduxFormsUI/Input';
 import { getUser } from '../../redux/actions/userAction';
 import formTypes from '../../redux/formTypes';
 
-class BasicDataForm extends Component {
+class ProfileDataForm extends Component {
     componentDidMount() {
         this.props.getUser();
     }
@@ -55,6 +55,6 @@ const Form = reduxForm({
     form: formTypes.BASIC_DATA_FORM,
     enableReinitialize: true,
     validate: () => {},
-})(BasicDataForm);
+})(ProfileDataForm);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

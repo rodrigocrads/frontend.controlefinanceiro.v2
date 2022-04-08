@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Dropdown from './Dropdown';
+import WelcomeUserData from '../WelcomeUserData';
 
 class Sidebar extends React.Component {
     render() {
@@ -13,6 +14,7 @@ class Sidebar extends React.Component {
             <>
                 <div id="fundo_total" style={ isActive ? displayBlock : {}}></div>
                 <div id="main_menu" style={ isActive ? displayBlock : {}}>
+                    <WelcomeUserData />
                     <ul>
                         <li><Link to="/">DASHBOARD</Link></li>
 
@@ -32,10 +34,10 @@ class Sidebar extends React.Component {
                             ]}
                         />
 
-                        <li><Link to="/yourData">SEUS DADOS</Link></li>
+                        <li><Link to="/accountConfigurations">CONFIGURAÇÕES</Link></li>
 
                         <li className="dropdown">
-                            <Link to="/logout">SAIR</Link>
+                            <Link to="/logout">LOGOUT</Link>
                         </li>
                     </ul>
                 </div>

@@ -40,9 +40,9 @@ h6{font-size:0.8em;font-weight:normal;}
 }
 
 #main_title {
-    width:55%;
+    width: 55%;
     height: 50px;
-    float:left;
+    float: left;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -55,7 +55,7 @@ h6{font-size:0.8em;font-weight:normal;}
 
 /*-----MENU-----*/
 #ico_menu_mobile{ width:20%; height: 50px; float:left; }
-#ico_menu_mobile img{ height: 28px; margin-right:7px; margin-top:11px; float:right; }
+#ico_menu_mobile img{ height: 28px; margin-top:11px; margin-left: 15px; float:left; }
 
 #main_title h1{
     font-size: 1.2em;

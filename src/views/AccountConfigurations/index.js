@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import BasicDataForm from '../../components/YourData/BasicData';
-import ChangePasswordForm from '../../components/YourData/ChangePassword';
+import ProfileDataForm from '../../components/AccountConfigurations/ProfileDataForm';
+import ChangePasswordForm from '../../components/AccountConfigurations/ChangePassword';
 import { updateUser, changePassword } from '../../redux/actions/userAction';
+import keyIco from '../../img/key.png';
+import userIco from '../../img/user.png';
 
-class YourData extends React.Component {
+class AccountConfigurations extends React.Component {
     onSubmitBasicDataHandler(data) {
         this.props.updateUser(data);
     }
@@ -18,21 +20,23 @@ class YourData extends React.Component {
         return (
             <div>
                 <div className="header_walk_links">
-                    SEUS DADOS
+                    CONFIGURAÇÕES
                 </div>
                 <div className="widget">
                     <div className="widget_header">
-                        Dados básicos
+                        <img className="ico" src={userIco} alt="Icone usuário" />
+                        Perfil - Meus dados
                     </div>
 
                     <div className="widget_content">
-                        <BasicDataForm
+                        <ProfileDataForm
                             onSubmit={(data) => this.onSubmitBasicDataHandler(data)} />
                     </div>
                 </div>
 
                 <div className="widget">
                     <div className="widget_header">
+                        <img className="ico" src={keyIco} alt="Icone cadeado" />
                         Segurança - Alterar senha
                     </div>
 
@@ -50,4 +54,4 @@ const mapDispatchToProps = (dispatch) => (
     bindActionCreators({ updateUser, changePassword }, dispatch)
 );
 
-export default connect(null, mapDispatchToProps)(YourData);
+export default connect(null, mapDispatchToProps)(AccountConfigurations);

@@ -27,7 +27,10 @@ export default class Input extends React.Component {
 
         return (
             <div className="form-group">
-                <label>{ this.props.label }</label>
+                <label>
+                    { this.props.label }
+                    { this.props.required && <span style={{ color: 'red' }}> *</span> }
+                </label>
                 <div className="controls">
                     <input
                         { ...this.props }
