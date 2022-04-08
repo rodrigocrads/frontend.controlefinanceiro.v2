@@ -22,12 +22,15 @@ export default class Input extends React.Component {
     }
 
     render() {
-        const errors = (this.props.errors || []);
+        const errors = (this.props.meta.error || []);
         const hasErrors = errors.length > 0;
 
         return (
             <div className="form-group">
-                <label>{ this.props.label }</label>
+                <label>
+                    { this.props.label }
+                    { this.props.required && <span style={{ color: 'red' }}> *</span> }
+                </label>
                 <div className="controls">
                     <input
                         { ...this.props }
