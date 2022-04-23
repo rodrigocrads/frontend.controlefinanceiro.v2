@@ -16,7 +16,7 @@ class WelcomeUserData extends Component {
     render() {
         return (
             <div style={{ height: '45px', backgroundColor: '#ededed', borderBottom: '1px solid #ddd', textAlign: 'center' }}>
-                <p style={{ margin: '10px 10px 0 10px'}}><b>Olá! { this.getFirstName() }</b></p>
+                <p style={{ margin: '10px 10px 0 10px'}}><b>Olá, { this.getFirstName() }</b></p>
                 <small style={{ margin: '0'}}>{this.props.user?.email}</small>
             </div>
         );
