@@ -12,7 +12,7 @@ input[type="file"],
 select,
 textarea {
     width: 100%;
-    height: 35px;
+    height: 40px;
     box-sizing: border-box;
     border: solid 1px #CCC;
     border-radius: 4px;
@@ -20,7 +20,7 @@ textarea {
     -moz-border-radius: 4px;
     -o-border-radius: 4px;
     padding: 5px;
-    margin-top: 3px;
+    margin-top: 1px;
 }
 
 input[type="text"]:hover,
