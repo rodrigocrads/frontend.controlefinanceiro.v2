@@ -30,7 +30,7 @@ input[type="password"]:hover,
 input[type="file"]:hover,
 select:hover,
 textarea:hover {
-    box-shadow: inset -1px 1px 3px -1px #67d96a, 0px 0px 0px #fff;
+    box-shadow: inset -1px 1px 3px -1px #AAA, 0px 0px 0px #fff;
 }
 
 input:focus-visible,
