@@ -12,7 +12,7 @@ class ChangePasswordForm extends Component {
                         type="password"
                         name='old_password'
                         component={Input}
-                        label='Senha atual:'
+                        label='Senha atual'
                         placeholder='Informe a senha atual'
                         maxLength='50'
                         required
@@ -22,7 +22,7 @@ class ChangePasswordForm extends Component {
                         type="password"
                         name='new_password'
                         component={Input}
-                        label='Nova senha:'
+                        label='Nova senha'
                         placeholder='Informe a nova senha'
                         maxLength='50'
                         required

@@ -30,7 +30,7 @@ class FormBase extends Component {
                     <Field
                         name='name'
                         component={Input}
-                        label='Nome:'
+                        label='Nome'
                         maxLength='100'
                         required
                     />
@@ -38,7 +38,7 @@ class FormBase extends Component {
                     <Field
                         name="type"
                         component={Select}
-                        label="Tipo:"
+                        label="Tipo"
                         options={ this.getCategoryTypeOptions() }
                         required
                     />

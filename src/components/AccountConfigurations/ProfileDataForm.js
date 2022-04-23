@@ -18,7 +18,7 @@ class ProfileDataForm extends Component {
                     <Field
                         name='name'
                         component={Input}
-                        label='Nome:'
+                        label='Nome'
                         maxLength='100'
                         required
                     />
@@ -26,7 +26,7 @@ class ProfileDataForm extends Component {
                     <Field
                         name='email'
                         component={Input}
-                        label='Email:'
+                        label='Email'
                         disabled
                     />
 

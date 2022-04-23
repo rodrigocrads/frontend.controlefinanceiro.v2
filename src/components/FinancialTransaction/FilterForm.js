@@ -18,7 +18,7 @@ class FilterFormBase extends Component {
                         <Field
                             name='start_date'
                             component={Input}
-                            label='Data início:'
+                            label='Data início'
                             mask={new DateMask()}
                         />
                     </div>
@@ -26,7 +26,7 @@ class FilterFormBase extends Component {
                         <Field
                             name='end_date'
                             component={Input}
-                            label='Data fim:'
+                            label='Data fim'
                             mask={new DateMask()}
                         />
                     </div>
@@ -34,7 +34,7 @@ class FilterFormBase extends Component {
                         <Field
                             name='type'
                             component={Select}
-                            label='Tipo:'
+                            label='Tipo'
                             options={[
                                 { value: '', label: 'Selecione um tipo' },
                                 { value: 'expense', label: 'Despesa' },
@@ -47,7 +47,7 @@ class FilterFormBase extends Component {
                         <Field
                             name="category_id"
                             component={Select}
-                            label="Categoria:"
+                            label="Categoria"
                             options={getCategoriesSelectOptions(this.props.categories || [])}
                         />
                     </div>
@@ -56,7 +56,7 @@ class FilterFormBase extends Component {
                         <Field
                             name='title'
                             component={Input}
-                            label='Título:'
+                            label='Título'
                             maxLength='100'
                         />
                     </div>

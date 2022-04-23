@@ -42,7 +42,7 @@ class FormBase extends Component {
                     <Field
                         name="type"
                         component={Select}
-                        label="Tipo:"
+                        label="Tipo"
                         onChange={(e) => this.handleChangeType(e)}
                         options={[
                             {value: '', label: 'Selecione um tipo' },
@@ -57,7 +57,7 @@ class FormBase extends Component {
                             <Field
                                 name="category_id"
                                 component={Select}
-                                label="Categoria:"
+                                label="Categoria"
                                 options={getCategoriesSelectOptions(this.props.categories)}
                                 required
                             />
@@ -67,7 +67,7 @@ class FormBase extends Component {
                     <Field
                         name='title'
                         component={Input}
-                        label='Título:'
+                        label='Título'
                         maxLength='100'
                         required
                     />
@@ -75,14 +75,14 @@ class FormBase extends Component {
                     <Field
                         name='description'
                         component={TextArea}
-                        label='Descrição:'
+                        label='Descrição'
                         maxLength='255'
                     />
 
                     <Field
                         name='value'
                         component={Input}
-                        label='Valor:'
+                        label='Valor'
                         mask={new Currency()}
                         required
                     />
@@ -90,7 +90,7 @@ class FormBase extends Component {
                     <Field
                         name='register_date'
                         component={Input}
-                        label='Data do registro:'
+                        label='Data do registro'
                         mask={new DateMask()}
                         required
                     />
