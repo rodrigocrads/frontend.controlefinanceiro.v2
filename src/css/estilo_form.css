@@ -50,8 +50,14 @@ input[type="radio"], input[type="checkbox"] {
     margin: 8px 2px 0 1px;
 }
 
-/*CLASSES*/
+input:disabled,
+    select:disabled,
+    textarea:disabled {
+    background-color: #eee;
+    color: #787878;
+}
 
+/*CLASSES*/
 .form-group {
     width: 100%;
     float: left;
