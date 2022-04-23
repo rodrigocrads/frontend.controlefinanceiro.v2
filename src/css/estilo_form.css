@@ -2,13 +2,12 @@ label {
     font-size: 1.2em;
     font-weight: bold;
 }
+
 /* Cor referente as mensagens de validação */
 .form-group .field-danger { border-color: #8C2525; }
 .form-group .text-danger { color: #8C2525; }
 
-input[type="text"],
-input[type="password"],
-input[type="file"],
+input,
 select,
 textarea {
     width: 100%;
@@ -25,6 +24,8 @@ textarea {
     margin-top: 5px;
 }
 
+input[type="input"] { box-shadow: none; }
+
 input[type="text"]:hover,
 input[type="password"]:hover,
 input[type="file"]:hover,
@@ -33,12 +34,23 @@ textarea:hover {
     box-shadow: inset -1px 1px 3px -1px #AAA, 0px 0px 0px #fff;
 }
 
+input[type="submit"]:hover { box-shadow: none; }
+
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
     border: 1px solid #777;
     outline: none;
 }
+
+input:disabled,
+    select:disabled,
+    textarea:disabled {
+    background-color: #eee;
+    color: #787878;
+}
+
+input:disabled:hover { box-shadow: inset -1px 1px 3px -1px #AAA, 0px 0px 0px #fff; }
 
 input[type="file"] {
     height: auto;
@@ -58,12 +70,6 @@ input[type="radio"], input[type="checkbox"] {
     margin: 8px 2px 0 1px;
 }
 
-input:disabled,
-    select:disabled,
-    textarea:disabled {
-    background-color: #eee;
-    color: #787878;
-}
 
 /*CLASSES*/
 .form-group {
