@@ -1,18 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import Dropdown from './Dropdown';
 import WelcomeUserData from '../WelcomeUserData';
+import { togglSidebarShow } from '../../redux/actions/sidebarAction';
 
 class Sidebar extends React.Component {
+    close() {
+        this.props.togglSidebarShow(false);
+    }
+
     render() {
         const { isActive } = this.props;
         const displayBlock = { display: 'block' };
 
         return (
             <>
-                <div id="fundo_total" style={ isActive ? displayBlock : {}}></div>
+                <div 
+                    id="fundo_total"
+                    style={ isActive ? displayBlock : {}}
+                    onClick={ () => this.close() }
+                >
+                </div>
                 <div id="main_menu" style={ isActive ? displayBlock : {}}>
                     <WelcomeUserData />
                     <ul>
@@ -46,8 +57,12 @@ class Sidebar extends React.Component {
     }
 }
 
+const mapDispatchToProps = (dispatch) => (
+    bindActionCreators({ togglSidebarShow }, dispatch)
+);
+
 const mapStateToProps = (state) => ({
     isActive: state.sidebar.isActive,
 });
 
-export default connect(mapStateToProps, null)(Sidebar);
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

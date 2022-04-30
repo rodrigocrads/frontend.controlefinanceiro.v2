@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { togglSidebarShow } from '../../redux/actions/sidebarAction';
 
-import icoList from '../../img/ico-list.png';
+import icoList from '../../img/list-view-32.ico';
+import icoClose from '../../img/close.ico';
 
 class MenuMobileControl extends Component {
     togglSidebarShow() {
@@ -20,7 +21,11 @@ class MenuMobileControl extends Component {
                     id="link_menu_mobile"
                     onClick={() => this.togglSidebarShow()}
                 >
-                    <img src={icoList} alt="Profile" />
+                    {
+                        this.props.sidebarIsActive
+                            ? <img src={icoClose} alt="Fechar menu" />
+                            : <img src={icoList} alt="Abrir menu" />
+                    }
                 </a>
             </div>
         );

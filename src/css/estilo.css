@@ -55,7 +55,7 @@ h6{font-size:0.8em;font-weight:normal;}
 
 /*-----MENU-----*/
 #ico_menu_mobile{ width:20%; height: 50px; float:left; }
-#ico_menu_mobile img{ height: 28px; margin-top:11px; margin-left: 15px; float:left; }
+#ico_menu_mobile img{ height: 28px; margin-top:11px; margin-right: 10px; float:right; }
 
 #main_title h1{
     font-size: 1.2em;
@@ -72,12 +72,12 @@ h6{font-size:0.8em;font-weight:normal;}
     z-index:8;
     top: 50px;
     left:0;
-    background-color: rgba(10,10,10,0.8);
+    background-color: rgba(10,10,10,0.6);
     display:none;
 }
 
 #main_menu{
-    width: 85%;
+    width: 80%;
     min-height: 100%;
     background: #F0F0F0;
     position: fixed;
@@ -367,7 +367,6 @@ h6{font-size:0.8em;font-weight:normal;}
     text-decoration: none;
     color:#000;
     padding:12px 18px;
-    float: left;
     border:1px solid #C2C2C2;
     border-radius:4px;
     -webkit-border-radius:4px;
