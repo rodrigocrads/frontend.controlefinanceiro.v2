@@ -6,8 +6,6 @@ export default class CategoryController
         this.service = new CategoryService();
     }
 
-    service;
-
     getById(id) {
         return this.service.getById(id);
     }

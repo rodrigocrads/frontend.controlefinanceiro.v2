@@ -1,7 +1,7 @@
 import types from '../actionTypes';
 import UserController from '../../controllers/UserController';
 import errorHandler from '../../helpers/errorHandler';
-import formTypes from '../formTypes';
+import { toastr } from 'react-redux-toastr';
 
 export const getUser = () => ({
     type: types.GET_USER_DATA,
@@ -22,21 +22,23 @@ export const updateUser = data => ({
 
             dispatch({ type: types.STORE_CURRENT_USER_DATA, payload: data });
 
+            toastr.success("Sucesso", "Usuário atualizado com sucesso.");
         } catch(error) {
-            await errorHandler(error, dispatch, formTypes.BASIC_DATA_FORM);
+            await errorHandler(error);
         }
     }
 });
 
 export const changePassword = data => ({
     type: types.CHANGE_PASSWORD,
-    payload: async (dispatch) => {
+    payload: async () => {
         const userController = new UserController();
         try {
             await userController.changePassword(data);
 
+            toastr.success("Sucesso", "Senha alterada com sucesso.");
         } catch(error) {
-            await errorHandler(error, dispatch, formTypes.CHANGE_PASSWORD_FORM);
+            errorHandler(error);
         }
     }
 });

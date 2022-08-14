@@ -1,8 +1,8 @@
-import { updateSyncErrors } from 'redux-form';
-import ValidationError from '../exceptions/ValidationError';
+import ValidationError from '../errors/ValidationError';
+import {toastr} from 'react-redux-toastr'
 
-export default async function errorHandler(error, dispatch, form) {
+export default async function errorHandler(error) {
     if (error instanceof ValidationError) {
-        await dispatch(updateSyncErrors(form, error.errors));
+        error.errors.forEach(specificMessageItem => toastr.error(error.message, specificMessageItem));
     }
 }

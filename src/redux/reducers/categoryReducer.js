@@ -1,4 +1,4 @@
-import type from '../actionTypes';
+import actionTypes from '../actionTypes';
 
 const initialState = {
     selected: {},
@@ -7,17 +7,17 @@ const initialState = {
 
 export const categoryReducer = (state = initialState, action) => {
     switch (action.type) {
-        case type.STORE_SELECTED_CATEGORY:
+        case actionTypes.STORE_SELECTED_CATEGORY:
             return {
                 ...state,
                 selected: { ...action.payload },
             };
-        case type.STORE_ALL_CATEGORIES:
+        case actionTypes.STORE_ALL_CATEGORIES:
             return {
                 ...state,
                 all: action.payload,
             };
-        case type.CLEAR_SELECTED_CATEGORY:
+        case actionTypes.CLEAR_SELECTED_CATEGORY:
             return {
                 ...state,
                 selected: {},

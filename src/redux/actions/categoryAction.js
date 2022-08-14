@@ -1,65 +1,84 @@
 import { reset } from 'redux-form';
 import CategoryController from '../../controllers/CategoryController';
-import type from '../actionTypes';
+import errorHandler from '../../helpers/errorHandler';
+import actionTypes from '../actionTypes';
 
 export const getCategoryById = id => ({
-    type: type.GET_CATEGORY_BY_ID,
+    type: actionTypes.GET_CATEGORY_BY_ID,
     payload: async dispatch => {
-        const categoryController = new CategoryController();
-        const category = await categoryController.getById(id);
+        try {
+            const category = await (new CategoryController()).getById(id);
 
-        dispatch({ type: type.STORE_SELECTED_CATEGORY, payload: category });
+            dispatch({ type: actionTypes.STORE_SELECTED_CATEGORY, payload: category });
+        } catch (error) {
+            await errorHandler(error);
+        }
     }
 });
 
 export const updateCategory = (id, category) => ({
-    type: type.UPDATE_CATEGORY,
+    type: actionTypes.UPDATE_CATEGORY,
     payload: async dispatch => {
-        const categoryController = new CategoryController();
-        await categoryController.update(id, category);
+        try {
+            await (new CategoryController()).update(id, category);
 
-        dispatch({ type: type.STORE_SELECTED_CATEGORY, payload: category });
+            dispatch({ type: actionTypes.STORE_SELECTED_CATEGORY, payload: category });
+        } catch (error) {
+            await errorHandler(error);
+        }
     }
 });
 
 export const createCategory = (category) => ({
-    type: type.CREATE_CATEGORY,
+    type: actionTypes.CREATE_CATEGORY,
     payload: async (dispatch) => {
-        const categoryController = new CategoryController();
-        await categoryController.create(category);
+        try {
+            await (new CategoryController()).create(category);
 
-        await dispatch(reset('categoryForm'));
+            await dispatch(reset('categoryForm'));
+        } catch (error) {
+            await errorHandler(error);
+        }
     }
 });
 
 export const deleteCategory = (id) => ({
-    type: type.DELETE_CATEGORY,
+    type: actionTypes.DELETE_CATEGORY,
     payload: async dispatch => {
-        const categoryController = new CategoryController();
-        await categoryController.delete(id);
+        try {
+            await (new CategoryController()).delete(id);
 
-        dispatch(fetchCategories());
+            dispatch(fetchCategories());
+        } catch (error) {
+            await errorHandler(error);
+        }
     }
 });
 
 export const fetchCategories = () => ({
-    type: type.FETCH_CATEGORIES,
+    type: actionTypes.FETCH_CATEGORIES,
     payload: async dispatch => {
-        const categoryController = new CategoryController();
-        const categories = await categoryController.list();
+        try {
+            const categories = await (new CategoryController()).list();
 
-        await dispatch({ type: type.STORE_ALL_CATEGORIES, payload: categories });
+            await dispatch({ type: actionTypes.STORE_ALL_CATEGORIES, payload: categories });
+        } catch (error) {
+            await errorHandler(error);
+        }
     }
 });
 
 export const fetchCategoriesByType = (categoryType) => ({
-    type: type.FETCH_CATEGORIES_BY_TYPE,
+    type: actionTypes.FETCH_CATEGORIES_BY_TYPE,
     payload: async dispatch => {
-        const categoryController = new CategoryController();
-        const categories = await categoryController.listByType(categoryType);
+        try {
+            const categories = await (new CategoryController()).listByType(categoryType);
 
-        await dispatch({ type: type.STORE_ALL_CATEGORIES, payload: categories });
+            await dispatch({ type: actionTypes.STORE_ALL_CATEGORIES, payload: categories });
+        } catch (error) {
+            await errorHandler(error);
+        }
     }
 });
 
-export const clearSelectedCategory = () => ({ type: type.CLEAR_SELECTED_CATEGORY });
+export const clearSelectedCategory = () => ({ type: actionTypes.CLEAR_SELECTED_CATEGORY });
