@@ -40,7 +40,7 @@ h6{font-size:0.8em;font-weight:normal;}
 }
 
 #main_title {
-    width: 55%;
+    width: 69%;
     height: 50px;
     float: left;
     display: flex;
@@ -48,13 +48,13 @@ h6{font-size:0.8em;font-weight:normal;}
     justify-content: center;
 }
 
-#logo_area{ width:25%;height: 50px;float:left; }
+#logo_area{ width:21%;height: 50px;float:left; }
 
 .logo { display: table; box-sizing: border-box; padding: 2px; margin: auto; margin-top: 5px; }
 .logo img { width: 30px;height: 36px; }
 
 /*-----MENU-----*/
-#ico_menu_mobile{ width:20%; height: 50px; float:left; }
+#ico_menu_mobile{ width:10%; height: 50px; float:left; }
 #ico_menu_mobile img{ height: 28px; margin-top:11px; margin-right: 10px; float:right; }
 
 #main_title h1{
@@ -106,6 +106,7 @@ h6{font-size:0.8em;font-weight:normal;}
     margin: 50px 3% 0 3%; /* a margin-top é baseada na altura do topo + 10px*/
     float:left;
 }
+
 .header_walk_links{
     width:100%;
     margin: 8px 0;
@@ -306,6 +307,8 @@ h6{font-size:0.8em;font-weight:normal;}
 #recuperar_senha a{color:#333;text-decoration: underline;}
 #recuperar_senha a:hover{color:#666;}
 /*---- HELPERS ----*/
+.only-mobile { display: block; }
+.only-desktop, .only-desktop-flex { display: none; }
 .margin_zero{margin:0 !important;}
 .clear{clear:both !important;}
 .last{margin-right: 0 !important;}
@@ -330,7 +333,7 @@ h6{font-size:0.8em;font-weight:normal;}
 .font_size3b{font-size: 3.5em;}
 
 /*TEXT ALIGN*/
-.text_center{text-align: center !important;}
+.text_center{text-align: center;}
 .text_right{text-align: right !important;}
 .text_left{text-align: left !important;}
 
@@ -440,6 +443,9 @@ h6{font-size:0.8em;font-weight:normal;}
     .col_2{width: 50%;}
     .col_3{width: 50%;}
     .col_4{width: 50%;}
+    .only-mobile { display: none; }
+    .only-desktop { display: block; }
+    .only-desktop-flex { display: flex; }
 }
 @media screen and (min-width: 900px){
     #main_menu{

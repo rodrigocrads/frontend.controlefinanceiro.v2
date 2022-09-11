@@ -1,4 +1,5 @@
 import MenuMobileControl from '../MenuMobileControl';
+import HeaderUserData from '../HeaderUserData';
 
 function Header() {
     return (
@@ -9,8 +10,9 @@ function Header() {
                 </div>
             </div>
             <div id="main_title">
-                <h1>Controle Financeiro</h1>
+                <h1>Controle Financeiro Pessoal</h1>
             </div>
+            <HeaderUserData />
             <MenuMobileControl />
         </div>
     );

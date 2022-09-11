@@ -45,9 +45,9 @@ class Sidebar extends React.Component {
                             ]}
                         />
 
-                        <li><Link to="/accountConfigurations">CONFIGURAÇÕES</Link></li>
+                        <li className="only-mobile"><Link to="/accountConfigurations">CONFIGURAÇÕES</Link></li>
 
-                        <li className="dropdown">
+                        <li className="dropdown only-mobile">
                             <Link to="/logout">LOGOUT</Link>
                         </li>
                     </ul>

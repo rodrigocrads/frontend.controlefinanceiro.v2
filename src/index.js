@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import './css/estilo.css';
 import './css/estilo_form.css';
 import './css/estilo_table.css';
+import './css/custom.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './redux/store';

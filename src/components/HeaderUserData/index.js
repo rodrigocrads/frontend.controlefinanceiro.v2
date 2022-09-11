@@ -1,0 +1,104 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
+import { getUser } from '../../redux/actions/userAction';
+
+class MenuMobileControl extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showUserAreaMenu: false,
+        }
+        this.componentRef = React.createRef();
+        this.handleClickOutside = this.handleClickOutside.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.getUser();
+        document.addEventListener("click", this.handleClickOutside);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener("click", this.handleClickOutside);
+    }
+
+    handleClickOutside(event) {
+        if (!this?.state?.showUserAreaMenu) return;
+
+        if (this.componentRef && !this.componentRef.current.contains(event.target)) {
+            this.togglShowUserAreaMenu();
+        }
+    }
+
+    togglShowUserAreaMenu() {
+        this.setState({
+            showUserAreaMenu: !this.state.showUserAreaMenu
+        });
+    }
+
+    getNamePartsInitialLetters() {
+        if (!this.props.user.name) {
+            return '';
+        }
+        const nameParts = this.props.user?.name.split(" ");
+
+        if (nameParts.length === 1) {
+            return `${nameParts[0].charAt(0)}`;
+        }
+
+        return `${nameParts[0].charAt(0)}${nameParts[1].charAt(0)}`;
+    }
+
+    getName() {
+        if (!this.props.user.name) {
+            return '';
+        }
+        const nameParts = this.props.user?.name.split(" ");
+
+        if (nameParts.length === 1) {
+            return `${this.formatNamePart(nameParts[0])}`;
+        }
+
+        return `${this.formatNamePart(nameParts[0])} ${this.formatNamePart(nameParts[1])}`;
+    }
+
+    formatNamePart(part) {
+        return `${part.charAt(0).toUpperCase()}${part.slice(1).toLowerCase()}`;
+    }
+
+    render() {
+        return (
+            <div ref={this.componentRef} class="header_user_area only-desktop-flex">
+                <div class="header_user_area_identifier"
+                    onClick={() => this.togglShowUserAreaMenu()}
+                >
+                    {this.getNamePartsInitialLetters()}
+                </div>
+                {
+                    this.state.showUserAreaMenu &&
+                    <div class="header_user_area_menu">
+                        <div class="header_user_area_menu--user_info">
+                            <p><b>{this.getName()}</b></p>
+                            <p>{this.props.user?.email}</p>
+                        </div>
+                        <ul>
+                            <li><Link to="/accountConfigurations">Configurações</Link></li>
+                            <li><Link to="/logouts">Logout</Link></li>
+                        </ul>
+                    </div>
+                }
+            </div>
+        );
+    }
+}
+
+const mapDispatchToProps = (dispatch) => (
+    bindActionCreators({ getUser }, dispatch)
+);
+
+const mapStateToProps = (state) => ({
+    user: state.user.current,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MenuMobileControl);
