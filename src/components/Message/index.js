@@ -7,7 +7,7 @@ class Message extends React.Component {
         return (
             <>
                 <ReduxToastr
-                    timeOut={10000}
+                    timeOut={5000}
                     newestOnTop={false}
                     preventDuplicates
                     position="top-right"

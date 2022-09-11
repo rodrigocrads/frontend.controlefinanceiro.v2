@@ -1,3 +1,4 @@
+import { toastr } from 'react-redux-toastr';
 import { reset } from 'redux-form';
 import CategoryController from '../../controllers/CategoryController';
 import errorHandler from '../../helpers/errorHandler';
@@ -23,6 +24,8 @@ export const updateCategory = (id, category) => ({
             await (new CategoryController()).update(id, category);
 
             dispatch({ type: actionTypes.STORE_SELECTED_CATEGORY, payload: category });
+
+            toastr.success("Sucesso", "Categoria atualizada com sucesso");
         } catch (error) {
             await errorHandler(error);
         }
@@ -36,6 +39,8 @@ export const createCategory = (category) => ({
             await (new CategoryController()).create(category);
 
             await dispatch(reset('categoryForm'));
+
+            toastr.success("Sucesso", "Categoria criada com sucesso.");
         } catch (error) {
             await errorHandler(error);
         }
@@ -49,6 +54,8 @@ export const deleteCategory = (id) => ({
             await (new CategoryController()).delete(id);
 
             dispatch(fetchCategories());
+
+            toastr.success("Sucesso", "Registro excluído com sucesso.");
         } catch (error) {
             await errorHandler(error);
         }
