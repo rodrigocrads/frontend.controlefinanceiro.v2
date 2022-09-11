@@ -307,8 +307,9 @@ h6{font-size:0.8em;font-weight:normal;}
 #recuperar_senha a{color:#333;text-decoration: underline;}
 #recuperar_senha a:hover{color:#666;}
 /*---- HELPERS ----*/
-.only-mobile { display: block; }
-.only-desktop, .only-desktop-flex { display: none; }
+.only-mobile { display: block !important; }
+.only-desktop { display: none !important; }
+.only-desktop-flex { display: none !important; }
 .margin_zero{margin:0 !important;}
 .clear{clear:both !important;}
 .last{margin-right: 0 !important;}
