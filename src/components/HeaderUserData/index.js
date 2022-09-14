@@ -78,13 +78,17 @@ class MenuMobileControl extends Component {
                 {
                     this.state.showUserAreaMenu &&
                         <div className="user-area__menu">
-                            <div className="user_area__menu-user-data">
+                            <div className="user-area__menu-header">
                                 <p><b>{this.getName()}</b></p>
                                 <p>{this.props.user?.email}</p>
                             </div>
-                            <ul className="user-area__menu-itens--list-style">
-                                <li><Link className="user-area__menu-item" to="/accountConfigurations">Configurações</Link></li>
-                                <li><Link className="user-area__menu-item" to="/logouts">Logout</Link></li>
+                            <ul className="user-area__menu-list">
+                                <li className="user-area__menu-item">
+                                    <Link to="/accountConfigurations">Configurações</Link>
+                                </li>
+                                <li className="user-area__menu-item">
+                                    <Link to="/logouts">Logout</Link>
+                                </li>
                             </ul>
                         </div>
                 }
