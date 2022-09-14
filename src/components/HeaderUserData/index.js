@@ -69,24 +69,24 @@ class MenuMobileControl extends Component {
 
     render() {
         return (
-            <div ref={this.componentRef} class="header_user_area only-desktop-flex">
-                <div class="header_user_area_identifier"
+            <div ref={this.componentRef} className="user-area">
+                <div className="user-area__identifier"
                     onClick={() => this.togglShowUserAreaMenu()}
                 >
-                    {this.getNamePartsInitialLetters()}
+                    { this.getNamePartsInitialLetters() }
                 </div>
                 {
                     this.state.showUserAreaMenu &&
-                    <div class="header_user_area_menu">
-                        <div class="header_user_area_menu--user_info">
-                            <p><b>{this.getName()}</b></p>
-                            <p>{this.props.user?.email}</p>
+                        <div className="user-area__menu">
+                            <div className="user_area__menu-user-data">
+                                <p><b>{this.getName()}</b></p>
+                                <p>{this.props.user?.email}</p>
+                            </div>
+                            <ul className="user-area__menu-itens--list-style">
+                                <li><Link className="user-area__menu-item" to="/accountConfigurations">Configurações</Link></li>
+                                <li><Link className="user-area__menu-item" to="/logouts">Logout</Link></li>
+                            </ul>
                         </div>
-                        <ul>
-                            <li><Link to="/accountConfigurations">Configurações</Link></li>
-                            <li><Link to="/logouts">Logout</Link></li>
-                        </ul>
-                    </div>
                 }
             </div>
         );
