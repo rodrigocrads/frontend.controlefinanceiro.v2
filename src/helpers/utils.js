@@ -34,6 +34,24 @@ export const replaceMonths = (month) => {
     }
 }
 
+export const replateMonthToInitials = (month) => {
+    switch(month) {
+        case 'january': return 'Jan';
+        case 'february': return 'Fev';
+        case 'march': return 'Mar';
+        case 'april': return 'Abr';
+        case 'may': return 'Mai';
+        case 'june': return 'Jun';
+        case 'july': return 'Jul';
+        case 'august': return 'Ago';
+        case 'september': return 'Set';
+        case 'october': return 'Out';
+        case 'november': return 'Nov';
+        case 'december': return 'Dez';
+        default: return 'Mês não identificado!';
+    }
+}
+
 export const getPeriodicitySelectOptions = () => {
     return [{ value: 'monthly', label: 'Mensal' }];
 

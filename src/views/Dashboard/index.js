@@ -3,7 +3,7 @@ import Chart from "react-google-charts";
 
 import BoxInfo from '../../components/UI/BoxInfo';
 
-import { convertCurrencyToPtBr, fetchWithAuth, replaceMonths } from '../../helpers/utils';
+import { convertCurrencyToPtBr, fetchWithAuth, replaceMonths, replateMonthToInitials } from '../../helpers/utils';
 
 import icoCharBar from '../../img/chart_bar.png';
 import icoCoinsAdd from '../../img/coins_add.png';
@@ -37,23 +37,29 @@ class ViewDashboard extends React.Component {
     }
 
     async fetchYearTotals() {
-        await fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}report/currentYearTotals`)
+        await fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}report/totalsByMonth`)
             .then(response => response.json())
             .then(data => {
-                const totals = (data || []).map(monthTotal => {
-                    const totals = monthTotal.totals;
+                const totals = (Object.keys(data) || [])
+                    .reduce((previousMonthsTotals, currentYear) => {
+                        const totalsByMonth = data[currentYear]
+                            .map(monthTotal => {
+                                const totals = monthTotal.totals;
+        
+                                return [
+                                    `${replateMonthToInitials(monthTotal.month)}/${currentYear}`,
+                                    totals.revenue,
+                                    totals.expense,
+                                    totals.revenue - totals.expense,
+                                ];
+                            });
 
-                    return [
-                        replaceMonths(monthTotal.month),
-                        totals.revenue,
-                        totals.expense,
-                        totals.revenue - totals.expense,
-                    ];
-                });
+                        return previousMonthsTotals.concat(totalsByMonth);
+                    }, []);
 
                 this.setState( { ...this.state, yearTotalsChartData: [
                     ['Mês', 'Receitas', 'Despesas', 'Economia'],
-                    ...totals
+                    ...totals,
                 ]})
             })
     }
@@ -159,7 +165,7 @@ class ViewDashboard extends React.Component {
             <div className="widget">
                 <div className="widget_header">
                     <img src={icoCharBar} className="ico" alt="" />
-                    Evolução receita/despesa
+                    Receita/Despesa
                 </div>
 
                 <div className="widget_content">
@@ -169,8 +175,8 @@ class ViewDashboard extends React.Component {
                         loader={<div>Carregando Gráfico...</div>}
                         data={ [ ...this.state.yearTotalsChartData ] }
                         options={{
-                            title: 'Evolução do total da receita e despesa do ano atual',
-                            hAxis: { title: 'Meses', titleTextStyle: { color: '#333' } },
+                            title: 'Total da receita sobre despesa dos últimos 12 meses',
+                            hAxis: { title: 'Mês/Ano', titleTextStyle: { color: '#333' } },
                             vAxis: { minValue: 0 },
                             // For the legend to fit, we make the chart area smaller
                             chartArea: { width: '70%', height: '70%' },
