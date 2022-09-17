@@ -175,7 +175,7 @@ class ViewDashboard extends React.Component {
                         loader={<div>Carregando Gráfico...</div>}
                         data={ [ ...this.state.yearTotalsChartData ] }
                         options={{
-                            title: 'Total da receita sobre despesa dos últimos 12 meses',
+                            title: 'Total da receita sobre despesa por mês nos últimos 12 meses',
                             hAxis: { title: 'Mês/Ano', titleTextStyle: { color: '#333' } },
                             vAxis: { minValue: 0 },
                             // For the legend to fit, we make the chart area smaller
