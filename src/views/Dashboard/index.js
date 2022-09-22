@@ -133,7 +133,7 @@ class ViewDashboard extends React.Component {
 
                 this.setState({
                     ...this.state, totalMonthExpenseByCategoryChartData: [
-                        ["", ""],
+                        ["Categoria", "Valor Total"],
                         ...data,
                     ]
                 });
@@ -148,7 +148,7 @@ class ViewDashboard extends React.Component {
 
                 this.setState({
                     ...this.state, totalMonthRevenueByCategoryChartData: [
-                        ["", ""],
+                        ["Categoria", "Valor Total"],
                         ...data,
                     ]
                 });
@@ -255,7 +255,7 @@ class ViewDashboard extends React.Component {
             <div className="widget col_2">
                 <div className="widget_header">
                     <img src={icoCharBar} className="ico" alt="" />
-                    Receita por categoria do mês atual
+                    % Receita por categoria do mês atual
                 </div>
 
                 <div className="widget_content">
@@ -279,7 +279,7 @@ class ViewDashboard extends React.Component {
             <div className="widget col_2">
                 <div className="widget_header">
                     <img src={icoCharBar} className="ico" alt="" />
-                    Despesa por categoria do mês atual
+                    % Despesa por categoria do mês atual
                 </div>
 
                 <div className="widget_content">
