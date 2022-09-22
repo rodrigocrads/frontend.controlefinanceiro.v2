@@ -21,6 +21,8 @@ class ViewDashboard extends React.Component {
             },
             yearTotalsChartData: [],
             totalsExpensesByCategoriesChartData: [],
+            totalMonthExpenseByCategoryChartData: [],
+            totalMonthRevenueByCategoryChartData: [],
         };
     }
 
@@ -28,6 +30,8 @@ class ViewDashboard extends React.Component {
         this.fetchTotalsByCurrentMonth();
         this.fetchYearTotals();
         this.fetchExpensesTotalsByCategories();
+        this.fetchCurrentMonthTotalExpenseByCategory();
+        this.fetchCurrentMonthTotalRevenueByCategory();
     }
 
     async fetchTotalsByCurrentMonth() {
@@ -118,6 +122,36 @@ class ViewDashboard extends React.Component {
                     [ 'Mês', ...allCategoriesNames ],
                     ...totals,
                 ]})
+            });
+    }
+
+    async fetchCurrentMonthTotalExpenseByCategory() {
+        await fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}report/totalExpenseByCategory`)
+            .then(response => response.json())
+            .then(categories => {
+                const data = categories.map(category => [ category.name, category.total ]);
+
+                this.setState({
+                    ...this.state, totalMonthExpenseByCategoryChartData: [
+                        ["", ""],
+                        ...data,
+                    ]
+                });
+            });
+    }
+
+    async fetchCurrentMonthTotalRevenueByCategory() {
+        await fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}report/totalRevenueByCategory`)
+            .then(response => response.json())
+            .then(categories => {
+                const data = categories.map(category => [ category.name, category.total ]);
+
+                this.setState({
+                    ...this.state, totalMonthRevenueByCategoryChartData: [
+                        ["", ""],
+                        ...data,
+                    ]
+                });
             });
     }
 
@@ -216,6 +250,54 @@ class ViewDashboard extends React.Component {
         );
     }
 
+    renderMonthTotalRevenueByCategoryChart() {
+        return (
+            <div className="widget col_2">
+                <div className="widget_header">
+                    <img src={icoCharBar} className="ico" alt="" />
+                    Receita por categoria do mês atual
+                </div>
+
+                <div className="widget_content">
+                    <Chart
+                        height={'300px'}
+                        chartType="PieChart"
+                        loader={<div>Carregando Gráfico...</div>}
+                        data={ [ ...this.state.totalMonthRevenueByCategoryChartData ] }
+                        options={{
+                            //title: "Receita por categoria do mês",
+                            is3D: false,
+                        }}
+                    />
+                </div>
+            </div>
+        );
+    }
+
+    renderMonthTotalExpenseByCategoryChart() {
+        return (
+            <div className="widget col_2">
+                <div className="widget_header">
+                    <img src={icoCharBar} className="ico" alt="" />
+                    Despesa por categoria do mês atual
+                </div>
+
+                <div className="widget_content">
+                    <Chart
+                        height={'300px'}
+                        chartType="PieChart"
+                        loader={<div>Carregando Gráfico...</div>}
+                        data={ [ ...this.state.totalMonthExpenseByCategoryChartData ] }
+                        options={{
+                            //title: "Despesa por categoria do mês",
+                            is3D: false,
+                        }}
+                    />
+                </div>
+            </div>
+        );
+    }
+
     render() {
         return (
             <div>
@@ -223,6 +305,8 @@ class ViewDashboard extends React.Component {
                     DASHBOARD
                 </div>
                 { this.renderMonthEconomy() }
+                { this.renderMonthTotalRevenueByCategoryChart() }
+                { this.renderMonthTotalExpenseByCategoryChart() }
                 { this.renderTotalsCurrentYearChart() }
                 { this.renderTotalsCurrentYearExpensesTotalByCategoriesChart() }
             </div>
