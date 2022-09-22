@@ -70,7 +70,7 @@ class ViewDashboard extends React.Component {
 
     // todo: melhorar esta lógica
     async fetchExpensesTotalsByCategories() {
-        await fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}report/currentYearExpensesTotalsByCategories`)
+        await fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}report/expensesTotalsByCategoryAndByMonth`)
             .then(response => response.json())
             .then(months => {
                 const allCategories = [];
@@ -237,7 +237,7 @@ class ViewDashboard extends React.Component {
                         loader={<div>Carregando Gráfico...</div>}
                         data={ [ ...this.state.totalsExpensesByCategoriesChartData ] }
                         options={{
-                            title: 'Totais de despesas por categoria de cada mês',
+                            title: 'Totais de despesas por categoria de cada mês nos últimos 12 meses',
                             hAxis: { title: 'Meses', titleTextStyle: { color: '#333' } },
                             vAxis: { minValue: 0 },
                             // For the legend to fit, we make the chart area smaller
