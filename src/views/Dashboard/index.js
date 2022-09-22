@@ -70,7 +70,7 @@ class ViewDashboard extends React.Component {
 
     // todo: melhorar esta lógica
     async fetchExpensesTotalsByCategories() {
-        await fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}report/expensesTotalsByCategoryAndByMonth`)
+        await fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}report/totalExpenseByCategoryAndByMonth`)
             .then(response => response.json())
             .then(months => {
                 const allCategories = [];
