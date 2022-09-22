@@ -260,7 +260,7 @@ class ViewDashboard extends React.Component {
 
                 <div className="widget_content">
                     <Chart
-                        height={'300px'}
+                        height={'250px'}
                         chartType="PieChart"
                         loader={<div>Carregando Gráfico...</div>}
                         data={ [ ...this.state.totalMonthRevenueByCategoryChartData ] }
@@ -284,7 +284,7 @@ class ViewDashboard extends React.Component {
 
                 <div className="widget_content">
                     <Chart
-                        height={'300px'}
+                        height={'250px'}
                         chartType="PieChart"
                         loader={<div>Carregando Gráfico...</div>}
                         data={ [ ...this.state.totalMonthExpenseByCategoryChartData ] }
