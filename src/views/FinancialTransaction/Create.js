@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { fetchCategoriesByType } from '../../redux/actions/categoryAction';
 import { createFinancialTransaction, clearSelectedFinancialTransaction } from '../../redux/actions/financialTransactionAction';
 import FinancialTransactionForm from '../../components/FinancialTransaction/Form';
 import icoMenuEdit from '../../img/edit.png';
@@ -8,6 +9,13 @@ import SaveOrUpdate from '../../builders/requestBody/financialTransaction/SaveOr
 import FinancialTransaction from '../../dtos/FinancialTransaction';
 
 class Create extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            shouldShowCategory: false
+        };
+    }
+
     componentDidMount() {
         this.props.clearSelectedFinancialTransaction();
     }
@@ -17,6 +25,17 @@ class Create extends Component {
             new FinancialTransaction({ ...data })
         );
         this.props.createFinancialTransaction(builderContentRequest.build());
+    }
+
+    onChangeTypeHandler(event) {
+        const value = event.target.value;
+        console.log(value);
+
+        this.setState({ shouldShowCategory: value !== ''})
+
+        if (value !== '') {
+            this.props.fetchCategoriesByType(value);
+        }
     }
 
     render() {
@@ -33,7 +52,11 @@ class Create extends Component {
                     </div>
 
                     <div className="widget_content">
-                        <FinancialTransactionForm onSubmit={(data) => this.onSubmitHandler(data)} />
+                        <FinancialTransactionForm
+                            shouldShowCategory={this.state.shouldShowCategory}
+                            onChangeType={(event) => this.onChangeTypeHandler(event)}
+                            onSubmit={(data) => this.onSubmitHandler(data)}
+                        />
                     </div>
                 </div>
             </div>
@@ -45,6 +68,7 @@ const mapDispatchToProps = (dispatch) => (
     bindActionCreators({
         createFinancialTransaction,
         clearSelectedFinancialTransaction,
+        fetchCategoriesByType
     }, dispatch)
 );
 

@@ -15,6 +15,13 @@ import FinancialTransaction from '../../dtos/FinancialTransaction';
 import icoMenuEdit from '../../img/edit.png';
 
 class Update extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            shouldShowCategory: true
+        };
+    }
+
     componentDidMount() {
         this.props.clearSelectedFinancialTransaction();
 
@@ -32,6 +39,17 @@ class Update extends Component {
         this.props.getFinancialTransactionById(id);
     }
 
+    onChangeTypeHandler(event) {
+        const value = event.target.value;
+        console.log(value);
+
+        this.setState({ shouldShowCategory: value !== ''})
+
+        if (value !== '') {
+            this.props.fetchCategoriesByType(value);
+        }
+    }
+
     render() {
         return (
             <div>
@@ -46,7 +64,11 @@ class Update extends Component {
                     </div>
 
                     <div className="widget_content">
-                        <FinancialTransactionForm isUpdate onSubmit={(data) => this.onSubmitHandler(data)} />
+                        <FinancialTransactionForm
+                            shouldShowCategory={this.state.shouldShowCategory}
+                            onChangeType={(event) => this.onChangeTypeHandler(event)}
+                            onSubmit={(data) => this.onSubmitHandler(data)}
+                        />
                     </div>
                 </div>
             </div>
