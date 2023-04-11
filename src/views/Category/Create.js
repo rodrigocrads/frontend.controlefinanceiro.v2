@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import CategoryForm from '../../components/Category/Form';
 import icoMenuEdit from '../../img/edit.png';
 import { bindActionCreators } from 'redux';
-import { createCategory } from '../../redux/actions/categoryAction';
+import { createCategory, clearSelectedCategory } from '../../redux/actions/categoryAction';
 
 class Create extends Component {
-    onSubmitHandler(data) {
-        this.props.createCategory(data);
+    componentDidMount() {
+        this.props.clearSelectedCategory();
     }
 
     render() {
@@ -24,7 +24,7 @@ class Create extends Component {
                     </div>
 
                     <div className="widget_content">
-                        <CategoryForm onSubmit={(data) => this.onSubmitHandler(data)} />
+                        <CategoryForm onSubmit={(data) => this.props.createCategory(data)} />
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@ class Create extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => (
-    bindActionCreators({ createCategory }, dispatch)
+    bindActionCreators({ createCategory, clearSelectedCategory }, dispatch)
 );
 
 export default connect(null, mapDispatchToProps)(Create);

@@ -1,20 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { reduxForm, Field } from 'redux-form';
 import Input from '../reduxFormsUI/Input';
 import Select from '../reduxFormsUI/Select';
-import { getCategoryById, clearSelectedCategory } from '../../redux/actions/categoryAction';
 
 class FormBase extends Component {
-    componentDidMount() {
-        this.props.clearSelectedCategory();
-
-        if (!!this.props.id) {
-            this.props.getCategoryById(this.props.id);
-        }
-    }
-
     getCategoryTypeOptions() {
         return [
             { value: '', label: 'Selecione um tipo' },
@@ -54,12 +44,7 @@ class FormBase extends Component {
     };
 };
 
-const mapDispatchToProps = (dispatch) => (
-    bindActionCreators({
-        getCategoryById,
-        clearSelectedCategory,
-    }, dispatch)
-);
+
 
 const mapStateToProps = state => ({
     initialValues: state.category.selected,
@@ -70,4 +55,4 @@ const Form = reduxForm({
     enableReinitialize: true
 })(FormBase);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default connect(mapStateToProps, null)(Form);

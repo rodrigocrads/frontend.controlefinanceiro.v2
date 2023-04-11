@@ -5,8 +5,16 @@ import CategoryForm from '../../components/Category/Form';
 import icoMenuEdit from '../../img/edit.png';
 import { bindActionCreators } from 'redux';
 import { updateCategory } from '../../redux/actions/categoryAction';
+import { getCategoryById, clearSelectedCategory } from '../../redux/actions/categoryAction';
 
 class Update extends Component {
+    componentDidMount() {
+        this.props.clearSelectedCategory();
+
+        const { id } = this.props.match.params;
+        this.props.getCategoryById(id);
+    }
+
     onSubmitHandler(data) {
         const { id } = this.props.match.params;
         this.props.updateCategory(id, data);
@@ -27,8 +35,7 @@ class Update extends Component {
 
                     <div className="widget_content">
                         <CategoryForm
-                            onSubmit={ (data) => this.onSubmitHandler(data) }
-                            id={ this.props.match.params.id }
+                            onSubmit={(data) => this.onSubmitHandler(data)}
                         />
                     </div>
                 </div>
@@ -38,7 +45,11 @@ class Update extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => (
-    bindActionCreators({ updateCategory }, dispatch)
+    bindActionCreators({
+        updateCategory,
+        getCategoryById,
+        clearSelectedCategory,
+    }, dispatch)
 );
 
 export default withRouter(connect(null, mapDispatchToProps)(Update));
