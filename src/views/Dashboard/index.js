@@ -62,7 +62,7 @@ class ViewDashboard extends React.Component {
                     }, []);
 
                 this.setState( { ...this.state, yearTotalsChartData: [
-                    ['Mês', 'Receitas', 'Despesas', 'Economia'],
+                    ['Mês', 'Receitas', 'Despesas', 'Saldo'],
                     ...totals,
                 ]})
             })
@@ -184,7 +184,7 @@ class ViewDashboard extends React.Component {
 
                         <BoxInfo
                             type="warning"
-                            title="Economia"
+                            title="Saldo"
                             imgIco={icoCoins}
                             content={ convertCurrencyToPtBr((totalRevenue - totalExpense)) }
                         />
