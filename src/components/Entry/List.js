@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { deleteFinancialTransaction, fetchFinancialTransactions } from '../../redux/actions/financialTransactionAction';
+import { deleteEntry, fetchEntries } from '../../redux/actions/entryAction';
 
 import icoEdit from '../../img/edit.png';
 import icoDelete from '../../img/delete.png';
-import { convertCurrencyToPtBr, convertIsoDateToBr, replaceFinancialTransactionType } from '../../helpers/utils';
+import { convertCurrencyToPtBr, convertIsoDateToBr, replaceEntryType } from '../../helpers/utils';
 
 class List extends Component {
     deleteHandler(id) {
         const isConfirm = window.confirm("Realmente deseja excluir este registro?");
 
         if (isConfirm) {
-            this.props.deleteFinancialTransaction(id);
+            this.props.deleteEntry(id);
         }
     }
 
@@ -22,7 +22,7 @@ class List extends Component {
     }
 
     sumTotalValuesByType(type) {
-        const total = this.props.financialTransactions
+        const total = this.props.entries
             .filter(item => item.type === type)
             .reduce((total, item) => item.value + total, 0);
 
@@ -30,12 +30,12 @@ class List extends Component {
     }
 
     lengthByType(type) {
-        return this.props.financialTransactions.filter(item => item.type === type).length;
+        return this.props.entries.filter(item => item.type === type).length;
     }
 
     renderTable() {
-        const { financialTransactions } = this.props; 
-        const foundLength = financialTransactions.length;
+        const { entries } = this.props; 
+        const foundLength = entries.length;
         const foundRevenueTypeLength = this.lengthByType('revenue');
         const foundExpenseTypeLength = this.lengthByType('expense');
 
@@ -60,21 +60,21 @@ class List extends Component {
                     </thead>
                     <tbody>
                         { 
-                            financialTransactions.map((financialTransaction, index) => (
-                                <tr key={ financialTransaction.id }>
+                            entries.map((entry, index) => (
+                                <tr key={ entry.id }>
                                     <td>{ index + 1 }</td>
-                                    <td>{ replaceFinancialTransactionType(financialTransaction.type) }</td>
-                                    <td>{ financialTransaction.category.name }</td>
-                                    <td>{ financialTransaction.title }</td>
-                                    <td>{ financialTransaction.description || 'Não Informado' }</td>
-                                    <td>{ convertCurrencyToPtBr(financialTransaction.value) }</td>
-                                    <td>{ convertIsoDateToBr(financialTransaction.register_date) }</td>
+                                    <td>{ replaceEntryType(entry.type) }</td>
+                                    <td>{ entry.category.name }</td>
+                                    <td>{ entry.title }</td>
+                                    <td>{ entry.description || 'Não Informado' }</td>
+                                    <td>{ convertCurrencyToPtBr(entry.value) }</td>
+                                    <td>{ convertIsoDateToBr(entry.register_date) }</td>
                                     <td>
-                                        <Link className="table_action" to={`/financialTransaction/${ financialTransaction.id }`}>
+                                        <Link className="table_action" to={`/entry/${ entry.id }`}>
                                             <img src={ icoEdit } />
                                         </Link>
 
-                                        <a href="#" onClick={ () => this.deleteHandler(financialTransaction.id) } className="table_action">
+                                        <a href="#" onClick={ () => this.deleteHandler(entry.id) } className="table_action">
                                             <img src={icoDelete} />
                                         </a> 
                                     </td>
@@ -88,7 +88,7 @@ class List extends Component {
     }
 
     render() {
-        return this.props.financialTransactions?.length > 0
+        return this.props.entries?.length > 0
             ? this.renderTable()
             : this.renderNotFound();
     }
@@ -96,12 +96,12 @@ class List extends Component {
 
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
-        deleteFinancialTransaction,
-        fetchFinancialTransactions,
+        deleteEntry,
+        fetchEntries,
 }, dispatch));
 
 const mapStateToProps = state => ({
-    financialTransactions: state.financialTransaction.all,
+    entries: state.entry.all,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

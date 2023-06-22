@@ -3,15 +3,15 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
-    updateFinancialTransaction,
-    clearSelectedFinancialTransaction,
-    getFinancialTransactionById
-} from '../../redux/actions/financialTransactionAction';
+    updateEntry,
+    clearSelectedEntry,
+    getEntryById
+} from '../../redux/actions/entryAction';
 import { fetchCategoriesByType } from '../../redux/actions/categoryAction';
-import FinancialTransactionForm from '../../components/FinancialTransaction/Form';
+import EntryForm from '../../components/Entry/Form';
 
-import SaveOrUpdate from '../../builders/requestBody/financialTransaction/SaveOrUpdate';
-import FinancialTransaction from '../../dtos/FinancialTransaction';
+import SaveOrUpdate from '../../builders/requestBody/entry/SaveOrUpdate';
+import Entry from '../../dtos/Entry';
 import icoMenuEdit from '../../img/edit.png';
 
 class Update extends Component {
@@ -23,20 +23,20 @@ class Update extends Component {
     }
 
     componentDidMount() {
-        this.props.clearSelectedFinancialTransaction();
+        this.props.clearSelectedEntry();
 
         const id = this.props.match.params.id;
         if (id) {
-            this.props.getFinancialTransactionById(id);
+            this.props.getEntryById(id);
         }
     }
 
     onSubmitHandler(data) {
-        const builderContentRequest = new SaveOrUpdate( new FinancialTransaction({ ...data }));
+        const builderContentRequest = new SaveOrUpdate( new Entry({ ...data }));
 
         const id = this.props.match.params.id;
-        this.props.updateFinancialTransaction(id, builderContentRequest.build());
-        this.props.getFinancialTransactionById(id);
+        this.props.updateEntry(id, builderContentRequest.build());
+        this.props.getEntryById(id);
     }
 
     onChangeTypeHandler(event) {
@@ -64,7 +64,7 @@ class Update extends Component {
                     </div>
 
                     <div className="widget_content">
-                        <FinancialTransactionForm
+                        <EntryForm
                             shouldShowCategory={this.state.shouldShowCategory}
                             onChangeType={(event) => this.onChangeTypeHandler(event)}
                             onSubmit={(data) => this.onSubmitHandler(data)}
@@ -78,10 +78,10 @@ class Update extends Component {
 
 const mapDispatchToProps = (dispatch) => (
     bindActionCreators({
-        updateFinancialTransaction,
+        updateEntry,
         fetchCategoriesByType,
-        clearSelectedFinancialTransaction,
-        getFinancialTransactionById,
+        clearSelectedEntry,
+        getEntryById,
     }, dispatch)
 );
 

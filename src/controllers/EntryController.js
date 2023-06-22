@@ -1,8 +1,8 @@
-import FinancialTransactionService from "../services/FinancialTransactionService";
+import EntryService from "../services/EntryService";
 
-class FinancialTransactionController {
+class EntryController {
     constructor() {
-        this.service = new FinancialTransactionService();
+        this.service = new EntryService();
     }
 
     service;
@@ -28,4 +28,4 @@ class FinancialTransactionController {
     }
 }
 
-export default FinancialTransactionController;
+export default EntryController;

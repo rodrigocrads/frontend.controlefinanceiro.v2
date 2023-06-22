@@ -32,8 +32,8 @@ class Sidebar extends React.Component {
                         <Dropdown
                             name="TRANSAÇÕES FINANCEIRAS"
                             links={[
-                                {name: 'Listar', path: '/financialTransaction/list'},
-                                {name: 'Criar', path: '/financialTransaction/'}
+                                {name: 'Listar', path: '/entry/list'},
+                                {name: 'Criar', path: '/entry/'}
                             ]}
                         />
 

@@ -7,7 +7,7 @@ export const replacePeriodicity = (periodicity) => {
     }
 }
 
-export const replaceFinancialTransactionType = (type) => {
+export const replaceEntryType = (type) => {
     switch(type) {
         case 'expense': return 'Despesa';
         case 'revenue': return 'Receita';

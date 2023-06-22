@@ -1,4 +1,4 @@
-export default class FinancialTransaction {
+export default class Entry {
     title;
     description;
     value;
