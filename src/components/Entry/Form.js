@@ -83,15 +83,15 @@ class FormBase extends Component {
 
 const mapStateToProps = state => ({
     initialValues: {
-        ...state.financialTransaction.selected,
-        register_date: convertIsoDateToBr(state.financialTransaction.selected?.register_date),
-        category_id: state.financialTransaction.selected?.category?.id,
+        ...state.entry.selected,
+        register_date: convertIsoDateToBr(state.entry.selected?.register_date),
+        category_id: state.entry.selected?.category?.id,
     },
     categories: state.category.all,
 });
 
 const Form = reduxForm({
-    form: 'financialTransactionForm',
+    form: 'entryForm',
     enableReinitialize: true
 })(FormBase);
 

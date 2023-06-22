@@ -7,16 +7,16 @@ import {
     getCurrentDateBrFormat,
     getLastDayOfMonth
 } from '../../helpers/utils';
-import FinancialTransactionList from '../../components/FinancialTransaction/List';
-import FilterForm from '../../components/FinancialTransaction/FilterForm';
-import { fetchFinancialTransactions } from '../../redux/actions/financialTransactionAction';
+import EntryList from '../../components/Entry/List';
+import FilterForm from '../../components/Entry/FilterForm';
+import { fetchEntries } from '../../redux/actions/entryAction';
 import { fetchCategories } from '../../redux/actions/categoryAction';
 
 class List extends Component {
     componentDidMount() {
         this.props.fetchCategories();
 
-        this.props.fetchFinancialTransactions([
+        this.props.fetchEntries([
             `params[start_date]=${convertBrDateToIso(
                 getCurrentDateBrFormat(1)
             )}`,
@@ -31,7 +31,7 @@ class List extends Component {
     onSubmitFilterFormHandler = (data) => {
         const params = this.getParams(data);
 
-        this.props.fetchFinancialTransactions(params);
+        this.props.fetchEntries(params);
     }
 
     getParams(data) {
@@ -54,12 +54,12 @@ class List extends Component {
         return (
             <div>
                 <div className="header_walk_links">
-                    TRANSAÇÕES FINANCEIRAS / LISTAR
+                    LANÇAMENTOS / LISTAR
                 </div>
                 <div className="widget">
                     <div className="widget_header">
                         <img src={ icoList } className="ico" alt="" />
-                        Transações financeiras
+                        Lançamentos
                     </div>
 
                     <div className="widget_content">
@@ -70,7 +70,7 @@ class List extends Component {
                         </div>
 
                         <div className="table_area">
-                            <FinancialTransactionList />
+                            <EntryList />
                         </div>
                     </div>
                 </div>
@@ -81,7 +81,7 @@ class List extends Component {
 
 const mapDispatchToProps = (dispatch) => (
     bindActionCreators({
-        fetchFinancialTransactions,
+        fetchEntries,
         fetchCategories,
     }, dispatch)
 );
