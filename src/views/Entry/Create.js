@@ -42,13 +42,13 @@ class Create extends Component {
         return (
             <div>
                 <div className="header_walk_links">
-                    TRANSAÇÕES FINANCEIRAS / CRIAR
+                    LANÇAMENTOS / CRIAR
                 </div>
 
                 <div className="widget">
                     <div className="widget_header">
                         <img src={icoMenuEdit} className="ico" alt="Área de criação de registro de transação" />
-                        Transação financeira
+                        Lançamento
                     </div>
 
                     <div className="widget_content">

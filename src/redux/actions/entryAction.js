@@ -25,7 +25,7 @@ export const updateEntry = (id, entry) => ({
     
             await dispatch({ type: actionTypes.STORE_SELECTED_ENTRY, payload: entry });
 
-            toastr.success("Sucesso", "Transação financeira atualizada com sucesso.");
+            toastr.success("Sucesso", "Lançamento atualizada com sucesso.");
         } catch(error) {
             await errorHandler(error);
         }
@@ -40,7 +40,7 @@ export const createEntry = (entry) => ({
 
             await dispatch(reset('entryForm'));
 
-            toastr.success("Sucesso", "Transação financeira criada com sucesso.");
+            toastr.success("Sucesso", "Lançamento criada com sucesso.");
         } catch(error) {
             await errorHandler(error);
         }
@@ -55,7 +55,7 @@ export const deleteEntry = (id) => ({
 
             await dispatch({ type: actionTypes.DELETE_ENTRY, payload: { id } });
 
-            toastr.success("Sucesso", "Transação financeira excluída com sucesso.");
+            toastr.success("Sucesso", "Lançamento excluída com sucesso.");
         } catch (error) {
             await errorHandler(error);
         }

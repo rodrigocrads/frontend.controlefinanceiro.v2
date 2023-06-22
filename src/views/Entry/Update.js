@@ -54,13 +54,13 @@ class Update extends Component {
         return (
             <div>
                 <div className="header_walk_links">
-                    TRANSAÇÕES FINANCEIRAS / ATUALIZAR
+                    LANÇAMENTOS / ATUALIZAR
                 </div>
 
                 <div className="widget">
                     <div className="widget_header">
                         <img src={icoMenuEdit} className="ico" alt="Área de atualização do registro de transação financeira" />
-                        Transação financeira
+                        Lançamento
                     </div>
 
                     <div className="widget_content">
