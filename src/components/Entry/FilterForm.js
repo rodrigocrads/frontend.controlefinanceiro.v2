@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { deleteFinancialTransaction, fetchFinancialTransactions } from '../../redux/actions/financialTransactionAction';
+import { deleteEntry, fetchEntries } from '../../redux/actions/entryAction';
 import { fetchCategories } from '../../redux/actions/categoryAction';
 import Input from '../reduxFormsUI/Input';
 import Select from '../reduxFormsUI/Select';
@@ -74,8 +74,8 @@ class FilterFormBase extends Component {
 
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
-        deleteFinancialTransaction,
-        fetchFinancialTransactions,
+        deleteEntry,
+        fetchEntries,
         fetchCategories,
 }, dispatch));
 
@@ -91,7 +91,7 @@ const mapStateToProps = state => ({
 });
 
 const FilterForm = reduxForm({
-    form: 'FinancialTransactionFilterForm',
+    form: 'EntryFilterForm',
     enableReinitialize: true
 })(FilterFormBase);
 

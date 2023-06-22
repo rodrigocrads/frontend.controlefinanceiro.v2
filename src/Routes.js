@@ -6,9 +6,9 @@ import ViewCategoryList from './views/Category/List';
 import ViewCategoryCreate from './views/Category/Create';
 import ViewCategoryUpdate from './views/Category/Update';
 
-import ViewFinancialTransactionList from './views/FinancialTransaction/List';
-import ViewFinancialTransactionCreate from './views/FinancialTransaction/Create';
-import ViewFinancialTransactionUpdate from './views/FinancialTransaction/Update';
+import ViewEntryList from './views/Entry/List';
+import ViewEntryCreate from './views/Entry/Create';
+import ViewEntryUpdate from './views/Entry/Update';
 
 import PrivateRoute from './PrivateRoute';
 import Login from './views/Login';
@@ -47,16 +47,16 @@ const routes = () => {
                 <ViewCategoryUpdate />
             </PrivateRoute>
 
-            <PrivateRoute exact path="/financialTransaction/list">
-                <ViewFinancialTransactionList />
+            <PrivateRoute exact path="/entry/list">
+                <ViewEntryList />
             </PrivateRoute>
 
-            <PrivateRoute exact path="/financialTransaction">
-                <ViewFinancialTransactionCreate />
+            <PrivateRoute exact path="/entry">
+                <ViewEntryCreate />
             </PrivateRoute>
 
-            <PrivateRoute exact path="/financialTransaction/:id">
-                <ViewFinancialTransactionUpdate />
+            <PrivateRoute exact path="/entry/:id">
+                <ViewEntryUpdate />
             </PrivateRoute>
 
             <PrivateRoute path="/accountConfigurations">

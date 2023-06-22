@@ -5,24 +5,24 @@ const initialState = {
     all: [],
 };
 
-export const financialTransactionReducer = (state = initialState, action) => {
+export const entryReducer = (state = initialState, action) => {
     switch (action.type) {
-        case type.STORE_SELECTED_FINANCIAL_TRANSACTION:
+        case type.STORE_SELECTED_ENTRY:
             return {
                 ...state,
                 selected: { ...action.payload },
             };
-        case type.STORE_ALL_FINANCIAL_TRANSACTIONS:
+        case type.STORE_ALL_ENTRIES:
             return {
                 ...state,
                 all: action.payload,
             };
-        case type.CLEAR_SELECTED_FINANCIAL_TRANSACTION:
+        case type.CLEAR_SELECTED_ENTRY:
             return {
                 ...state,
                 selected: {},
             };
-        case type.DELETE_FINANCIAL_TRANSACTION:
+        case type.DELETE_ENTRY:
             return {
                 ...state,
                 all: state.all.filter((item) => item.id !== action.payload.id)
