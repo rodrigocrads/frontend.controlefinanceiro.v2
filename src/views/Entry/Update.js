@@ -13,6 +13,7 @@ import EntryForm from '../../components/Entry/Form';
 import SaveOrUpdate from '../../builders/requestBody/entry/SaveOrUpdate';
 import Entry from '../../dtos/Entry';
 import icoMenuEdit from '../../img/edit.png';
+import { Link } from 'react-router-dom';
 
 class Update extends Component {
     constructor(props) {
@@ -53,24 +54,28 @@ class Update extends Component {
     render() {
         return (
             <div>
-                <div className="header_walk_links">
-                    LANÇAMENTOS / ATUALIZAR
-                </div>
-
-                <div className="widget">
-                    <div className="widget_header">
-                        <img src={icoMenuEdit} className="ico" alt="Área de atualização do registro de transação financeira" />
-                        Lançamento
-                    </div>
-
-                    <div className="widget_content">
-                        <EntryForm
-                            shouldShowCategory={this.state.shouldShowCategory}
-                            onChangeType={(event) => this.onChangeTypeHandler(event)}
-                            onSubmit={(data) => this.onSubmitHandler(data)}
-                        />
+                <div className="content-header">
+                    <div className="container-fluid">
+                        <div className="row mb-2">
+                            <div className="col-sm-6">
+                                <h1 className="m-0">Atualizar lançamento</h1>
+                            </div>
+                            <div className="col-sm-6">
+                                <ol className="breadcrumb float-sm-right">
+                                    <li class="breadcrumb-item"><Link to="/">Dashboard</Link></li>
+                                    <li className="breadcrumb-item">Lançamentos / Editar</li>
+                                </ol>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <EntryForm
+                    shouldShowCategory={this.state.shouldShowCategory}
+                    onChangeType={(event) => this.onChangeTypeHandler(event)}
+                    onSubmit={(data) => this.onSubmitHandler(data)}
+                />
+
             </div>
         );
     };

@@ -66,8 +66,8 @@ export const getPeriodicitySelectOptions = () => {
     // ];
 }
 
-export const getCategoriesSelectOptions = (categories = []) => {
-    const emptyValue = [{ value: '', label: 'Selecione uma categoria' }];
+export const getCategoriesSelectOptions = (categories = [], defaultLabel = 'Selecione uma categoria') => {
+    const emptyValue = [{ value: '', label: defaultLabel }];
 
     const options = categories.map(category => ({ value: category.id, label: category.name }));
 

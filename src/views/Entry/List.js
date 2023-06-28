@@ -11,6 +11,7 @@ import EntryList from '../../components/Entry/List';
 import FilterForm from '../../components/Entry/FilterForm';
 import { fetchEntries } from '../../redux/actions/entryAction';
 import { fetchCategories } from '../../redux/actions/categoryAction';
+import { Link } from 'react-router-dom';
 
 class List extends Component {
     componentDidMount() {
@@ -53,27 +54,27 @@ class List extends Component {
     render() {
         return (
             <div>
-                <div className="header_walk_links">
-                    LANÇAMENTOS / LISTAR
-                </div>
-                <div className="widget">
-                    <div className="widget_header">
-                        <img src={ icoList } className="ico" alt="" />
-                        Lançamentos
-                    </div>
-
-                    <div className="widget_content">
-                        <div className="filter_area">
-                            <h3>Filtros de busca:</h3>
-                            <br />
-                            <FilterForm onSubmit={(data) => this.onSubmitFilterFormHandler(data)} />
-                        </div>
-
-                        <div className="table_area">
-                            <EntryList />
+                <div className="content-header">
+                    <div className="container-fluid">
+                        <div className="row mb-2">
+                            <div className="col-sm-6">
+                                <h1 className="m-0">Lista de lançamentos</h1>
+                            </div>
+                            <div className="col-sm-6">
+                                <ol className="breadcrumb float-sm-right">
+                                    <li class="breadcrumb-item"><Link to="/">Dashboard</Link></li>
+                                    <li className="breadcrumb-item">Lançamentos / Listar</li>
+                                </ol>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <FilterForm
+                    onSubmit={(data) => this.onSubmitFilterFormHandler(data)}
+                />
+
+                <EntryList />
             </div>
         );
     };

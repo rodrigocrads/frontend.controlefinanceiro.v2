@@ -26,45 +26,45 @@ class List extends Component {
                 <div className="row">
                     <div className="col-12">
                         <div className="card">
-                        <div className="card-body table-responsive p-0">
-                            <table className="table table-hover text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Nome</th>
-                                        <th>Tipo</th>
-                                        <th>Ações</th>
-                                    </tr>
-                                </thead>
-                            <tbody>
-                                { 
-                                    this.props.categories.map((category, index) => (
-                                        <tr key={ category.id }>
-                                            <td>{ index + 1 }</td>
-                                            <td>{ category.name }</td>
-                                            <td>{ category.type === 'expense' ? 'Despesa' : 'Receita' }</td>
-                                            <td>
-                                                <Link
-                                                    className="btn btn-info btn-rounded btn-sm waves-effect waves-light"
-                                                    to={`/category/${category.id}`}
-                                                >
-                                                    EDITAR
-                                                </Link>
-                                                
-                                                <a
-                                                    href="#"
-                                                    className="btn btn-danger btn-sm btn-rounded buttonDelete waves-effect waves-light ml-1"
-                                                    onClick={ () => this.deleteCategoryHandler(category.id) }
-                                                >
-                                                    EXCLUIR
-                                                </a> 
-                                            </td>
+                            <div className="card-body table-responsive p-0">
+                                <table className="table table-hover text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Nome</th>
+                                            <th>Tipo</th>
+                                            <th>Ações</th>
                                         </tr>
-                                    ))
-                                }
-                            </tbody>
-                            </table>
-                        </div>
+                                    </thead>
+                                    <tbody>
+                                        { 
+                                            this.props.categories.map((category, index) => (
+                                                <tr key={ category.id }>
+                                                    <td>{ index + 1 }</td>
+                                                    <td>{ category.name }</td>
+                                                    <td>{ category.type === 'expense' ? 'Despesa' : 'Receita' }</td>
+                                                    <td>
+                                                        <Link
+                                                            className="btn btn-info btn-rounded btn-sm waves-effect waves-light"
+                                                            to={`/category/${category.id}`}
+                                                        >
+                                                            EDITAR
+                                                        </Link>
+                                                        
+                                                        <a
+                                                            href="#"
+                                                            className="btn btn-danger btn-sm btn-rounded buttonDelete waves-effect waves-light ml-1"
+                                                            onClick={ () => this.deleteCategoryHandler(category.id) }
+                                                        >
+                                                            EXCLUIR
+                                                        </a> 
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
