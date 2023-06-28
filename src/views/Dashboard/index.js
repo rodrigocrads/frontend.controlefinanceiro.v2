@@ -156,24 +156,37 @@ class ViewDashboard extends React.Component {
         const totalExpense = monthTotals.expense || 0.0;
 
         return (
-            <div className="row">
-                <CardInfo
-                    title="Total de Receita"
-                    bgClass="bg-success"
-                    value={convertCurrencyToPtBr(totalRevenue)}
-                />
+            <div className="card">
+                <div className="card-header">
+                    <h3 className="card-title">Balanço do mês atual</h3>
 
-                <CardInfo
-                    title="Total de Despesa"
-                    bgClass="bg-danger"
-                    value={convertCurrencyToPtBr(totalExpense)}
-                />
+                    <div className="card-tools">
+                        <button type="button" className="btn btn-tool" data-card-widget="collapse">
+                            <i className="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div className="row">
+                        <CardInfo
+                            title="Total de Receita"
+                            bgClass="bg-success"
+                            value={convertCurrencyToPtBr(totalRevenue)}
+                        />
 
-                <CardInfo
-                    title="Saldo"
-                    bgClass="bg-warning"
-                    value={convertCurrencyToPtBr((totalRevenue - totalExpense))}
-                />
+                        <CardInfo
+                            title="Total de Despesa"
+                            bgClass="bg-danger"
+                            value={convertCurrencyToPtBr(totalExpense)}
+                        />
+
+                        <CardInfo
+                            title="Saldo"
+                            bgClass="bg-warning"
+                            value={convertCurrencyToPtBr((totalRevenue - totalExpense))}
+                        />
+                    </div>
+                </div>
             </div>
         );
     }
@@ -190,7 +203,7 @@ class ViewDashboard extends React.Component {
                         </button>
                     </div>
                 </div>
-                <div class="card-body p-0" style={{"display": "block"}}>
+                <div class="card-body">
                     <Chart
                         height={'300px'}
                         chartType="AreaChart"
@@ -222,7 +235,7 @@ class ViewDashboard extends React.Component {
                         </button>
                     </div>
                 </div>
-                <div class="card-body p-0" style={{"display": "block"}}>
+                <div class="card-body">
                     <Chart
                         height={'300px'}
                         chartType="ColumnChart"
@@ -254,7 +267,7 @@ class ViewDashboard extends React.Component {
                         </button>
                     </div>
                 </div>
-                <div class="card-body p-0" style={{"display": "block"}}>
+                <div class="card-body">
                 <Chart
                     height={'250px'}
                     chartType="PieChart"
@@ -282,7 +295,7 @@ class ViewDashboard extends React.Component {
                         </button>
                     </div>
                 </div>
-                <div class="card-body p-0" style={{"display": "block"}}>
+                <div class="card-body">
                     <Chart
                         height={'250px'}
                         chartType="PieChart"
