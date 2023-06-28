@@ -20,7 +20,7 @@ class FormBase extends Component {
                     <div class="card-body">
                         <form onSubmit={ props.handleSubmit }>
                             <div className='row'>
-                                <div className='col-md-4'>
+                                <div className='col-md-3'>
                                     <Field
                                         name='title'
                                         component={Input}
@@ -70,7 +70,7 @@ class FormBase extends Component {
                                         required
                                     />
                                 </div>
-                                <div className='col-md-3'>
+                                <div className='col-md-2'>
                                     <Field
                                         name='register_date'
                                         component={Input}
