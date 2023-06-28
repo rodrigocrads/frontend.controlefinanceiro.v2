@@ -42,9 +42,11 @@ class FormBase extends Component {
                                         required
                                     />
                                 </div>
-                            </div>
 
-                            <button type="submit" className="btn btn-primary btn-lg mt-2">Salvar</button>
+                                <div className='col-md-2'>
+                                    <button type="submit" className="btn btn-primary btn-lg mt-2 mt-4">Salvar</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
