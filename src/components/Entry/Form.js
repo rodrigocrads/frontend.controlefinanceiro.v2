@@ -15,7 +15,7 @@ class FormBase extends Component {
             <>
                 <div class="card">
                     <div class="card-header">
-                        Informações sobre a categoria
+                        Informações sobre o lançamento
                     </div>
                     <div class="card-body">
                         <form onSubmit={ props.handleSubmit }>
@@ -30,7 +30,7 @@ class FormBase extends Component {
                                     />
                                 </div>
 
-                                <div className="col-md-3">
+                                <div className="col-md-2">
                                     <Field
                                         name="type"
                                         component={Select}
@@ -45,7 +45,7 @@ class FormBase extends Component {
                                     />
                                 </div>
 
-                                <div className='col-md-3'>
+                                <div className='col-md-2'>
                                     {
                                         props.shouldShowCategory && (
                                             <Field
