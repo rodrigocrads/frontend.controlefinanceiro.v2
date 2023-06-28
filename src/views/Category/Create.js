@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CategoryForm from '../../components/Category/Form';
-import icoMenuEdit from '../../img/edit.png';
 import { bindActionCreators } from 'redux';
 import { createCategory, clearSelectedCategory } from '../../redux/actions/categoryAction';
+import { Link } from 'react-router-dom';
 
 class Create extends Component {
     componentDidMount() {
@@ -13,20 +13,23 @@ class Create extends Component {
     render() {
         return (
             <div>
-                <div className="header_walk_links">
-                    CATEGORIAS / CRIAR
+                <div className="content-header">
+                    <div className="container-fluid">
+                        <div className="row mb-2">
+                        <div className="col-sm-6">
+                            <h1 className="m-0">Criar nova categoria</h1>
+                        </div>
+                        <div className="col-sm-6">
+                            <ol className="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><Link to="/">Dashboard</Link></li>
+                                <li className="breadcrumb-item">Categorias / Novo</li>
+                            </ol>
+                        </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div className="widget">
-                    <div className="widget_header">
-                        <img src={icoMenuEdit} className="ico" alt="Área de criação de categoria" />
-                        Categoria
-                    </div>
-
-                    <div className="widget_content">
-                        <CategoryForm onSubmit={(data) => this.props.createCategory(data)} />
-                    </div>
-                </div>
+                <CategoryForm onSubmit={(data) => this.props.createCategory(data)} />
             </div>
         );
     };

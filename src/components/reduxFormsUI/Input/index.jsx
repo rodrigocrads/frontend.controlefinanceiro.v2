@@ -31,19 +31,17 @@ export default class Input extends React.Component {
                     { this.props.label }
                     { this.props.required && <span style={{ color: 'red' }}> *</span> }
                 </label>
-                <div className="controls">
-                    <input
-                        { ...this.props }
-                        type={ this.props.type || 'text' }
-                        value={ this.applyMask(this.props?.input?.value || '') }
-                        className={ hasErrors ? 'field-danger' : '' }
-                        onChange={ this.onChangeHandler }
-                    />
-                    <div style={{ marginTop: 0 }}>
-                        {
-                            errors.map(error => <div key={error} className={ hasErrors ? 'text-danger' : '' }>{ error }</div>)
-                        }
-                    </div>
+                <input
+                    { ...this.props }
+                    type={ this.props.type || 'text' }
+                    value={ this.applyMask(this.props?.input?.value || '') }
+                    className="form-control"
+                    onChange={ this.onChangeHandler }
+                />
+                <div style={{ marginTop: 0 }}>
+                    {
+                        errors.map(error => <div key={error} className={ hasErrors ? 'text-danger' : '' }>{ error }</div>)
+                    }
                 </div>
             </div>
         );
