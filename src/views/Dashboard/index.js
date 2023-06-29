@@ -57,7 +57,7 @@ class ViewDashboard extends React.Component {
                     }, []);
 
                 this.setState( { ...this.state, yearTotalsChartData: [
-                    ['Mês', 'Receitas', 'Despesas', 'Economia'],
+                    ['Mês', 'Receitas', 'Despesas', 'Saldo'],
                     ...totals,
                 ]})
             })
