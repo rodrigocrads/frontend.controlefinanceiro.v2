@@ -1,6 +1,6 @@
 function CardInfo(props) {
     return (
-        <div className="col-lg-4 col-6">
+        <div className="col-md-4">
             <div className={`small-box ${props.bgClass}`}>
                 <div className="inner">
                     <h3>{ props.value }</h3>
