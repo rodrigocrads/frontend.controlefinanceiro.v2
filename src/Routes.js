@@ -14,7 +14,7 @@ import PrivateRoute from './PrivateRoute';
 import Login from './views/Login';
 import Callback from './views/Auth/Callback';
 import Logout from './views/Logout';
-import ViewAccountConfigurations from './views/AccountConfigurations';
+import MyAccount from './views/MyAccount';
 
 const routes = () => {
     return (
@@ -59,8 +59,8 @@ const routes = () => {
                 <ViewEntryUpdate />
             </PrivateRoute>
 
-            <PrivateRoute path="/accountConfigurations">
-                <ViewAccountConfigurations />
+            <PrivateRoute path="/user-account">
+                <MyAccount />
             </PrivateRoute>
 
             <Route path='*' exact>
