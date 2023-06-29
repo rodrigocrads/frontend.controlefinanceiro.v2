@@ -12,7 +12,6 @@ import EntryForm from '../../components/Entry/Form';
 
 import SaveOrUpdate from '../../builders/requestBody/entry/SaveOrUpdate';
 import Entry from '../../dtos/Entry';
-import icoMenuEdit from '../../img/edit.png';
 import { Link } from 'react-router-dom';
 
 class Update extends Component {

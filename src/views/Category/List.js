@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import CategoryList from '../../components/Category/List';
-import icoList from '../../img/ico-list.png';
 
 export default class List extends Component {
     render() {
