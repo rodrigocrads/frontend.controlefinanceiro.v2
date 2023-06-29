@@ -8,29 +8,33 @@ class ChangePasswordForm extends Component {
         return (
             <>
                 <form onSubmit={this.props.handleSubmit}>
-                    <Field
-                        type="password"
-                        name='old_password'
-                        component={Input}
-                        label='Senha atual'
-                        placeholder='Informe a senha atual'
-                        maxLength='50'
-                        required
-                    />
+                    <div className='row'>
+                        <div className='col-md-4'>
+                            <Field
+                                type="password"
+                                name='old_password'
+                                component={Input}
+                                label='Senha atual'
+                                placeholder='Informe a senha atual'
+                                maxLength='50'
+                                required
+                            />
+                        </div>
 
-                    <Field
-                        type="password"
-                        name='new_password'
-                        component={Input}
-                        label='Nova senha'
-                        placeholder='Informe a nova senha'
-                        maxLength='50'
-                        required
-                    />
+                        <div className='col-md-4'>
+                            <Field
+                                type="password"
+                                name='new_password'
+                                component={Input}
+                                label='Nova senha'
+                                placeholder='Informe a nova senha'
+                                maxLength='50'
+                                required
+                            />
+                        </div>
 
-                    <div className="form-actions">
-                        <div className="form-action">
-                            <input type="submit" className="btn" value="Atualizar senha" />
+                        <div className='col-md-2'>
+                            <button type="submit" className="btn btn-primary btn-lg mt-4">Salvar</button>
                         </div>
                     </div>
                 </form>

@@ -1,14 +1,9 @@
 import React from 'react';
 import Chart from "react-google-charts";
 
-import BoxInfo from '../../components/UI/BoxInfo';
-
 import { convertCurrencyToPtBr, fetchWithAuth, replaceMonths, replateMonthToInitials } from '../../helpers/utils';
 
-import icoCharBar from '../../img/chart_bar.png';
-import icoCoinsAdd from '../../img/coins_add.png';
-import icoCoins from '../../img/coins.png';
-import icoCoinsDelete from '../../img/coins_delete.png';
+import CardInfo from '../../components/UI/CardInfo';
 
 class ViewDashboard extends React.Component {
     constructor(props) {
@@ -161,48 +156,54 @@ class ViewDashboard extends React.Component {
         const totalExpense = monthTotals.expense || 0.0;
 
         return (
-            <div className="widget">
-                    <div className="widget_header">
-                        Balanço do mês atual
-                    </div>
+            <div className="card">
+                <div className="card-header">
+                    <h3 className="card-title">Balanço do mês atual</h3>
 
-                    <div className="widget_content">
-
-                        <BoxInfo
-                            type="success"
-                            title="Receita"
-                            imgIco={icoCoinsAdd}
-                            content={ convertCurrencyToPtBr(totalRevenue) }
-                        />
-
-                        <BoxInfo
-                            type="danger"
-                            title="Despesa"
-                            imgIco={icoCoinsDelete}
-                            content={ convertCurrencyToPtBr(totalExpense) }
-                        />
-
-                        <BoxInfo
-                            type="warning"
-                            title="Saldo"
-                            imgIco={icoCoins}
-                            content={ convertCurrencyToPtBr((totalRevenue - totalExpense)) }
-                        />
-
+                    <div className="card-tools">
+                        <button type="button" className="btn btn-tool" data-card-widget="collapse">
+                            <i className="fas fa-minus"></i>
+                        </button>
                     </div>
                 </div>
+                <div class="card-body">
+                    <div className="row">
+                        <CardInfo
+                            title="Total de Receita"
+                            bgClass="bg-success"
+                            value={convertCurrencyToPtBr(totalRevenue)}
+                        />
+
+                        <CardInfo
+                            title="Total de Despesa"
+                            bgClass="bg-danger"
+                            value={convertCurrencyToPtBr(totalExpense)}
+                        />
+
+                        <CardInfo
+                            title="Saldo"
+                            bgClass="bg-warning"
+                            value={convertCurrencyToPtBr((totalRevenue - totalExpense))}
+                        />
+                    </div>
+                </div>
+            </div>
         );
     }
 
     renderTotalsCurrentYearChart() {
         return (
-            <div className="widget">
-                <div className="widget_header">
-                    <img src={icoCharBar} className="ico" alt="" />
-                    Receita/Despesa
-                </div>
+            <div className="card">
+                <div className="card-header">
+                    <h3 className="card-title">Receita/Despesa dos últimos 12 meses</h3>
 
-                <div className="widget_content">
+                    <div className="card-tools">
+                        <button type="button" className="btn btn-tool" data-card-widget="collapse">
+                            <i className="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
                     <Chart
                         height={'300px'}
                         chartType="AreaChart"
@@ -213,7 +214,7 @@ class ViewDashboard extends React.Component {
                             hAxis: { title: 'Mês/Ano', titleTextStyle: { color: '#333' } },
                             vAxis: { minValue: 0 },
                             // For the legend to fit, we make the chart area smaller
-                            chartArea: { width: '70%', height: '70%' },
+                            chartArea: { width: '75%', height: '75%' },
                             // lineWidth: 25
                         }}
                     />
@@ -224,13 +225,17 @@ class ViewDashboard extends React.Component {
 
     renderTotalsCurrentYearExpensesTotalByCategoriesChart() {
         return (
-            <div className="widget">
-                <div className="widget_header">
-                    <img src={icoCharBar} className="ico" alt="" />
-                    Despesas por categoria
-                </div>
+            <div className="card">
+                <div className="card-header">
+                    <h3 className="card-title">Total despesa por categoria dos últimos 12 meses</h3>
 
-                <div className="widget_content">
+                    <div className="card-tools">
+                        <button type="button" className="btn btn-tool" data-card-widget="collapse">
+                            <i className="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
                     <Chart
                         height={'300px'}
                         chartType="ColumnChart"
@@ -241,7 +246,7 @@ class ViewDashboard extends React.Component {
                             hAxis: { title: 'Meses', titleTextStyle: { color: '#333' } },
                             vAxis: { minValue: 0 },
                             // For the legend to fit, we make the chart area smaller
-                            chartArea: { width: '70%', height: '70%' },
+                            chartArea: { width: '75%', height: '75%' },
                             // lineWidth: 25
                         }}
                     />
@@ -252,23 +257,27 @@ class ViewDashboard extends React.Component {
 
     renderMonthTotalRevenueByCategoryChart() {
         return (
-            <div className="widget col_2">
-                <div className="widget_header">
-                    <img src={icoCharBar} className="ico" alt="" />
-                    % Receita por categoria do mês atual
-                </div>
+            <div className="card">
+                <div className="card-header">
+                    <h3 className="card-title">Receita por categoria</h3>
 
-                <div className="widget_content">
-                    <Chart
-                        height={'250px'}
-                        chartType="PieChart"
-                        loader={<div>Carregando Gráfico...</div>}
-                        data={ [ ...this.state.totalMonthRevenueByCategoryChartData ] }
-                        options={{
-                            //title: "Receita por categoria do mês",
-                            is3D: false,
-                        }}
-                    />
+                    <div className="card-tools">
+                        <button type="button" className="btn btn-tool" data-card-widget="collapse">
+                            <i className="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                <Chart
+                    height={'250px'}
+                    chartType="PieChart"
+                    loader={<div>Carregando Gráfico...</div>}
+                    data={ [ ...this.state.totalMonthRevenueByCategoryChartData ] }
+                    options={{
+                        //title: "Receita por categoria do mês",
+                        is3D: false,
+                    }}
+                />
                 </div>
             </div>
         );
@@ -276,13 +285,17 @@ class ViewDashboard extends React.Component {
 
     renderMonthTotalExpenseByCategoryChart() {
         return (
-            <div className="widget col_2">
-                <div className="widget_header">
-                    <img src={icoCharBar} className="ico" alt="" />
-                    % Despesa por categoria do mês atual
-                </div>
+            <div className="card">
+                <div className="card-header">
+                    <h3 className="card-title">Despesa por categoria</h3>
 
-                <div className="widget_content">
+                    <div className="card-tools">
+                        <button type="button" className="btn btn-tool" data-card-widget="collapse">
+                            <i className="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
                     <Chart
                         height={'250px'}
                         chartType="PieChart"
@@ -301,14 +314,34 @@ class ViewDashboard extends React.Component {
     render() {
         return (
             <div>
-                <div className="header_walk_links">
-                    DASHBOARD
+                <div className="content-header">
+                    <div className="container-fluid">
+                        <div className="row mb-2">
+                            <div className="col-sm-6">
+                                <h1 className="m-0">Dashboard</h1>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 { this.renderMonthEconomy() }
-                { this.renderMonthTotalRevenueByCategoryChart() }
-                { this.renderMonthTotalExpenseByCategoryChart() }
-                { this.renderTotalsCurrentYearChart() }
-                { this.renderTotalsCurrentYearExpensesTotalByCategoriesChart() }
+                <div className="row">
+                    <div className="col-md-6">
+                        { this.renderMonthTotalRevenueByCategoryChart() }
+                    </div>
+                    <div className="col-md-6">
+                        { this.renderMonthTotalExpenseByCategoryChart() }
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12">
+                        { this.renderTotalsCurrentYearChart() }
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12">
+                        { this.renderTotalsCurrentYearExpensesTotalByCategoriesChart() }
+                    </div>
+                </div>
             </div>
         );
     }

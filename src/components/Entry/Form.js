@@ -13,69 +13,88 @@ class FormBase extends Component {
         const { props } = this;
         return (
             <>
-                <form onSubmit={ props.handleSubmit }>
-                    <Field
-                        name="type"
-                        component={Select}
-                        label="Tipo"
-                        onChange={props.onChangeType}
-                        options={[
-                            {value: '', label: 'Selecione um tipo' },
-                            {value: 'expense', label: 'Despesa' },
-                            {value: 'revenue', label: 'Receita' },
-                        ]}
-                        required
-                    />
-
-                    {
-                        props.shouldShowCategory && (
-                            <Field
-                                name="category_id"
-                                component={Select}
-                                label="Categoria"
-                                options={getCategoriesSelectOptions(props.categories)}
-                                required
-                            />
-                        )
-                    }
-
-                    <Field
-                        name='title'
-                        component={Input}
-                        label='Título'
-                        maxLength='100'
-                        required
-                    />
-
-                    <Field
-                        name='description'
-                        component={TextArea}
-                        label='Descrição'
-                        maxLength='255'
-                    />
-
-                    <Field
-                        name='value'
-                        component={Input}
-                        label='Valor'
-                        mask={new Currency()}
-                        required
-                    />
-
-                    <Field
-                        name='register_date'
-                        component={Input}
-                        label='Data do registro'
-                        mask={new DateMask()}
-                        required
-                    />
-
-                    <div className="form-actions">
-                        <div className="form-action">
-                            <input type="submit" className="btn" value="Salvar" />
-                        </div>
+                <div class="card">
+                    <div class="card-header">
+                        Informações sobre o lançamento
                     </div>
-                </form>
+                    <div class="card-body">
+                        <form onSubmit={ props.handleSubmit }>
+                            <div className='row'>
+                                <div className='col-md-3'>
+                                    <Field
+                                        name='title'
+                                        component={Input}
+                                        label='Título'
+                                        maxLength='100'
+                                        required
+                                    />
+                                </div>
+
+                                <div className="col-md-2">
+                                    <Field
+                                        name="type"
+                                        component={Select}
+                                        label="Tipo"
+                                        onChange={props.onChangeType}
+                                        options={[
+                                            {value: '', label: 'Selecione um tipo' },
+                                            {value: 'expense', label: 'Despesa' },
+                                            {value: 'revenue', label: 'Receita' },
+                                        ]}
+                                        required
+                                    />
+                                </div>
+
+                                <div className='col-md-2'>
+                                    {
+                                        props.shouldShowCategory && (
+                                            <Field
+                                                name="category_id"
+                                                component={Select}
+                                                label="Categoria"
+                                                options={getCategoriesSelectOptions(props.categories)}
+                                                required
+                                            />
+                                        )
+                                    }
+                                </div>
+                            </div>
+
+                            <div className='row'>
+                                <div className='col-md-3'>
+                                    <Field
+                                        name='value'
+                                        component={Input}
+                                        label='Valor'
+                                        mask={new Currency()}
+                                        required
+                                    />
+                                </div>
+                                <div className='col-md-2'>
+                                    <Field
+                                        name='register_date'
+                                        component={Input}
+                                        label='Data do registro'
+                                        mask={new DateMask()}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            
+                            <div className='row'>
+                                <div className='col-md-4'>
+                                    <Field
+                                        name='description'
+                                        component={TextArea}
+                                        label='Descrição'
+                                        maxLength='255'
+                                    />
+                                </div>
+                            </div>
+                            <button type="submit" className="btn btn-primary btn-lg mt-2" >Salvar</button>
+                        </form>
+                    </div>
+                </div>
             </>
         );
     };
