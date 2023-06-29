@@ -56,7 +56,7 @@ class FilterFormBase extends Component {
                                     />
                                 </div>
 
-                                <div className="col-md-3">
+                                <div className="col-md-2">
                                     <Field
                                         name="category_id"
                                         component={Select}
@@ -64,7 +64,7 @@ class FilterFormBase extends Component {
                                         options={getCategoriesSelectOptions(this.props.categories || [], 'Todas')}
                                     />
                                 </div>
-                                <div className='col-md-2'>
+                                <div className='col-md-1'>
                                     <button type="submit" className="btn btn-primary btn-lg mt-4">Buscar</button>
                                 </div>
                             </div>
