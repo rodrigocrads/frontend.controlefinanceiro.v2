@@ -25,7 +25,7 @@ class FilterFormBase extends Component {
                     <div class="card-body">
                         <form onSubmit={ this.props.handleSubmit }>
                             <div className='row'>
-                                <div className="col-md-2">
+                                <div className="col-md-3">
                                     <Field
                                         name='start_date'
                                         component={Input}
@@ -34,7 +34,7 @@ class FilterFormBase extends Component {
                                     />
                                 </div>
 
-                                <div className="col-md-2">
+                                <div className="col-md-3">
                                     <Field
                                         name='end_date'
                                         component={Input}
@@ -43,7 +43,7 @@ class FilterFormBase extends Component {
                                     />
                                 </div>
 
-                                <div className="col-md-2">
+                                <div className="col-md-3">
                                     <Field
                                         name='type'
                                         component={Select}
@@ -56,7 +56,7 @@ class FilterFormBase extends Component {
                                     />
                                 </div>
 
-                                <div className="col-md-2">
+                                <div className="col-md-3">
                                     <Field
                                         name="category_id"
                                         component={Select}
