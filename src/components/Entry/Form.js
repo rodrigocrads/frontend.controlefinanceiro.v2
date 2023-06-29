@@ -20,7 +20,7 @@ class FormBase extends Component {
                     <div class="card-body">
                         <form onSubmit={ props.handleSubmit }>
                             <div className='row'>
-                                <div className='col-md-3'>
+                                <div className='col-md-4'>
                                     <Field
                                         name='title'
                                         component={Input}
@@ -30,7 +30,7 @@ class FormBase extends Component {
                                     />
                                 </div>
 
-                                <div className="col-md-2">
+                                <div className="col-md-4">
                                     <Field
                                         name="type"
                                         component={Select}
@@ -45,7 +45,7 @@ class FormBase extends Component {
                                     />
                                 </div>
 
-                                <div className='col-md-2'>
+                                <div className='col-md-4'>
                                     {
                                         props.shouldShowCategory && (
                                             <Field
@@ -61,7 +61,7 @@ class FormBase extends Component {
                             </div>
 
                             <div className='row'>
-                                <div className='col-md-3'>
+                                <div className='col-md-4'>
                                     <Field
                                         name='value'
                                         component={Input}
@@ -70,7 +70,7 @@ class FormBase extends Component {
                                         required
                                     />
                                 </div>
-                                <div className='col-md-2'>
+                                <div className='col-md-4'>
                                     <Field
                                         name='register_date'
                                         component={Input}

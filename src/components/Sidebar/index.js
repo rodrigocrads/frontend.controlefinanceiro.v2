@@ -6,10 +6,15 @@ class Sidebar extends React.Component {
     render() {
         return (
             <aside className="main-sidebar sidebar-dark-primary elevation-4">
-                <a href="index3.html" className="brand-link">
-                    <img src="/dist/img/logo.png" alt="AdminLTE Logo" className="brand-image img-circle elevation-3" style={{ opacity: ".8" }} />
+                <Link to="/" className="brand-link">
+                    <img
+                        src="/dist/img/logo.png"
+                        alt="Logo do Sistema Controle Financeiro"
+                        className="brand-image img-circle elevation-3"
+                        style={{ opacity: ".8" }}
+                    />
                     <span className="brand-text font-weight-light">Controle Financeiro</span>
-                </a>
+                </Link>
 
                 <div className="sidebar">
                     <UserData />
