@@ -15,24 +15,28 @@ class ProfileDataForm extends Component {
         return (
             <>
                 <form onSubmit={this.props.handleSubmit}>
-                    <Field
-                        name='name'
-                        component={Input}
-                        label='Nome'
-                        maxLength='100'
-                        required
-                    />
+                    <div className='row'>
+                        <div className='col-md-4'>
+                            <Field
+                                name='name'
+                                component={Input}
+                                label='Nome'
+                                maxLength='100'
+                                required
+                            />
+                        </div>
 
-                    <Field
-                        name='email'
-                        component={Input}
-                        label='Email'
-                        disabled
-                    />
+                        <div className='col-md-4'>
+                            <Field
+                                name='email'
+                                component={Input}
+                                label='Email'
+                                disabled
+                            />
+                        </div>
 
-                    <div className="form-actions">
-                        <div className="form-action">
-                            <input type="submit" className="btn" value="Atualizar dados" />
+                        <div className='col-md-2'>
+                            <button type="submit" className="btn btn-primary btn-lg mt-4">Salvar</button>
                         </div>
                     </div>
                 </form>

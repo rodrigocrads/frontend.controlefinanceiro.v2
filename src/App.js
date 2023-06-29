@@ -10,16 +10,15 @@ import Message from './components/Message/index.js';
 function App() {
 	return (
 		<BrowserRouter>
-			<div id="container">
-				<Message />
-				<Header />
-				<Sidebar />
-				<div id="principal">
+			<Message />
+			<Header />
+			<Sidebar />
+			<div className='content-wrapper' style={{'min-height': '250px'}}>
+				<section className="content">
 					<Routes />
-				</div>
-
-				<Footer />
+				</section>
 			</div>
+			<Footer />
 		</BrowserRouter>
 	);
 }

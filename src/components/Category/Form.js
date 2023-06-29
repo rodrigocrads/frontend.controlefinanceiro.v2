@@ -16,29 +16,40 @@ class FormBase extends Component {
     render() {
         return (
             <>
-                <form onSubmit={this.props.handleSubmit}>
-                    <Field
-                        name='name'
-                        component={Input}
-                        label='Nome'
-                        maxLength='100'
-                        required
-                    />
-
-                    <Field
-                        name="type"
-                        component={Select}
-                        label="Tipo"
-                        options={ this.getCategoryTypeOptions() }
-                        required
-                    />
-
-                    <div className="form-actions">
-                        <div className="form-action">
-                            <input type="submit" className="btn" value="Salvar" />
-                        </div>
+                <div class="card">
+                    <div class="card-header">
+                        Informações sobre a categoria
                     </div>
-                </form>
+                    <div class="card-body">
+                        <form onSubmit={this.props.handleSubmit}>
+                            <div className="row">
+                                <div className="col-md-4">
+                                    <Field
+                                        name='name'
+                                        component={Input}
+                                        label='Nome'
+                                        maxLength='100'
+                                        required
+                                    />
+                                </div>
+
+                                <div className="col-md-3">
+                                    <Field
+                                        name="type"
+                                        component={Select}
+                                        label="Tipo"
+                                        options={ this.getCategoryTypeOptions() }
+                                        required
+                                    />
+                                </div>
+
+                                <div className='col-md-2'>
+                                    <button type="submit" className="btn btn-primary btn-lg mt-2 mt-4">Salvar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </>
         );
     };

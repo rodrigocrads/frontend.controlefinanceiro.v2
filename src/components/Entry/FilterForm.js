@@ -13,60 +13,66 @@ class FilterFormBase extends Component {
     render() {
         return (
             <>
-                <form onSubmit={ this.props.handleSubmit }>
-                    <div className='col_2 float_left'>
-                        <Field
-                            name='start_date'
-                            component={Input}
-                            label='Data início'
-                            mask={new DateMask()}
-                        />
-                    </div>
-                    <div className='col_2 float_left'>
-                        <Field
-                            name='end_date'
-                            component={Input}
-                            label='Data fim'
-                            mask={new DateMask()}
-                        />
-                    </div>
-                    <div className="col_2 float_left">
-                        <Field
-                            name='type'
-                            component={Select}
-                            label='Tipo'
-                            options={[
-                                { value: '', label: 'Selecione um tipo' },
-                                { value: 'expense', label: 'Despesa' },
-                                { value: 'revenue', label: 'Receita' },
-                            ]}
-                        />
-                    </div>
-
-                    <div className="col_2 float_left">
-                        <Field
-                            name="category_id"
-                            component={Select}
-                            label="Categoria"
-                            options={getCategoriesSelectOptions(this.props.categories || [])}
-                        />
-                    </div>
-
-                    <div>
-                        <Field
-                            name='title'
-                            component={Input}
-                            label='Título'
-                            maxLength='100'
-                        />
-                    </div>
-
-                    <div className="form-actions">
-                        <div className="form-action">
-                            <input type="submit" className="btn" value="Buscar" />
+                <div class="card">
+                    <div class="card-header">
+                        Filtros de busca
+                        <div className="card-tools">
+                            <button type="button" className="btn btn-tool" data-card-widget="collapse">
+                                <i className="fas fa-minus"></i>
+                            </button>
                         </div>
                     </div>
-                </form>
+                    <div class="card-body">
+                        <form onSubmit={ this.props.handleSubmit }>
+                            <div className='row'>
+                                <div className="col-md-2">
+                                    <Field
+                                        name='start_date'
+                                        component={Input}
+                                        label='Data início'
+                                        mask={new DateMask()}
+                                    />
+                                </div>
+
+                                <div className="col-md-2">
+                                    <Field
+                                        name='end_date'
+                                        component={Input}
+                                        label='Data fim'
+                                        mask={new DateMask()}
+                                    />
+                                </div>
+
+                                <div className="col-md-2">
+                                    <Field
+                                        name='type'
+                                        component={Select}
+                                        label='Tipo'
+                                        options={[
+                                            { value: '', label: 'Todos' },
+                                            { value: 'expense', label: 'Despesa' },
+                                            { value: 'revenue', label: 'Receita' },
+                                        ]}
+                                    />
+                                </div>
+
+                                <div className="col-md-2">
+                                    <Field
+                                        name="category_id"
+                                        component={Select}
+                                        label="Categoria"
+                                        options={getCategoriesSelectOptions(this.props.categories || [], 'Todas')}
+                                    />
+                                </div>
+                                <div className='col-md-2'>
+                                    <button type="submit" className="btn btn-primary btn-lg mt-4">Buscar</button>
+                                </div>
+                            </div>
+
+                            
+                        </form>
+                    </div>
+                </div>
             </>
         );
     }
