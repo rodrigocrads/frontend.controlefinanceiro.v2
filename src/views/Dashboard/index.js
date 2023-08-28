@@ -57,7 +57,7 @@ class ViewDashboard extends React.Component {
                     }, []);
 
                 this.setState( { ...this.state, yearTotalsChartData: [
-                    ['Mês', 'Receitas', 'Despesas', 'Saldo'],
+                    ['Mês', 'Receita', 'Despesa', 'Saldo'],
                     ...totals,
                 ]})
             })
@@ -158,7 +158,7 @@ class ViewDashboard extends React.Component {
         return (
             <div className="card">
                 <div className="card-header">
-                    <h3 className="card-title">Balanço do mês atual</h3>
+                    <h3 className="card-title">Balanço (Mês atual)</h3>
 
                     <div className="card-tools">
                         <button type="button" className="btn btn-tool" data-card-widget="collapse">
@@ -195,7 +195,7 @@ class ViewDashboard extends React.Component {
         return (
             <div className="card">
                 <div className="card-header">
-                    <h3 className="card-title">Receita/Despesa dos últimos 12 meses</h3>
+                    <h3 className="card-title">Evolução da receita/despesa (Últimos 12 meses)</h3>
 
                     <div className="card-tools">
                         <button type="button" className="btn btn-tool" data-card-widget="collapse">
@@ -210,11 +210,11 @@ class ViewDashboard extends React.Component {
                         loader={<div>Carregando Gráfico...</div>}
                         data={ [ ...this.state.yearTotalsChartData ] }
                         options={{
-                            title: 'Total da receita sobre despesa por mês nos últimos 12 meses',
+                            title: 'Total por mês nos últimos 12 meses',
                             hAxis: { title: 'Mês/Ano', titleTextStyle: { color: '#333' } },
                             vAxis: { minValue: 0 },
                             // For the legend to fit, we make the chart area smaller
-                            chartArea: { width: '75%', height: '75%' },
+                            chartArea: { width: '80%', height: '70%' },
                             // lineWidth: 25
                         }}
                     />
@@ -227,7 +227,7 @@ class ViewDashboard extends React.Component {
         return (
             <div className="card">
                 <div className="card-header">
-                    <h3 className="card-title">Receita por categoria</h3>
+                    <h3 className="card-title">Receita por categoria (Mês atual)</h3>
 
                     <div className="card-tools">
                         <button type="button" className="btn btn-tool" data-card-widget="collapse">
@@ -255,7 +255,7 @@ class ViewDashboard extends React.Component {
         return (
             <div className="card">
                 <div className="card-header">
-                    <h3 className="card-title">Despesa por categoria</h3>
+                    <h3 className="card-title">Despesa por categoria (Mês atual)</h3>
 
                     <div className="card-tools">
                         <button type="button" className="btn btn-tool" data-card-widget="collapse">
