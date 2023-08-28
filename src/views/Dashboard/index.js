@@ -223,38 +223,6 @@ class ViewDashboard extends React.Component {
         );
     }
 
-    renderTotalsCurrentYearExpensesTotalByCategoriesChart() {
-        return (
-            <div className="card">
-                <div className="card-header">
-                    <h3 className="card-title">Total despesa por categoria dos últimos 12 meses</h3>
-
-                    <div className="card-tools">
-                        <button type="button" className="btn btn-tool" data-card-widget="collapse">
-                            <i className="fas fa-minus"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <Chart
-                        height={'300px'}
-                        chartType="ColumnChart"
-                        loader={<div>Carregando Gráfico...</div>}
-                        data={ [ ...this.state.totalsExpensesByCategoriesChartData ] }
-                        options={{
-                            title: 'Totais de despesas por categoria de cada mês nos últimos 12 meses',
-                            hAxis: { title: 'Meses', titleTextStyle: { color: '#333' } },
-                            vAxis: { minValue: 0 },
-                            // For the legend to fit, we make the chart area smaller
-                            chartArea: { width: '75%', height: '75%' },
-                            // lineWidth: 25
-                        }}
-                    />
-                </div>
-            </div>
-        );
-    }
-
     renderMonthTotalRevenueByCategoryChart() {
         return (
             <div className="card">
@@ -335,11 +303,6 @@ class ViewDashboard extends React.Component {
                 <div className="row">
                     <div className="col-md-12">
                         { this.renderTotalsCurrentYearChart() }
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-12">
-                        { this.renderTotalsCurrentYearExpensesTotalByCategoriesChart() }
                     </div>
                 </div>
             </div>
