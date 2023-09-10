@@ -36,6 +36,7 @@ class FormBase extends Component {
                                     label="Tipo"
                                     onChange={props.onChangeType}
                                     options={[
+                                        {value: '', label: 'Selecione um tipo'},
                                         {value: 'expense', label: 'Despesa' },
                                         {value: 'revenue', label: 'Receita' },
                                     ]}

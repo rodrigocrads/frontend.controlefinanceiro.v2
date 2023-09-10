@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 class Create extends Component {
     componentDidMount() {
         this.props.clearSelectedEntry();
-        this.props.fetchCategoriesByType('expense');
     }
 
     onSubmitHandler(data) {
