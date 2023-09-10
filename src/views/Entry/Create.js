@@ -9,15 +9,9 @@ import Entry from '../../dtos/Entry';
 import { Link } from 'react-router-dom';
 
 class Create extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            shouldShowCategory: false
-        };
-    }
-
     componentDidMount() {
         this.props.clearSelectedEntry();
+        this.props.fetchCategoriesByType('expense');
     }
 
     onSubmitHandler(data) {
@@ -29,10 +23,6 @@ class Create extends Component {
 
     onChangeTypeHandler(event) {
         const value = event.target.value;
-        console.log(value);
-
-        this.setState({ shouldShowCategory: value !== ''})
-
         if (value !== '') {
             this.props.fetchCategoriesByType(value);
         }
@@ -58,7 +48,6 @@ class Create extends Component {
                 </div>
 
                 <EntryForm
-                    shouldShowCategory={this.state.shouldShowCategory}
                     onChangeType={(event) => this.onChangeTypeHandler(event)}
                     onSubmit={(data) => this.onSubmitHandler(data)}
                 />

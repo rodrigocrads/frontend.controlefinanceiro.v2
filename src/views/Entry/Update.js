@@ -15,19 +15,16 @@ import Entry from '../../dtos/Entry';
 import { Link } from 'react-router-dom';
 
 class Update extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            shouldShowCategory: true
-        };
-    }
-
     componentDidMount() {
         this.props.clearSelectedEntry();
 
         const id = this.props.match.params.id;
         if (id) {
             this.props.getEntryById(id);
+            const type = this.props?.selected?.type;
+            if (type) {
+                this.props.fetchCategoriesByType(type);
+            }
         }
     }
 
@@ -41,9 +38,6 @@ class Update extends Component {
 
     onChangeTypeHandler(event) {
         const value = event.target.value;
-        console.log(value);
-
-        this.setState({ shouldShowCategory: value !== ''})
 
         if (value !== '') {
             this.props.fetchCategoriesByType(value);
@@ -70,15 +64,17 @@ class Update extends Component {
                 </div>
 
                 <EntryForm
-                    shouldShowCategory={this.state.shouldShowCategory}
                     onChangeType={(event) => this.onChangeTypeHandler(event)}
                     onSubmit={(data) => this.onSubmitHandler(data)}
                 />
-
             </div>
         );
     };
 }
+
+const mapStateToProps = state => ({
+    selected: state.entry.selected
+});
 
 const mapDispatchToProps = (dispatch) => (
     bindActionCreators({
@@ -89,4 +85,4 @@ const mapDispatchToProps = (dispatch) => (
     }, dispatch)
 );
 
-export default withRouter(connect(null, mapDispatchToProps)(Update));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Update));
